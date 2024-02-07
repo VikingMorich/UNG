@@ -1,0 +1,31 @@
+.login-wrap{
+    margin-top: 25px;
+
+    .c-gbutton__home{
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding: 5px;
+        padding-right: 15px;
+        font-family: 'Pieces of Eight';
+        font-size: 24px;
+        background: radial-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+        transition: 0.3s;
+        border: 1px solid grey;
+        width: 250px;
+        color: white;
+        cursor: pointer;
+    }
+    .c-gbutton__home:hover{
+        background-color: black;
+    }
+}
+
+
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
+}

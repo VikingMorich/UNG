@@ -1,0 +1,12 @@
+$myColor: c("green");
+
+.header {
+  color: $myColor;
+}
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
+}

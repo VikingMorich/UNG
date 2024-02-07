@@ -1,0 +1,14 @@
+{
+    "company": "Empresa",
+    "materials": "Materials",
+    "services": "Serveis",
+    "contact": "Contacte",
+    "header": {
+        "hello-world": "Bon dia",
+        "login": "Iniciar sessió",
+        "logout": "Tancar sessió"
+    },
+    "home": {
+        "example": "Caseta"
+    }
+}
