@@ -3,11 +3,10 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useTranslation } from "react-i18next"
 import Cookies from 'universal-cookie';
 import fire from './fire'
-import firebase from 'firebase'
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
-  const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
+  const CLIENT_ID = '447555755943-b3ps2ofbdu8hhejvlksnm4b5o1h5q1vr.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
   let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
@@ -19,7 +18,7 @@ export default function GoogleBtn (props) {
       setLogined(true)
       //CHECK IF PROFILE EXIST
       checkPlayerExist(profile.getName(), profile.getEmail(), profile.getImageUrl())
-      addPlayerDB(profile.getName(), profile.getEmail(), profile.getImageUrl())
+      //addPlayerDB(profile.getName(), profile.getEmail(), profile.getImageUrl())
     }
     else {
       setLogined(false)
@@ -43,10 +42,23 @@ export default function GoogleBtn (props) {
     let ref = fire.database().ref().child('Players')
     ref.once("value", function(playersStateSnap) {
       let players = playersStateSnap.val()
-      //players = objecte
-      //let p = players.find(el => el.email === email)
-      
-      debugger
+      let exist = false
+      let key = null
+      Object.keys(players).forEach(i => {
+        if (players[i].email === email) {
+          exist = true
+          key = i
+        }
+      })
+      if (exist) {
+        cookies.set('key', key, { path: '/', expires: timeExpiration });
+        cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
+        cookies.set('email', email, { path: '/', expires: timeExpiration });
+        cookies.set('userName', name, { path: '/', expires: timeExpiration });
+      }
+      else {
+        addPlayerDB(name, email, imageUrl)
+      }
     })
   }
 

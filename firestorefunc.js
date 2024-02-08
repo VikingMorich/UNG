@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+/* import firebase from 'firebase'
 import React from 'react'
 import RoomPlayer from './components/RoomPlayer'
 import GamePlayer from './components/GamePlayer'
@@ -964,3 +964,4 @@ export function initFirebase(i18n) {
     })
 }
 
+*/
