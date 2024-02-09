@@ -6,9 +6,15 @@
     "header": {
         "hello-world": "Bon dia",
         "login": "Iniciar sessió",
-        "logout": "Tancar sessió"
+        "logout": "Tancar sessió",
+        "music": "Música"
     },
     "home": {
         "example": "Caseta"
+    },
+    "languages": {
+        "cat": "CAT",
+        "es": "ES",
+        "en": "EN"
     }
 }

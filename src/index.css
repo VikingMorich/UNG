@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Pieces of Eight';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Pieces of Eight'), url('./fonts/Pieces of Eight.woff') format('woff');
+  }
+
+@font-face {
+  font-family: 'FantaisieArtistique';
+  font-style: normal;
+  font-weight: normal;
+  src: local('FantaisieArtistique'), url('./fonts/FantaisieArtistique.woff') format('woff');
+  }

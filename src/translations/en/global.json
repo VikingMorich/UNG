@@ -6,9 +6,15 @@
     "header": {
         "hello-world": "Hello world",
         "login": "Login",
-        "logout": "Logout"
+        "logout": "Logout",
+        "music": "Music"
     },
     "home": {
         "example": "Home"
+    },
+    "languages": {
+        "cat": "CAT",
+        "es": "ES",
+        "en": "EN"
     }
 }
