@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import GoogleBtn from '../GoogleBtn'
 import { useTranslation } from "react-i18next"
+import { addPlayerDB } from "../api/gameFunctions"
 
 export default function Home() {
     const [t, i18n] = useTranslation("global")
     const startGame = () => {
+        addPlayerDB('unknown', 'unknown', 'unknown')
         window.location = '/name'
     }
     
