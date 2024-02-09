@@ -12,3 +12,13 @@ export function changeUserName(name) {
   }
   ref.update(updates)
 }
+
+export function setUserCharacterType(type) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  let updates = {}
+  updates[key] = {
+    characterType: type,
+  }
+  ref.update(updates)
+}
