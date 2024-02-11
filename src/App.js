@@ -22,7 +22,7 @@ return (
       <Route path="/story" exact component={Story} />
       <Route path="/name" exact component={Name} />
       <Route path="/character-selection" exact component={CharacterSelection} />
-      <Route path="/tryhard" exact component={Interface} />
+      <Route path="/game" exact component={Interface} />
     </Switch>
   </main>
 </Router>

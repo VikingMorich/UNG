@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import GoogleBtn from '../GoogleBtn'
 import { useTranslation } from "react-i18next"
 import { addPlayerDB } from "../api/gameFunctions"
+import Cookies from 'universal-cookie';
+
+let cookies = new Cookies();
 
 export default function Home() {
     const [t, i18n] = useTranslation("global")
     const startGame = () => {
-        addPlayerDB('unknown', 'unknown', 'unknown')
-        window.location = '/name'
+        if (!cookies.get('login')) {
+            addPlayerDB('unknown', 'unknown', 'unknown')
+        }
     }
     
     return (

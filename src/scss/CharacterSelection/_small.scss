@@ -48,6 +48,10 @@
       span {
         font-family: 'Pieces of Eight';
       }
+
+      &.selected{
+        border: 2px solid c('other-brown');
+      }
     }
   }
 }

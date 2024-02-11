@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useTranslation } from "react-i18next"
+import { addPlayerDB, checkPlayerExist } from "./api/gameFunctions"
 import Cookies from 'universal-cookie';
-import fire from './fire'
+// import fire from './fire'
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
@@ -19,7 +20,6 @@ export default function GoogleBtn (props) {
       setLogined(true)
       //CHECK IF PROFILE EXIST
       checkPlayerExist(profile.getName(), profile.getEmail(), profile.getImageUrl())
-      //addPlayerDB(profile.getName(), profile.getEmail(), profile.getImageUrl())
     }
     else {
       setLogined(false)
@@ -34,58 +34,11 @@ export default function GoogleBtn (props) {
   const logout = () => {
     setLogined(false)
     cookies.remove('login', { path: '/' });
-    removePlayerDB(cookies.get('key'))
+    //removePlayerDB(cookies.get('key'))
     cookies.remove('key', { path: '/' });
     window.location.href = '/'
   }
 
-  function checkPlayerExist(name, email, imageUrl) {
-    let ref = fire.database().ref().child('Players')
-    ref.once("value", function(playersStateSnap) {
-      let players = playersStateSnap.val()
-      let exist = false
-      let key = null
-      Object.keys(players).forEach(i => {
-        if (players[i].email === email) {
-          exist = true
-          key = i
-        }
-      })
-      if (exist) {
-        cookies.set('key', key, { path: '/', expires: timeExpiration });
-        cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
-        cookies.set('email', email, { path: '/', expires: timeExpiration });
-        cookies.set('userName', name, { path: '/', expires: timeExpiration });
-      }
-      else {
-        addPlayerDB(name, email, imageUrl)
-      }
-    })
-  }
-
-  function addPlayerDB(name, email, imageUrl) {
-    let ref = fire.database().ref().child('Players')
-    let key = ref.push().key
-    cookies.set('key', key, { path: '/', expires: timeExpiration });
-    cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
-    cookies.set('email', email, { path: '/', expires: timeExpiration });
-    cookies.set('userName', name, { path: '/', expires: timeExpiration });
-    let updates = {}
-    updates[key] = {
-      username: name,
-      email: email,
-      googleImg: imageUrl,
-      dateLogin: new Date(),
-    }
-    ref.update(updates)
-  }
-
-  function removePlayerDB(userKey) {
-    // let ref = fire.database().ref().child('Players')
-    // let updates = {}
-    // updates[userKey] = null
-    // ref.update(updates)
-  }
     return (
     <div>
       { isLogined ? 
