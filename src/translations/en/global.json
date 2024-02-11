@@ -1,16 +1,38 @@
 {
-    "company": "Company",
-    "materials": "Materials",
-    "services": "Services",
     "contact": "Contact",
     "header": {
-        "hello-world": "Hello world",
         "login": "Login",
         "logout": "Logout",
         "music": "Music"
     },
     "home": {
         "example": "Home"
+    },
+    "contact-op": {
+        "name": "Name",
+        "surname": "Surname",
+        "email": "Email",
+        "location": "Location",
+        "message": "Write your message here",
+        "accept": "I accept the terms of the ",
+        "privacy": "privacy policy",
+        "submit": "Submit",
+        "presentation": "I am VikingMorich, the developer of this video game. Write me to report any bugs, tell me about your experience, or suggest improvements for future updates. Thanks for playing this game, I hope you enjoy the experience.",
+        "presentation-end": "See you in Valhalla.",
+        "code200": "Your email has sent successfully. Thanks",
+        "error": "All fields must be filled in correctly to contact the developer."
+    },
+    "privacy": {
+        "title": "PRIVACY POLICY",
+        "p1": "This Privacy Policy sets out the terms on which you use and protect the information that is provided by your users when using your website. UnnamedGame is committed to the security of its users' data. When we ask you to fill in the fields of personal information with which you can be identified, we do so by ensuring that it will only be used in accordance with the terms of this document. However this privacy policy may change over time or be updated so we recommend and emphasize that you continually review this page to ensure that you agree to these changes.",
+        "h1": "Links to Third Parties",
+        "p2": "This website may contain links to other sites that may be of interest to you. Once you click on these links and leave our page, we no longer have control over the site to which you are redirected and therefore we are not responsible for the terms or privacy or protection of your data on these other third party sites. . These sites are subject to their own privacy policies so it is recommended that you consult them to confirm that you agree to these.",
+        "h2": "Use of your personal information",
+        "p3": "You may at any time restrict the collection or use of personal information provided to us. However, this company will not sell, assign or distribute personal information that is collected without your consent.",
+        "h3": "Acceptance and consent",
+        "p4": "As a user of the website, you declare that you have been informed of the conditions regarding the protection of personal data, you accept and consent to their processing by the owner in the manner and for the purposes indicated in this Privacy Policy.",
+        "h4": "Changes to the Privacy Policy",
+        "p5": "UnnamedGame reserves the right to modify this Privacy Policy to adapt it to new legislation or case law, as well as industry practices."
     },
     "languages": {
         "cat": "CAT",

@@ -1,16 +1,40 @@
 {
-    "company": "Empresa",
-    "materials": "Materials",
-    "services": "Serveis",
     "contact": "Contacte",
     "header": {
         "hello-world": "Bon dia",
         "login": "Iniciar sessió",
         "logout": "Tancar sessió",
         "music": "Música"
+        
     },
     "home": {
         "example": "Caseta"
+    },
+    "contact-op": {
+        "name": "Nom",
+        "surname": "Cognom",
+        "email": "Email",
+        "location": "Localització",
+        "message": "Escriure el missatge aquí",
+        "accept": "Accepto els termes de la ",
+        "privacy": "política de privacitat",
+        "submit": "Enviar",
+        "presentation": "Sóc VikingMorich, el desenvolupador d'aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l'experiencia.",
+        "presentation-end": "Ens veiem al Valhalla.",
+        "code200": "El vostre email s'ha enviat correctament. Gràcies",
+        "error": "És necessari omplir correctament tots els camps per contactar amb el desenvolupador."
+    },
+    "privacy": {
+        "title": "POLÍTICA DE PRIVACITAT",
+        "p1": "La present Política de Privacitat estableix els termes en què fa servir i protegeix la informació que és proporcionada pels seus usuaris a l'hora d'utilitzar el seu lloc web. UnnamedGame està compromesa amb la seguretat de les dades dels seus usuaris. Quan li demanem omplir els camps d'informació personal amb la qual vostè pugui ser identificat, ho fem assegurant que només es farà servir d'acord amb els termes d'aquest document. No obstant, aquesta política de privacitat pot canviar amb el temps o ser actualitzada pel que li recomanem i emfatitzem revisar contínuament aquesta pàgina per assegurar-se que està d'acord amb aquests canvis",
+        "h1": "Enllaços a Tercers",
+        "p2": "Aquest lloc web pogués contenir enllaços a altres llocs que puguin ser del seu interès. Una vegada que vostè cliqui en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i, per tant, no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs, estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
+        "h2": "Ús de la vostra informació personal",
+        "p3": "En qualsevol moment vostè pot restringir la recopilació o l'ús de la informació personal que ens és proporcionada. Tot i això, aquesta companyia no vendrà, cedirà o distribuirà la informació personal que és recopilada sense el seu consentiment.",
+        "h3": "Acceptació i consentiment",
+        "p4": "Com Usuari del lloc web, declares haver estat informat de les condicions sobre protecció de dades de caràcter personal, acceptes i consenteixes el tractament dels mateixos per part del titular en la forma i per a les finalitats indicades en aquesta Política de Privacitat.",
+        "h4": "Canvis en la Política de Privacitat",
+        "p5": "UnnamedGame es reserva el dret a modificar la present Política de Privacitat per adaptar-la a novetats legislatives o jurisprudencials, així com a pràctiques de la indústria."
     },
     "languages": {
         "cat": "CAT",

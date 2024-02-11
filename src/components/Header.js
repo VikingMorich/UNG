@@ -20,7 +20,6 @@ export default function Header() {
         setMobileMenuType('')
         setMobileMenu(false)
     }
-
     return (
         <React.Fragment>
         {mobileMenu &&

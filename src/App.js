@@ -7,6 +7,7 @@ import Story from './components/Story'
 import Name from './components/Name'
 import CharacterSelection from './components/CharacterSelection'
 import Interface from './components/Interface'
+import Contact from './components/Contact'
 
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -23,6 +24,7 @@ return (
       <Route path="/name" exact component={Name} />
       <Route path="/character-selection" exact component={CharacterSelection} />
       <Route path="/game" exact component={Interface} />
+      <Route path="/contact" exact component={Contact} />
     </Switch>
   </main>
 </Router>

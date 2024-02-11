@@ -13,6 +13,10 @@ export default function Home() {
             addPlayerDB('unknown', 'unknown', 'unknown')
         }
     }
+
+    const goContact = () => {
+        window.location = '/contact'
+    }
     
     return (
         <React.Fragment>
@@ -24,6 +28,11 @@ export default function Home() {
             </div>
             <div className='login-wrap'>
                 <GoogleBtn />
+            </div>
+            <div className='login-wrap'>
+                <div className='c-gbutton__home' onClick={goContact}>
+                    <span>{t("contact")}</span>
+                </div>
             </div>
         </React.Fragment>
     );
