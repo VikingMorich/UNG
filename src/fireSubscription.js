@@ -10,6 +10,7 @@ export function initSubscriptions() {
   let dbRefPlayers = firebase.database().ref().child('Players');
 
   // db functions working
+  //review to take just the current player
 
   dbRefPlayers.on('child_added', snap => {
       if (window.location.pathname === '/game'){
