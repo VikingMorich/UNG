@@ -8,6 +8,7 @@ import Name from './components/Name'
 import CharacterSelection from './components/CharacterSelection'
 import Interface from './components/Interface'
 import Contact from './components/Contact'
+import Skill_1 from './components/Skill_1'
 
 import { initSubscriptions } from './fireSubscription'
 
@@ -27,6 +28,7 @@ initSubscriptions()
           <Route path="/character-selection" exact component={CharacterSelection} />
           <Route path="/game" exact component={Interface} />
           <Route path="/contact" exact component={Contact} />
+          <Route path="/skill" exact component={Skill_1} />
         </Switch>
       </main>
     </Router>

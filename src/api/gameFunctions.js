@@ -4,6 +4,10 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
 
+const getRandomInt = (max) => {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 export function changeUserName(name) {
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
@@ -123,6 +127,17 @@ export function winExp(exp) {
     updates.gameStates.EXP = currentEXP
     updates.gameStates.LVL = currentLVL
     
+    ref.child(key).update(updates)
+  })
+}
+
+export function winRandomGold(gold) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    let currentGold = updates.gameStates.gold + getRandomInt(gold)
+    updates.gameStates.gold = currentGold
     ref.child(key).update(updates)
   })
 }

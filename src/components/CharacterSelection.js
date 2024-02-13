@@ -20,15 +20,15 @@ export default function CharacterSelection() {
                 <h1>*CharacterSelection*</h1>
                 <div className='selector-wrapper'>
                     <div className={`character-wrap ${characterType === 'mage' && 'selected'}`} onClick={() => setCharacterType('mage')}>
-                        <img src="/orco.jpeg" alt="character1" />
+                        <img src="/mage1.jpeg" alt="character1" />
                         <span>* MAGE *</span>
                     </div>
                     <div className={`character-wrap ${characterType === 'warrior' && 'selected'}`} onClick={() => setCharacterType('warrior')}>
-                        <img src="/orco.jpeg" alt="character2" />
+                        <img src="/warrior1.jpeg" alt="character2" />
                         <span>* WARRIOR *</span>
                     </div>
                     <div className={`character-wrap ${characterType === 'archer' && 'selected'}`} onClick={() => setCharacterType('archer')}>
-                        <img src="/orco.jpeg" alt="character3" />
+                        <img src="/archer1.jpeg" alt="character3" />
                         <span>* ARCHER *</span>
                     </div>
                 </div>

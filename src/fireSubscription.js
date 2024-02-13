@@ -13,7 +13,7 @@ export function initSubscriptions() {
   //review to take just the current player
 
   dbRefPlayers.on('child_added', snap => {
-      if (window.location.pathname === '/game'){
+      if (window.location.pathname === '/game' || window.location.pathname === '/skill'){
         if (snap.key === key) {
           let objPlayer = document.getElementById('player')
           const user = document.createElement('div')
@@ -33,7 +33,7 @@ export function initSubscriptions() {
   })
 
   dbRefPlayers.on('child_changed', snap => {
-    if (window.location.pathname === '/game'){
+    if (window.location.pathname === '/game' || window.location.pathname === '/skill'){
       if (snap.key === key) {
         let playerChanged = document.getElementById(snap.key)
         let objPlayer = document.getElementById('player')

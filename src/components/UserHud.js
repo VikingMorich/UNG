@@ -1,15 +1,30 @@
-import React from 'react';
-import { useTranslation } from "react-i18next"
+import React, {useState} from 'react';
+//import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
+import Modal from './Modal'
 
 export default function UserHud(props) {
-    const [t, i18n] = useTranslation("global");
-    
+    //const [t, i18n] = useTranslation("global");
+    const [open, setOpen] = useState(false)
+    const [type, setType] = useState('')
+    const toggleModal = () => {
+      setOpen(!open)
+      document.body.style.overflow === "hidden" ? document.body.style.overflow = "auto" : document.body.style.overflow = "hidden"
+    }
+
+    const closeModal = () => {
+      setOpen(false)
+      document.body.style.overflow = "auto"
+    }
+
+    const charTy = props.state.gameStates.characterType
+    let imgCharacter = charTy === 'archer' ? './faces/archer1.png' : charTy === 'mage' ? './faces/mage1.png' : charTy === 'warrior' ? './faces/warrior1.png' : ''
+
     return (
         <React.Fragment>
             <div className="user-wrapper">
               <div className='user-img-wrap'>
-                <img className="user-img" alt="user-character" src="./orco.jpeg" />
+                <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} />
                 <div className='user-lvl'>
                   <span>{props.state.gameStates.LVL}</span>
                 </div>
@@ -56,11 +71,12 @@ export default function UserHud(props) {
                   <span>💰</span>
                   <span>{props.state.gameStates.gold}</span>
                 </div>
-                <div className="char-inv">
+                <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}}>
                   <span>🎒</span>
                 </div>
               </div>
             </div>
+            <Modal open={open} toggleModal={() => closeModal()} type={type}/>
         </React.Fragment>
     );
 }
