@@ -41,6 +41,25 @@
         overflow: auto;
         height: 100%;
         width: 94%;
+
+        .user-statistics {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+        
+            .char-stat {
+              display: flex;
+              gap: 15px;
+              font-family: 'Pieces of Eight';
+              font-size: 24px;
+            }
+        
+            .char-stat:not(:first-child) {
+              margin-left: 10px;
+            }
+        }
+
         p{
             font-size: 20px;
         }
@@ -50,7 +69,7 @@
 
         .obj-list {
             margin-top: 20px;
-            height: 150px;
+            height: 130px;
             overflow: auto;
         }
 
@@ -60,14 +79,15 @@
             width: 100%;
 
             td, th {
-                padding: 3px 6px;
+                padding: 2px 6px;
                 text-align: initial;
                 border: 1px solid grey;
                 cursor: pointer;
+                font-family: 'FantaisieArtistique';
 
                 &.char-icon {
-                    width: 25px;
-                    height: 25px;
+                    width: 20px;
+                    height: 20px;
                 }
             }
 

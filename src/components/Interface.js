@@ -9,6 +9,8 @@ export default function Interface() {
     const useWinExp = () => winExp(40)
     const useWinGold = () => winRandomGold(100)
     const goToSkill = () => window.location = '/skill'
+    const goToStory = () => window.location = '/story'
+    const goToStory2 = () => window.location = '/story2'
 
     
     return (
@@ -20,6 +22,10 @@ export default function Interface() {
                 <li className='link' onClick={useWinExp}>* Win 40 EXP *</li>
                 <li className='link' onClick={useWinGold}>* Coin random reward *</li>
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
+                <li>* Try battle mode *</li>
+                <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
+                <li>* Try option selecion *</li>
+                <li>* Mochila object features *</li>
             </ul>
             <div id="player" className="user-hud">
                 

@@ -76,7 +76,7 @@ export default function UserHud(props) {
                 </div>
               </div>
             </div>
-            <Modal open={open} toggleModal={() => closeModal()} type={type}/>
+            <Modal open={open} toggleModal={() => closeModal()} type={type} state={props.state} />
         </React.Fragment>
     );
 }

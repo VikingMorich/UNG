@@ -34,6 +34,36 @@ export default function Modal(props) {
                         <React.Fragment>
                             <div className="c-modal--inventory">
                                 <h1>* INVENTORY *</h1>
+                                <div className="user-statistics">
+                                    <div className="char-stat">
+                                        <span>💪🏻</span>
+                                        <span>{props.state.gameStates.FUE}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>🧠</span>
+                                        <span>{props.state.gameStates.INT}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>👁️</span>
+                                        <span>{props.state.gameStates.PUN}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>🍀</span>
+                                        <span>{props.state.gameStates.SUE}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>⚔️</span>
+                                        <span>{props.state.gameStates.ATK}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>🛡️</span>
+                                        <span>{props.state.gameStates.DEF}</span>
+                                    </div>
+                                    <div className="char-stat">
+                                        <span>💰</span>
+                                        <span>{props.state.gameStates.gold}</span>
+                                    </div>
+                                </div>
                                 <table className='pj-table'>
                                     <tr>
                                         <td className='char-icon'>
