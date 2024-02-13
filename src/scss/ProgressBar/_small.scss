@@ -1,0 +1,55 @@
+.show-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+    
+  width: 350px;
+}  
+
+.rounded {
+  height: 100%;
+  border-radius: 999px;
+  overflow: hidden; 
+  transform: translateZ(0);
+}
+
+.progress-container {
+  position: relative;
+}
+ 
+.progress {
+  border: 1px solid black;
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #e7edf4;
+  border-radius: 99px;
+
+  .progress-bar {
+    position: relative;
+    height: 100%;
+    transition: width .2s linear;
+
+    &.red {
+      background-color: #F32222;
+    }
+
+    &.blue {
+      background-color: #607CCC;
+    }
+  }
+
+  .numbers {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .text-numbers {
+      font-family: 'FantaisieArtistique';
+      font-size: 18px;
+    }
+  }
+}

@@ -19,7 +19,21 @@ export function setUserCharacterType(type) {
   let key = cookies.get('key')
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
-    updates['characterType'] = type
+    updates['gameStates'] = {
+      characterType: type,
+      INT: type === 'mage' ? 75 : 50,
+      FUE: type === 'warrior' ? 75 : 50,
+      PUN: type === 'archer' ? 75 : 50,
+      SUE: 50,
+      gold: 0,
+      HP: 100,
+      maxHP: 100,
+      EXP: 0,
+      maxEXP: 200,
+      ATK: 5,
+      DEF: 0,
+      LVL: 1,
+    }
     ref.child(key).update(updates)
   }).then(resp => {
     window.location = '/game'

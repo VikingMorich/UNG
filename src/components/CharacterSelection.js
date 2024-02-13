@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useTranslation } from "react-i18next"
 import { setUserCharacterType } from '../api/gameFunctions'
 
-export default function Home() {
+export default function CharacterSelection() {
     const [t, i18n] = useTranslation("global")
     const [characterType, setCharacterType] = useState('')
 

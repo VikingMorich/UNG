@@ -1,0 +1,108 @@
+.user-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 20px;
+
+  .user-img-wrap {
+    position: relative;
+
+    .user-img {
+      border: 1px solid black;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+    }
+
+    .user-lvl {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-radius: 50%;
+      border: 1px solid black;
+      background-color: white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        font-family: 'Pieces of Eight';
+        font-size: 20px;
+      }
+    }
+  }
+
+  .user-bars{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .user-name {
+    font-family: 'FantaisieArtistique';
+    font-size: 24px;
+  }
+
+  .user-stat {
+    display: flex;
+    gap: 10px;
+
+    .text-stat {
+      width: 40px;
+      font-family: 'FantaisieArtistique';
+      font-size: 20px;
+    }
+  }
+
+  .user-statistics {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .char-stat {
+      display: flex;
+      gap: 15px;
+      font-family: 'Pieces of Eight';
+      font-size: 24px;
+    }
+
+    .char-stat:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  .stats-char {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .char-stat {
+      display: flex;
+      gap: 15px;
+      font-family: 'Pieces of Eight';
+      font-size: 24px;
+    }
+
+    .char-inv {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border: 1px solid black;
+      font-size: 26px;
+      height: 32px;
+      width: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
