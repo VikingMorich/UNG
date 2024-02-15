@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
@@ -6,12 +6,53 @@ import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
 
 export default function Modal(props) {
     const [t] = useTranslation("global")
+    const [openDetails, setOpenDetails] = useState(false)
+    const ref = useRef(null)
+    const refModal = useRef(null)
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                closeDetailsFunc()
+            }
+          }
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+          };
+        }, [ref]);
+    }
+
+    useOutsideAlerter(ref);
+
+    const openDetailsFunc = (ev) => {
+        if (ev.currentTarget.textContent !== '-') {
+            setOpenDetails(true)
+            let clickedPos = ev.currentTarget.getBoundingClientRect()
+            let modalPos = refModal.current.getBoundingClientRect()
+            
+            let top = clickedPos.bottom - modalPos.top + 'px'
+            let left = clickedPos.left - modalPos.left + 'px'
+              
+            let detailsOp = ref.current
+            detailsOp.style.top = top
+            detailsOp.style.left = left
+        }
+    }
+    const closeDetailsFunc = () => {
+        setOpenDetails(false)
+    }
     
     return (
         <React.Fragment>
             {props.open &&
             <div className="c-modal-background">
-                <div className="c-modal">
+                <div ref={refModal} className="c-modal">
                     <img className="c-modal--cross" alt="menu-icon" src={cross} onClick={props.toggleModal}/>
                     {props.type === 'privacy' && 
                         <React.Fragment>
@@ -65,88 +106,65 @@ export default function Modal(props) {
                                     </div>
                                 </div>
                                 <table className='pj-table'>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Sword />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Shield />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Helmet />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Armor />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Shoes />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Ring />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
-                                    <tr>
-                                        <td className='char-icon'>
-                                            <Pendant />
-                                        </td>
-                                        <td>*Whatever*</td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Sword />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.firstHand}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Shield />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.secondHand}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Helmet />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.helmet}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Armor />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.armor}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Shoes />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.boots}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Ring />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.ring}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='char-icon'>
+                                                <Pendant />
+                                            </td>
+                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.necklace}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <div className='obj-list'>
+                                    <span>* Backpack *</span>
                                     <table className='pj-table'>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Object</td>
-                                        </tr>
+                                        <tbody>
+                                            {Object.keys(props.state.gameStates.backpack).map((element) => {
+                                                return <tr key={element} onClick={openDetailsFunc}><td>{props.state.gameStates.backpack[element].name}</td></tr>;
+                                            })}
+                                        </tbody>
                                     </table>
+                                </div>
+                                <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
+                                    <div className='option-wrapper'>
+                                        <span>* Delete *</span>
+                                    </div>
                                 </div>
                             </div>
                         </React.Fragment>

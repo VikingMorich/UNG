@@ -37,7 +37,28 @@ export function setUserCharacterType(type) {
       ATK: 5,
       DEF: 0,
       LVL: 1,
+      equip: {
+        firstHand: '-',
+        secondHand: '-',
+        helmet: '-',
+        armor: '-',
+        boots: 'Goblin boots',
+        ring: '-',
+        necklace: '-',
+      }
     }
+    //
+    updates.gameStates['backpack'] = {}
+    let harcodedObjects = [{name: '* Wood *', type: 'none'}, {name: '* Viking helmet *', type: 'helmet'}]
+    harcodedObjects.forEach(el => {
+      let objkey = ref.push().key
+      updates.gameStates.backpack[objkey] = {
+        name: el.name,
+        type: el.type
+      }
+    })
+    
+
     ref.child(key).update(updates)
   }).then(resp => {
     window.location = '/game'

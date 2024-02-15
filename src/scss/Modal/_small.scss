@@ -67,16 +67,35 @@
             text-align: center;
         }
 
+        .option-details {
+            position: absolute;
+            height: 40px;
+            width: 100px;
+            background-color: blanchedalmond;
+
+            &.disabled {
+                display: none;
+            }
+
+            .option-wrapper {
+                font-family: 'FantaisieArtistique';
+                cursor: pointer;
+                border: 1px solid brown;
+            }
+        }
+
         .obj-list {
             margin-top: 20px;
             height: 130px;
             overflow: auto;
+            font-family: 'FantaisieArtistique';
         }
 
         .pj-table {
             border-collapse: collapse;
             border: 1px solid grey;
             width: 100%;
+            margin-top: 5px;
 
             td, th {
                 padding: 2px 6px;
