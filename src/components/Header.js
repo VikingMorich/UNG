@@ -56,7 +56,7 @@ export default function Header() {
         <div className={`c-header`}>
             <div className="c-header-nav">
                 <a href="/" className="c-header--logo">
-                    <span>UNNAMEDGAME</span>
+                    <span>{t('game-title')}</span>
                 </a>
             </div>
             <img className="c-header--icon" alt="menu-icon" src={menu} onClick={() => {setMobileMenu(true)}}/>

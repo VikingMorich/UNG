@@ -1,0 +1,36 @@
+$padding: 60px;
+
+.c-cover {
+    background-color: c('chicken-feet');
+    height: calc(100vh - $padding - $padding);
+    width: calc(100vw - $padding - $padding);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: $padding;
+
+    h3 {
+        font-weight: 400;
+        font-family: 'FantaisieArtistique';
+        font-size: 24px;
+    }
+
+    p {
+        font-family: 'FantaisieArtistique';
+        font-size: 18px;
+    }
+
+    .cover-link {
+        color: c('dark-brown');
+        cursor: pointer;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    .cover-button {
+        margin-top: 15px;
+        font-family: 'FantaisieArtistique';
+    }
+}

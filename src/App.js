@@ -3,6 +3,7 @@ import "./index.css"
 import "./scss/main.scss"
 import Header from './components/Header'
 import Home from './components/Home'
+import Cover from './components/Cover'
 import StoryAnimation from './components/StoryAnimation'
 import Name from './components/Name'
 import CharacterSelection from './components/CharacterSelection'
@@ -20,9 +21,10 @@ initSubscriptions()
   return (
     <Router>
       <main>
-        <Header /> 
+        {window.location.pathname !== '/' && <Header />}
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Cover} />
+          <Route path="/home" exact component={Home} />
           <Route path="/story" exact component={StoryAnimation} />
           <Route path="/name" exact component={Name} />
           <Route path="/character-selection" exact component={CharacterSelection} />

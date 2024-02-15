@@ -1,9 +1,14 @@
 {
     "contact": "Contact",
+    "game-title": "UNNAMEDGAME",
     "header": {
         "login": "Login",
         "logout": "Logout",
         "music": "Music"
+    },
+    "cover": {
+        "game-desc": "It is a role-playing game in which decisions are made, mostly with texts, but also with a character, combats, events, and a story with an ending but with a very large tree of possibilities",
+        "game-privacy": "This application uses a database and allows you to save the game process with your Google account. This game only uses some basic personal data such as the user's email and name. You can check our policies by clicking on the following link. "
     },
     "home": {
         "example": "Home"

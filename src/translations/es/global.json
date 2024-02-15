@@ -1,9 +1,14 @@
 {
     "contact": "Contacto",
+    "game-title": "UNNAMEDGAME",
     "header": {
         "login": "Iniciar sesión",
         "logout": "Cerrar sesión",
         "music": "Música"
+    },
+    "cover": {
+        "game-desc": "Es un juego de rol en el que se toman decisiones, gran parte con textos, pero también con un personaje, combates, eventos, y una historia con un final pero con un árbol muy grande de posibilidades",
+        "game-privacy": "Esta aplicación utiliza una base de datos y permite guardar el proceso de juego con la cuenta de Google. Este juego sólo utiliza algunos datos personales básicos como el email y el nombre del usuario. Puedes consultar nuestras políticas haciendo clic en el siguiente enlace. "
     },
     "home": {
         "example": "Casa"
