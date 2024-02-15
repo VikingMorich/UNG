@@ -21,11 +21,15 @@ export default function Modal(props) {
         }
     }) : []
     let otherItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
-        return !props.state.gameStates.backpack[el].equiped
+        return (!props.state.gameStates.backpack[el].equiped || (props.state.gameStates.backpack[el].equiped && props.state.gameStates.backpack[el].count > 1))
     }).map(elem => {
+        let elemState = {...props.state.gameStates.backpack[elem]}
+        if (props.state.gameStates.backpack[elem].equiped) {
+            elemState.count -= 1
+        }
         return {
             key: elem,
-            state: props.state.gameStates.backpack[elem]
+            state: elemState
         }
     }) : []
 
@@ -193,7 +197,7 @@ export default function Modal(props) {
                                         <tbody>
                                             {otherItems.map((element) => {
                                                 return <tr key={element.key}>
-                                                    <td>{props.state.gameStates.backpack[element.key].count}</td>
+                                                    <td>{element.state.count}</td>
                                                     <td>
                                                         <div className='icon-container'>
                                                             {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}

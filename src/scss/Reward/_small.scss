@@ -1,0 +1,57 @@
+.reward-view {
+  display: flex;
+  flex-direction: column;
+  font-family: 'FantaisieArtistique';
+  align-items: center;
+
+  .background-img {
+    width: 60%;
+  }
+
+  .collect-button {
+    margin-top: 20px;
+  }
+
+  .reward-table {
+    border-collapse: collapse;
+    border: 1px solid grey;
+    width: 40%;
+    margin-top: 20px;
+
+
+    td, th {
+        padding: 2px 6px;
+        text-align: initial;
+        border: 1px solid grey;
+        cursor: pointer;
+        font-family: 'FantaisieArtistique';
+
+        &.maximize {
+            width: 100%;
+        }
+
+        .icon-container {
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    tr {
+        background-color: c('chicken-feet');
+        
+        &:hover {
+            background-color: c('chicken-liver');
+        }
+        
+        &:nth-child(even) {
+            background-color: c('chicken-drumstick');
+
+            &:hover {
+                background-color: c('chicken-liver');
+            }
+        }
+            
+
+    }
+  }
+}

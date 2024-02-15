@@ -17,3 +17,9 @@ export const ObjBoots = () => {
         <img src="/icons/boots.png" alt='boots' width='100%' height='100%'></img>
     );
 };
+
+export const ObjCoins = () => {
+    return (
+        <img src="/icons/coins.png" alt='coins' width='100%' height='100%'></img>
+    );
+};

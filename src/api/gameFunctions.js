@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
 
-const getRandomInt = (max) => {
+export const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
@@ -53,7 +53,7 @@ export function setUserCharacterType(type) {
     
 
     ref.child(key).update(updates)
-  }).then(resp => {
+  }).then(() => {
     window.location = '/game'
   })
 }
@@ -72,7 +72,7 @@ export function addPlayerDB(name, email, imageUrl) {
     googleImg: imageUrl,
     dateLogin: new Date(),
   }
-  ref.update(updates).then(resp => {
+  ref.update(updates).then(() => {
     window.location = '/name'
   })
 }
@@ -145,16 +145,16 @@ export function winExp(exp) {
   })
 }
 
-export function winRandomGold(gold) {
-  let ref = fire.database().ref().child('Players')
-  let key = cookies.get('key')
-  ref.child(key).once("value", function(playersStateSnap) {
-    let updates = playersStateSnap.val()
-    let currentGold = updates.gameStates.gold + getRandomInt(gold)
-    updates.gameStates.gold = currentGold
-    ref.child(key).update(updates)
-  })
-}
+// export function winRandomGold(gold) {
+//   let ref = fire.database().ref().child('Players')
+//   let key = cookies.get('key')
+//   ref.child(key).once("value", function(playersStateSnap) {
+//     let updates = playersStateSnap.val()
+//     let currentGold = updates.gameStates.gold + getRandomInt(gold)
+//     updates.gameStates.gold = currentGold
+//     ref.child(key).update(updates)
+//   })
+// }
 
 export function deleteObj(obj) {
   let key = cookies.get('key')
@@ -192,5 +192,29 @@ export function unequipObj(obj) {
     let updates = backpackSnap.val()
     updates[obj].equiped = false
     ref.update(updates)
+  })
+}
+
+export function saveReward(gold, obj) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    updates.gameStates.gold += gold
+    let exist = Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
+    if (exist) {
+      updates.gameStates.backpack[exist].count += 1
+    } else {
+      let Objkey = ref.push().key
+      updates.gameStates.backpack[Objkey] = {
+        name: obj.name,
+        count: obj.count,
+        type: obj.type,
+        equiped: false
+      }
+    }
+    ref.child(key).update(updates)
+  }).then(() => {
+    window.location = '/game'
   })
 }
