@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "emailjs-com": "^2.6.4",
     "firebase": "^8.2.6",
     "i18next": "^19.8.3",
     "react": "^17.0.1",
@@ -11,8 +12,7 @@
     "react-i18next": "^11.7.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^5.0.1",
-    "universal-cookie": "^4.0.4",
-    "emailjs-com": "^2.6.4"
+    "universal-cookie": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^7.0.3"
+    "node-sass": "^9.0.0"
   }
 }
