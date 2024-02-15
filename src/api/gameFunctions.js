@@ -37,24 +37,17 @@ export function setUserCharacterType(type) {
       ATK: 5,
       DEF: 0,
       LVL: 1,
-      equip: {
-        firstHand: '-',
-        secondHand: '-',
-        helmet: '-',
-        armor: '-',
-        boots: 'Goblin boots',
-        ring: '-',
-        necklace: '-',
-      }
     }
     //
     updates.gameStates['backpack'] = {}
-    let harcodedObjects = [{name: '* Wood *', type: 'none'}, {name: '* Viking helmet *', type: 'helmet'}]
+    let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}, {name: '* Viking helmet *', type: 'helmet', count: 1, equiped: false}, {name: '* Goblin boots *', type: 'boots', count: 1, equiped: true}, {name: '* Other boots *', type: 'boots', count: 1, equiped: false}]
     harcodedObjects.forEach(el => {
       let objkey = ref.push().key
       updates.gameStates.backpack[objkey] = {
         name: el.name,
-        type: el.type
+        count: el.count,
+        type: el.type,
+        equiped: el.equiped
       }
     })
     
@@ -160,5 +153,44 @@ export function winRandomGold(gold) {
     let currentGold = updates.gameStates.gold + getRandomInt(gold)
     updates.gameStates.gold = currentGold
     ref.child(key).update(updates)
+  })
+}
+
+export function deleteObj(obj) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates/backpack')
+  ref.once("value", function(backpackSnap) {
+    let updates = backpackSnap.val()
+    let currentKeyCount = updates[obj].count
+    if (currentKeyCount === 1) {
+      //delete key
+      updates[obj] = null
+      ref.update(updates)
+    } else {
+      updates[obj].count = currentKeyCount - 1
+      ref.update(updates)
+    }
+  })
+}
+
+export function equipObj(obj) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates/backpack')
+  ref.once("value", function(backpackSnap) {
+    let updates = backpackSnap.val()
+    let currentEquip = Object.keys(updates).find(el => updates[el].type === updates[obj].type && updates[el].equiped )
+    if (currentEquip) updates[currentEquip].equiped = false
+    updates[obj].equiped = true
+    ref.update(updates)
+  })
+}
+
+export function unequipObj(obj) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates/backpack')
+  ref.once("value", function(backpackSnap) {
+    let updates = backpackSnap.val()
+    updates[obj].equiped = false
+    ref.update(updates)
   })
 }

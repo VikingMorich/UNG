@@ -2,18 +2,21 @@ import React, {useState} from 'react';
 //import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
 import Modal from './Modal'
+import { inventoryStateOpen, setInventoryStateOpen } from '../fireSubscription'
 
 export default function UserHud(props) {
     //const [t, i18n] = useTranslation("global");
-    const [open, setOpen] = useState(false)
-    const [type, setType] = useState('')
+    const [open, setOpen] = useState(inventoryStateOpen)
+    const [type, setType] = useState(inventoryStateOpen ? 'inventory' : '')
     const toggleModal = () => {
       setOpen(!open)
+      setInventoryStateOpen(!open)
       document.body.style.overflow === "hidden" ? document.body.style.overflow = "auto" : document.body.style.overflow = "hidden"
     }
 
     const closeModal = () => {
       setOpen(false)
+      setInventoryStateOpen(false)
       document.body.style.overflow = "auto"
     }
 

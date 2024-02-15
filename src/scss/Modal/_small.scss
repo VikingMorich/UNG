@@ -69,7 +69,6 @@
 
         .option-details {
             position: absolute;
-            height: 40px;
             width: 100px;
             background-color: blanchedalmond;
 
@@ -107,6 +106,15 @@
                 &.char-icon {
                     width: 20px;
                     height: 20px;
+                }
+
+                &.maximize {
+                    width: 100%;
+                }
+
+                .icon-container {
+                    width: 15px;
+                    height: 15px;
                 }
             }
 

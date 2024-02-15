@@ -4,6 +4,12 @@ import ReactDOM from 'react-dom'
 import Cookies from 'universal-cookie'
 import UserHud from './components/UserHud'
 
+export let inventoryStateOpen = false
+
+export function setInventoryStateOpen(val) {
+  inventoryStateOpen = val
+}
+
 export function initSubscriptions() {
   let cookies = new Cookies();
   let key = cookies.get('key');
@@ -21,7 +27,7 @@ export function initSubscriptions() {
           user.className="c-roomPlayer__container"
           objPlayer.appendChild(user)
           
-          ReactDOM.render(<UserHud state={snap.val()}/>, user)
+          ReactDOM.render(<UserHud state={snap.val()} openInv={inventoryStateOpen} />, user)
         }
       } 
   })

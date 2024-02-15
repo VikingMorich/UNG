@@ -2,13 +2,33 @@ import React, {useState, useEffect, useRef} from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
+import { ObjHelmet, ObjNone, ObjBoots } from './icon/objectIcon'
+import { deleteObj, equipObj, unequipObj } from '../api/gameFunctions'
 
 
 export default function Modal(props) {
     const [t] = useTranslation("global")
     const [openDetails, setOpenDetails] = useState(false)
+    const [objClicked, setObjClicked] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
+    let equipedItems = props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
+        return props.state.gameStates.backpack[el].equiped
+    }).map(elem => {
+        return {
+            key: elem,
+            state: props.state.gameStates.backpack[elem]
+        }
+    }) : []
+    let otherItems = props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
+        return !props.state.gameStates.backpack[el].equiped
+    }).map(elem => {
+        return {
+            key: elem,
+            state: props.state.gameStates.backpack[elem]
+        }
+    }) : []
+
     function useOutsideAlerter(ref) {
         useEffect(() => {
           /**
@@ -17,6 +37,7 @@ export default function Modal(props) {
           function handleClickOutside(event) {
             if (ref.current && !ref.current.contains(event.target)) {
                 closeDetailsFunc()
+                setObjClicked(null)
             }
           }
           // Bind the event listener
@@ -42,12 +63,27 @@ export default function Modal(props) {
             let detailsOp = ref.current
             detailsOp.style.top = top
             detailsOp.style.left = left
+
+            //TO DO
+            let id = ev.currentTarget.id
+            setObjClicked(id)
         }
     }
     const closeDetailsFunc = () => {
         setOpenDetails(false)
     }
-    
+    const deleteObjFunc = () => {
+        deleteObj(objClicked)
+    }
+
+    const equipObjFunc = () => {
+        equipObj(objClicked)
+    }
+
+    const unequipObjFunc = () => {
+        unequipObj(objClicked)
+    }
+
     return (
         <React.Fragment>
             {props.open &&
@@ -111,43 +147,43 @@ export default function Modal(props) {
                                             <td className='char-icon'>
                                                 <Sword />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.firstHand}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Shield />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.secondHand}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Helmet />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.helmet}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Armor />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.armor}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Shoes />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.boots}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Ring />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.ring}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
                                                 <Pendant />
                                             </td>
-                                            <td onClick={openDetailsFunc}>{props.state.gameStates.equip.necklace}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').state.name : '-'}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -155,14 +191,35 @@ export default function Modal(props) {
                                     <span>* Backpack *</span>
                                     <table className='pj-table'>
                                         <tbody>
-                                            {Object.keys(props.state.gameStates.backpack).map((element) => {
-                                                return <tr key={element} onClick={openDetailsFunc}><td>{props.state.gameStates.backpack[element].name}</td></tr>;
+                                            {otherItems.map((element) => {
+                                                return <tr key={element.key}>
+                                                    <td>{props.state.gameStates.backpack[element.key].count}</td>
+                                                    <td>
+                                                        <div className='icon-container'>
+                                                            {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'boots' && <ObjBoots/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
+                                                        </div>
+                                                    </td>
+                                                    <td className="maximize" id={element.key} onClick={openDetailsFunc} >{props.state.gameStates.backpack[element.key].name}</td>
+                                                </tr>;
                                             })}
                                         </tbody>
                                     </table>
                                 </div>
                                 <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                                    <div className='option-wrapper'>
+                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots')&& 
+                                        (props.state.gameStates.backpack[objClicked].equiped ? 
+                                            <div className='option-wrapper' onClick={unequipObjFunc}>
+                                                <span>* Unequip *</span>
+                                            </div>
+                                            : 
+                                            <div className='option-wrapper' onClick={equipObjFunc}>
+                                                <span>* Equip *</span>
+                                            </div>
+                                            )
+                                    }
+                                    <div className='option-wrapper' onClick={deleteObjFunc}>
                                         <span>* Delete *</span>
                                     </div>
                                 </div>
