@@ -12,7 +12,7 @@ export default function Modal(props) {
     const [objClicked, setObjClicked] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
-    let equipedItems = props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
+    let equipedItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
         return props.state.gameStates.backpack[el].equiped
     }).map(elem => {
         return {
@@ -20,7 +20,7 @@ export default function Modal(props) {
             state: props.state.gameStates.backpack[elem]
         }
     }) : []
-    let otherItems = props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
+    let otherItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
         return !props.state.gameStates.backpack[el].equiped
     }).map(elem => {
         return {
