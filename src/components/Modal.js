@@ -99,10 +99,12 @@ export default function Modal(props) {
                             <div className="c-modal--content">
                                 <h1>{t('privacy.title')}</h1>
                                 <p>{t('privacy.p1')}</p>
-                                <h3>{t('privacy.h1')}</h3>
-                                <p>{t('privacy.p2')}</p>
+                                <h3>{t('privacy.h5')}</h3>
+                                <p>{t('privacy.p6')}</p>
                                 <h3>{t('privacy.h2')}</h3>
                                 <p>{t('privacy.p3')}</p>
+                                <h3>{t('privacy.h1')}</h3>
+                                <p>{t('privacy.p2')}</p>
                                 <h3>{t('privacy.h3')}</h3>
                                 <p>{t('privacy.p4')}</p>
                                 <h3>{t('privacy.h4')}</h3>

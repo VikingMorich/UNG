@@ -1,9 +1,11 @@
 $padding: 60px;
+$coverHeight: calc(100vh - 120px);
+$coverWidth: calc(100vw - 120px);
 
 .c-cover {
     background-color: c('chicken-feet');
-    height: calc(100vh - $padding - $padding);
-    width: calc(100vw - $padding - $padding);
+    height: $coverHeight;
+    width: $coverWidth;
     display: flex;
     align-items: center;
     flex-direction: column;
