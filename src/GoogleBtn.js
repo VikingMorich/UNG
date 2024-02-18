@@ -7,7 +7,8 @@ import Cookies from 'universal-cookie';
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
-  const CLIENT_ID = '447555755943-b3ps2ofbdu8hhejvlksnm4b5o1h5q1vr.apps.googleusercontent.com';
+  //const CLIENT_ID = '447555755943-b3ps2ofbdu8hhejvlksnm4b5o1h5q1vr.apps.googleusercontent.com';
+  const CLIENT_ID = '213014914750-ul8qlavh60vm16d6e9d1lqoi2hjvc2hu.apps.googleusercontent.com';
   //const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")

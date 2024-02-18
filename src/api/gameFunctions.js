@@ -8,13 +8,23 @@ export const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+export function getLogedUsername() {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  return ref.child(key).child('username').once("value", function(playersStateSnap) {
+    return playersStateSnap.val()
+  })
+}
+
 export function changeUserName(name) {
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
-    updates['name'] = name
-    ref.child(key).update(updates)
+    updates['username'] = name
+    ref.child(key).update(updates).then(() => {
+      window.location = '/character-selection'
+    })
   })
 }
 

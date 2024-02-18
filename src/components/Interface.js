@@ -25,8 +25,14 @@ export default function Interface() {
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
                 <li>* Try battle mode *</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
-                <li>* Try option selecion *</li>
-                <li>* Mochila object features *</li>
+                <li>* Try option selecion arbre possibilitats *</li>
+                <li>* Object details view *</li>
+                <li>* Object compare with equiped *</li>
+                <li>* Arbre d'skills per cada personatge *</li>
+                <li>* Fitxa personatge *</li>
+                <li>* Mercader amb opcions *</li>
+                <li>* Mapa view *</li>
+
             </ul>
             <div id="player" className="user-hud">
                 
