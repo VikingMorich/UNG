@@ -2,7 +2,7 @@ import firebase from 'firebase'
 //import { getAnalytics } from "firebase/analytics";
 
 var firebaseConfig = {
-    apiKey: "AIzaSyDPDfqE9-9B_rc3wg9lR9kqK7nFgCKvXUw",
+    apiKey: "AIzaSyDGlHkDuWnfkiFfCJcvTotIsZ_qikTeAZs",
     authDomain: "ungame-b299b.firebaseapp.com",
     databaseURL: "https://ungame-b299b-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "ungame-b299b",
