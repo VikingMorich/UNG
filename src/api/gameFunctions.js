@@ -44,13 +44,13 @@ export function setUserCharacterType(type) {
       maxHP: 100,
       EXP: 0,
       maxEXP: 200,
-      ATK: 5,
+      ATK: 1,
       DEF: 0,
       LVL: 1,
     }
     //
     updates.gameStates['backpack'] = {}
-    let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}, {name: '* Viking helmet *', type: 'helmet', count: 1, equiped: false}, {name: '* Goblin boots *', type: 'boots', count: 1, equiped: true}, {name: '* Other boots *', type: 'boots', count: 1, equiped: false}]
+    let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
     harcodedObjects.forEach(el => {
       let objkey = ref.push().key
       updates.gameStates.backpack[objkey] = {
@@ -142,14 +142,20 @@ export function winExp(exp) {
     let updates = playersStateSnap.val()
     let currentEXP = updates.gameStates.EXP + exp
     let currentLVL = updates.gameStates.LVL
+    let currentSkillPoints = updates.gameStates.skillPoints || 0
+    let currentAtk = updates.gameStates.ATK
     if (currentEXP >= updates.gameStates.maxEXP) {
       //make it recursive
       //probably future function to diferent upgrades in lvl up (dmg or whatever)
       currentEXP = currentEXP - updates.gameStates.maxEXP
       currentLVL += 1
+      currentSkillPoints += 1
+      currentAtk += 1
     }
     updates.gameStates.EXP = currentEXP
     updates.gameStates.LVL = currentLVL
+    updates.gameStates.ATK = currentAtk
+    updates.gameStates.skillPoints = currentSkillPoints
     
     ref.child(key).update(updates)
   })
@@ -185,22 +191,32 @@ export function deleteObj(obj) {
 
 export function equipObj(obj) {
   let key = cookies.get('key')
-  let ref = fire.database().ref().child('Players/' + key + '/gameStates/backpack')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(backpackSnap) {
     let updates = backpackSnap.val()
-    let currentEquip = Object.keys(updates).find(el => updates[el].type === updates[obj].type && updates[el].equiped )
-    if (currentEquip) updates[currentEquip].equiped = false
-    updates[obj].equiped = true
+    let currentEquip = Object.keys(updates.backpack).find(el => updates.backpack[el].type === updates.backpack[obj].type && updates.backpack[el].equiped )
+    if (currentEquip) {
+      //UPDATE STATES
+      if (updates.backpack[currentEquip].stats.DEF) updates.DEF = updates.DEF - updates.backpack[currentEquip].stats.DEF
+      if (updates.backpack[currentEquip].stats.ATK) updates.ATK = updates.ATK - updates.backpack[currentEquip].stats.ATK
+      updates.backpack[currentEquip].equiped = false
+    }
+    updates.backpack[obj].equiped = true
+    //UPDATE STATES
+    if (updates.backpack[obj].stats.DEF) updates.DEF = updates.DEF + updates.backpack[obj].stats.DEF
+    if (updates.backpack[obj].stats.ATK) updates.ATK = updates.ATK + updates.backpack[obj].stats.ATK
     ref.update(updates)
   })
 }
 
 export function unequipObj(obj) {
   let key = cookies.get('key')
-  let ref = fire.database().ref().child('Players/' + key + '/gameStates/backpack')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(backpackSnap) {
     let updates = backpackSnap.val()
-    updates[obj].equiped = false
+    if (updates.backpack[obj].stats.DEF) updates.DEF = updates.DEF - updates.backpack[obj].stats.DEF
+    if (updates.backpack[obj].stats.ATK) updates.ATK = updates.ATK - updates.backpack[obj].stats.ATK
+    updates.backpack[obj].equiped = false
     ref.update(updates)
   })
 }
@@ -220,6 +236,8 @@ export function saveReward(gold, obj) {
         name: obj.name,
         count: obj.count,
         type: obj.type,
+        objType: obj.objType || null,
+        stats: obj.stats || null,
         equiped: false
       }
     }

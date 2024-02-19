@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
-import { ObjHelmet, ObjNone, ObjBoots } from './icon/objectIcon'
+import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor } from './icon/objectIcon'
 import { deleteObj, equipObj, unequipObj } from '../api/gameFunctions'
 
 
@@ -86,6 +86,10 @@ export default function Modal(props) {
 
     const unequipObjFunc = () => {
         unequipObj(objClicked)
+    }
+
+    const saveSkillChanges = () => {
+
     }
 
     return (
@@ -204,6 +208,11 @@ export default function Modal(props) {
                                                         <div className='icon-container'>
                                                             {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'boots' && <ObjBoots/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'sword' && <ObjSword/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'shield' && <ObjShield/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'armor' && <ObjArmor/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'ring' && <ObjRing/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'necklace' && <ObjNecklace/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
                                                         </div>
                                                     </td>
@@ -214,7 +223,7 @@ export default function Modal(props) {
                                     </table>
                                 </div>
                                 <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots')&& 
+                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand')&& 
                                         (props.state.gameStates.backpack[objClicked].equiped ? 
                                             <div className='option-wrapper' onClick={unequipObjFunc}>
                                                 <span>* Unequip *</span>
@@ -228,6 +237,72 @@ export default function Modal(props) {
                                     <div className='option-wrapper' onClick={deleteObjFunc}>
                                         <span>* Delete *</span>
                                     </div>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    }
+                    {
+                        props.type === 'skills' && 
+                        <React.Fragment>
+                            <div className="c-modal--skills">
+                                <h1>* SKILLS *</h1>
+                                <div className='points-wrapper'>
+                                    <span>* Skill points: </span>
+                                    <span>{props.state.gameStates.skillPoints || 0}</span>
+                                </div>
+                                
+                                <div className="button" onClick={saveSkillChanges}>
+                                    <span>* SAVE *</span>
+                                </div>
+                            </div>
+                        </React.Fragment>
+                    }
+                    {
+                        props.type === 'map' && 
+                        <React.Fragment>
+                            <div className="c-modal--map">
+                                <h1>* MAPA *</h1>
+                                <img className='map-view' alt="map" src="./map1.jpg" />
+                            </div>
+                        </React.Fragment>
+                    }
+                    {
+                        props.type === 'character' && 
+                        <React.Fragment>
+                            <div className="c-modal--character">
+                                <h1>* CHARACTER *</h1>
+                                <div className='char-wrapp'>
+                                    <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <span>* Name:</span>
+                                                    <span>{props.state.username}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>💪🏻</span>
+                                                    <span>{props.state.gameStates.FUE}</span>
+                                                </td>
+                                                <td>
+                                                    <span>🧠</span>
+                                                    <span>{props.state.gameStates.INT}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>👁️</span>
+                                                    <span>{props.state.gameStates.PUN}</span>
+                                                </td>
+                                                <td>
+                                                    <span>🍀</span>
+                                                    <span>{props.state.gameStates.SUE}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </React.Fragment>

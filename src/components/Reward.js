@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
 import { getRandomInt, saveReward } from '../api/gameFunctions'
-import { ObjBoots, ObjCoins } from './icon/objectIcon';
+import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor} from './icon/objectIcon';
 import { itemsList } from '../api/gameDatabase'
 
 export default function Reward() {
@@ -11,10 +11,11 @@ export default function Reward() {
     const saveRewardFunc = () => {
         saveReward(coinsValue, itemValue)
     }
-    const getRandomBoots = () => {
-        return itemsList.boots[getRandomInt(itemsList.boots.length)]
+    const getRandomObj = () => {
+        let objType = Object.keys(itemsList)[getRandomInt(Object.keys(itemsList).length)]
+        return itemsList[objType][getRandomInt(itemsList[objType].length)]
     }
-    const itemValue = getRandomBoots()
+    const itemValue = getRandomObj()
     
     return (
         <React.Fragment>
@@ -36,7 +37,14 @@ export default function Reward() {
                             <td>1</td>
                             <td>
                                 <div className='icon-container'>
-                                    <ObjBoots />
+                                    {itemValue.type === 'helmet' && <ObjHelmet/>}
+                                    {itemValue.type === 'boots' && <ObjBoots/>}
+                                    {itemValue.type === 'firstHand' && itemValue.objType === 'sword' && <ObjSword/>}
+                                    {itemValue.type === 'secondHand' && itemValue.objType === 'shield' && <ObjShield/>}
+                                    {itemValue.type === 'armor' && <ObjArmor/>}
+                                    {itemValue.type === 'ring' && <ObjRing/>}
+                                    {itemValue.type === 'necklace' && <ObjNecklace/>}
+                                    {itemValue.type === 'none' && <ObjNone/>}
                                 </div>
                             </td>
                             <td className="maximize">{itemValue.name}</td>

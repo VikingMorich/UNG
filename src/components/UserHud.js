@@ -27,8 +27,8 @@ export default function UserHud(props) {
         <React.Fragment>
             <div className="user-wrapper">
               <div className='user-img-wrap'>
-                <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} />
-                <div className='user-lvl'>
+                <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} onClick={() => { toggleModal(); setType('character')}}/>
+                <div className={`user-lvl ${props.state.gameStates.skillPoints && props.state.gameStates.skillPoints !== 0 && 'update-available'}`} onClick={() => { toggleModal(); setType('skills')}}>
                   <span>{props.state.gameStates.LVL}</span>
                 </div>
               </div>
@@ -74,8 +74,13 @@ export default function UserHud(props) {
                   <span>💰</span>
                   <span>{props.state.gameStates.gold}</span>
                 </div>
-                <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}}>
-                  <span>🎒</span>
+                <div className='char-buttons'>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}}>
+                    <span>🎒</span>
+                  </div>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('map')}}>
+                    <span>🗺️</span>
+                  </div>
                 </div>
               </div>
             </div>

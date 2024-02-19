@@ -38,6 +38,68 @@
             font-size: 22px;
         }
     }
+
+    &--skills {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+        }
+
+        .points-wrapper {
+            position: absolute;
+            right: 20px;
+            top: 80px;
+        }
+
+        .button {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    &--map {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+        }
+
+        .map-view {
+            height: 400px;
+        }
+    }
+
+    &--character {
+        display: flex;
+        flex-direction: column;
+
+        h1 {
+            text-align: center;
+        }
+
+        .char-wrapp {
+            display: flex;
+            width: 68vw;
+
+            .char-img {
+                height: 400px;
+            }
+            table {
+                border-collapse: collapse;
+                border: 1px solid grey;
+                width: 100%;
+
+                td {
+                    border: 1px solid grey;
+                    font-family: 'FantaisieArtistique';
+                }
+            }
+        }
+    }
+
     &--inventory{
         overflow: auto;
         height: 100%;

@@ -23,3 +23,33 @@ export const ObjCoins = () => {
         <img src="/icons/coins.png" alt='coins' width='100%' height='100%'></img>
     );
 };
+
+export const ObjSword = () => {
+    return (
+        <img src="/icons/sword-black.png" alt='sword' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjShield = () => {
+    return (
+        <img src="/icons/shield-black.png" alt='shield' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjRing = () => {
+    return (
+        <img src="/icons/ring-black.png" alt='ring' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjNecklace = () => {
+    return (
+        <img src="/icons/pendant-black.png" alt='necklace' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjArmor = () => {
+    return (
+        <img src="/icons/armor-black.png" alt='armor' width='100%' height='100%'></img>
+    );
+};
