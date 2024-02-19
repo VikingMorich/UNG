@@ -4,11 +4,13 @@ import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
 import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor } from './icon/objectIcon'
 import { deleteObj, equipObj, unequipObj } from '../api/gameFunctions'
+import ObjInspector from './ObjInspector'
 
 
 export default function Modal(props) {
     const [t] = useTranslation("global")
     const [openDetails, setOpenDetails] = useState(false)
+    const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
@@ -42,6 +44,7 @@ export default function Modal(props) {
             if (ref.current && !ref.current.contains(event.target)) {
                 closeDetailsFunc()
                 setObjClicked(null)
+                closeObjInspector()
             }
           }
           // Bind the event listener
@@ -78,6 +81,15 @@ export default function Modal(props) {
     }
     const deleteObjFunc = () => {
         deleteObj(objClicked)
+    }
+
+    const inspectObjFunc = () => {
+        closeDetailsFunc()
+        setOpenObjInspector(true)
+    }
+
+    const closeObjInspector = () => {
+        setOpenObjInspector(false)
     }
 
     const equipObjFunc = () => {
@@ -234,10 +246,16 @@ export default function Modal(props) {
                                             </div>
                                             )
                                     }
+                                    <div className='option-wrapper' onClick={inspectObjFunc}>
+                                        <span>* Inspect *</span>
+                                    </div>
                                     <div className='option-wrapper' onClick={deleteObjFunc}>
                                         <span>* Delete *</span>
                                     </div>
                                 </div>
+                                {openObjInspector && objClicked &&
+                                    <ObjInspector obj={props.state.gameStates.backpack[objClicked] || null}/>
+                                }
                             </div>
                         </React.Fragment>
                     }
@@ -276,7 +294,7 @@ export default function Modal(props) {
                                     <table>
                                         <tbody>
                                             <tr>
-                                                <td colspan="2">
+                                                <td colSpan="2">
                                                     <span>* Name:</span>
                                                     <span>{props.state.username}</span>
                                                 </td>

@@ -50,16 +50,16 @@ export function setUserCharacterType(type) {
     }
     //
     updates.gameStates['backpack'] = {}
-    let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
-    harcodedObjects.forEach(el => {
-      let objkey = ref.push().key
-      updates.gameStates.backpack[objkey] = {
-        name: el.name,
-        count: el.count,
-        type: el.type,
-        equiped: el.equiped
-      }
-    })
+    // let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
+    // harcodedObjects.forEach(el => {
+    //   let objkey = ref.push().key
+    //   updates.gameStates.backpack[objkey] = {
+    //     name: el.name,
+    //     count: el.count,
+    //     type: el.type,
+    //     equiped: el.equiped
+    //   }
+    // })
     
 
     ref.child(key).update(updates)
@@ -227,18 +227,34 @@ export function saveReward(gold, obj) {
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
     updates.gameStates.gold += gold
-    let exist = Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
+    let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
     if (exist) {
       updates.gameStates.backpack[exist].count += 1
     } else {
       let Objkey = ref.push().key
-      updates.gameStates.backpack[Objkey] = {
-        name: obj.name,
-        count: obj.count,
-        type: obj.type,
-        objType: obj.objType || null,
-        stats: obj.stats || null,
-        equiped: false
+      let hasBackpack = updates.gameStates.backpack ? true : false
+      if (!hasBackpack)
+        updates.gameStates.backpack = {
+          [Objkey] : {
+            name: obj.name,
+            count: obj.count,
+            type: obj.type,
+            objType: obj.objType || null,
+            stats: obj.stats || null,
+            imgSrc: obj.imgSrc || null,
+            equiped: false
+          }
+        }
+      else {
+        updates.gameStates.backpack[Objkey] = {
+          name: obj.name,
+          count: obj.count,
+          type: obj.type,
+          objType: obj.objType || null,
+          stats: obj.stats || null,
+          imgSrc: obj.imgSrc || null,
+          equiped: false
+        }
       }
     }
     ref.child(key).update(updates)

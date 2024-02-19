@@ -6,6 +6,7 @@ export const itemsList = {
       stats: {
         DEF: 2,
       },
+      imgSrc: '/items/AcxdY7s5.png',
       count: 1
     },
     {
@@ -15,16 +16,9 @@ export const itemsList = {
         DEF: 1,
         SPIKES: 1,
       },
+      imgSrc: '/items/mf8WgZ6V.png',
       count: 1
     },
-    {
-      name: '* Cool shoes *',
-      type: 'boots',
-      stats: {
-        DEF: 1,
-      },
-      count: 1
-    }
   ],
   "swords": [
     {
@@ -34,6 +28,7 @@ export const itemsList = {
       stats: {
         ATK: 3,
       },
+      imgSrc: '/items/ouSkZLD1.png',
       count: 1
     }
   ],
@@ -44,6 +39,7 @@ export const itemsList = {
       stats: {
         DEF: 2,
       },
+      imgSrc: '/items/TuCiw51n.png',
       count: 1
     }
   ],
@@ -55,6 +51,7 @@ export const itemsList = {
       stats: {
         DEF: 2,
       },
+      imgSrc: '/items/2_ghnqOu.png',
       count: 1
     }
   ],
@@ -65,6 +62,7 @@ export const itemsList = {
       stats: {
         DEF: 2,
       },
+      imgSrc: '/items/Yk2NS47q.png',
       count: 1
     }
   ],
@@ -75,6 +73,7 @@ export const itemsList = {
       stats: {
         DEF: 1,
       },
+      imgSrc: '/items/LyYP-BzL.png',
       count: 1
     }
   ],
@@ -85,6 +84,7 @@ export const itemsList = {
       stats: {
         DEF: 1,
       },
+      imgSrc: '/items/f_dauT5m.png',
       count: 1
     }
   ]

@@ -1,0 +1,56 @@
+.c-inspector-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 15;
+}
+.c-inspector {
+    background-color: c('medium-brown');
+    width: 86vw;
+    height: 75vh;
+    position: fixed;
+    left: calc(7vw - 10px);
+    top: 12.5vh;
+    z-index: 15;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    &--content{
+        width: 38vw;
+        position: absolute;
+        top: 18vh;
+        left: 31vw;
+        background-color: c('brown-melon');
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid grey;
+            width: 100%;
+
+            td {
+                border: 1px solid grey;
+                font-family: 'FantaisieArtistique';
+            }
+
+            h2 {
+                margin-block-start: 0;
+                margin-block-end: 0;
+                text-align: center;
+            }
+
+            .maximize {
+                height: 34vh;
+            }
+        }
+
+        .item-img{
+            margin-left: calc(1vw - 2px);
+            width: 36vw;
+        }
+    }
+    
+}
