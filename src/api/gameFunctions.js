@@ -425,9 +425,11 @@ export function saveBattleReward(reward) {
         if(currentEXP >= updates.maxEXP) {
           updates.LVL = updates.LVL + 1
           currentEXP -= updates.maxEXP
+          updates.ATK += 1
           if(currentEXP >= updates.maxEXP) {
             updates.LVL = updates.LVL + 1
             currentEXP -= updates.maxEXP
+            updates.ATK += 1
           }
         }
         updates.EXP = currentEXP
