@@ -330,8 +330,8 @@ export function rollDices(type) {
     }
 
     //ENEMY
-
-    let ed1 = getRandomInt(100)
+    setTimeout(() => {
+      let ed1 = getRandomInt(100)
     let ed2 = getRandomInt(100)
     let ed3 = getRandomInt(100)
     let efrontDiceFace1 = document.getElementById("e-dice-1").getElementsByClassName('data-side-1')
@@ -389,6 +389,8 @@ export function rollDices(type) {
     updates.HP = currentLive
     updates.battle.HP = currentEnemyLive
     ref.update(updates)
+    }, 500)
+    
 
     //CLEAN DICE ICONS
 
@@ -405,6 +407,6 @@ export function rollDices(type) {
       efrontDiceFace1[0].innerHTML = ''
       efrontDiceFace2[0].innerHTML = ''
       efrontDiceFace3[0].innerHTML = ''
-    }, 1500);
+    }, 2500);
   })
 }

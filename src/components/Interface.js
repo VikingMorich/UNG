@@ -21,7 +21,7 @@ export default function Interface() {
             <h1>*Interface*</h1>
             <ul className='ul-list'>
                 <li className='link' onClick={useTakeDmg}>* Take 5 damage *</li>
-                <li className='link' onClick={useUsePotion}>* Restore 20 live *</li>
+                <li className='link' onClick={useUsePotion}>* Restore 20 life *</li>
                 <li className='link' onClick={useWinExp}>* Win 40 EXP *</li>
                 <li className='link' onClick={goToReward}>* Random reward *</li>
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
