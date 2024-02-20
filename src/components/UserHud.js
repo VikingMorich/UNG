@@ -2,12 +2,17 @@ import React, {useState} from 'react';
 //import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
 import Modal from './Modal'
+import EndBattleModal from './EndBattleModal'
 import { inventoryStateOpen, setInventoryStateOpen } from '../fireSubscription'
+import { getRandomInt } from '../api/gameFunctions'
 
 export default function UserHud(props) {
     //const [t, i18n] = useTranslation("global");
     const [open, setOpen] = useState(inventoryStateOpen)
     const [type, setType] = useState(inventoryStateOpen ? 'inventory' : '')
+    const [endBattle, setEndBattle] = useState(false)
+    const [endRes, setEndRes] = useState('')
+    const [endReward, setEndReward] = useState(null)
     const toggleModal = () => {
       setOpen(!open)
       setInventoryStateOpen(!open)
@@ -18,6 +23,32 @@ export default function UserHud(props) {
       setOpen(false)
       setInventoryStateOpen(false)
       document.body.style.overflow = "auto"
+    }
+
+    //BATTLE IF
+
+    if (window.location.pathname === '/battle' && props.state.gameStates.HP === 0 && !endBattle) {
+      setTimeout(() => {
+        setEndBattle(true)
+        setEndRes('lose')
+      }, 1500)
+      
+    } else if (window.location.pathname === '/battle' && props.state.gameStates.battle.HP === 0 && !endBattle) {
+      setTimeout(() => {
+        setEndBattle(true)
+        let gold = getRandomInt(props.state.gameStates.battle.maxGold - props.state.gameStates.battle.minGold) + props.state.gameStates.battle.minGold
+        setEndReward([{
+          type: 'coins',
+          name: '* Coins *',
+          count: gold
+        }, 
+        {
+          type: 'EXP',
+          name: '* Experience *',
+          count: props.state.gameStates.battle.EXP
+        }])
+        setEndRes('win')
+      }, 1000)
     }
 
     const charTy = props.state.gameStates.characterType
@@ -85,6 +116,7 @@ export default function UserHud(props) {
               </div>
             </div>
             <Modal open={open} toggleModal={() => closeModal()} type={type} state={props.state} />
+            <EndBattleModal open={endBattle && !props.state.gameStates.battle.endBattle ? true : false} type={endRes} reward={endReward}/>
         </React.Fragment>
     );
 }

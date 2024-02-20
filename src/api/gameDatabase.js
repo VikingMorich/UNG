@@ -121,7 +121,10 @@ export const enemiesList = [
     maxHP: 50,
     DEF: 1,
     ATK: 3,
-    EXP: 100,
+    EXP: 250,
+    maxGold: 300,
+    minGold: 200,
+    //obj amb chance?
     FUE: 70
   }
 ]

@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useTranslation } from "react-i18next"
-import { addPlayerDB, checkPlayerExist } from "./api/gameFunctions"
+import { checkPlayerExist } from "./api/gameFunctions"
 import Cookies from 'universal-cookie';
 // import fire from './fire'
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
-  //const CLIENT_ID = '447555755943-b3ps2ofbdu8hhejvlksnm4b5o1h5q1vr.apps.googleusercontent.com';
-  const CLIENT_ID = '213014914750-ul8qlavh60vm16d6e9d1lqoi2hjvc2hu.apps.googleusercontent.com';
-  //const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
+  //const CLIENT_ID = '213014914750-ul8qlavh60vm16d6e9d1lqoi2hjvc2hu.apps.googleusercontent.com';
+  const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
   let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
@@ -28,8 +27,9 @@ export default function GoogleBtn (props) {
     }
   }
 
-  const errorGoogleResponse = () => {
-    alert('You have an error with Google response, please contact with staff')
+  const errorGoogleResponse = (e) => {
+    if (e.error !== "popup_closed_by_user")
+      alert('You have an error with Google response, please contact with staff')
   }
 
   const logout = () => {

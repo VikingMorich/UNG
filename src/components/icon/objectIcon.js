@@ -53,3 +53,9 @@ export const ObjArmor = () => {
         <img src="/icons/armor-black.png" alt='armor' width='100%' height='100%'></img>
     );
 };
+
+export const ObjExp = () => {
+    return (
+        <img src="/icons/five-stars.png" alt='exp' width='100%' height='100%'></img>
+    );
+};

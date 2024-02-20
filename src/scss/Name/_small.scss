@@ -12,6 +12,10 @@
   width: 250px;
   color: white;
   cursor: pointer;
+
+  &.disabled {
+    cursor: progress;
+  }
 }
 .button:hover{
   background-color: black;

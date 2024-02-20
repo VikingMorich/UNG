@@ -410,3 +410,31 @@ export function rollDices(type) {
     }, 2500);
   })
 }
+
+
+export function saveBattleReward(reward) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(snap) {
+    let updates = snap.val()
+    reward.forEach(el => {
+      if(el.type === 'coins') updates.gold = updates.gold + el.count
+      if(el.type === 'EXP') {
+        let currentEXP = updates.EXP + el.count
+        //LVL UP
+        if(currentEXP >= updates.maxEXP) {
+          updates.LVL = updates.LVL + 1
+          currentEXP -= updates.maxEXP
+          if(currentEXP >= updates.maxEXP) {
+            updates.LVL = updates.LVL + 1
+            currentEXP -= updates.maxEXP
+          }
+        }
+        updates.EXP = currentEXP
+      }
+    })
+    updates.battle.endBattle = true
+    ref.update(updates).then(() => window.location = '/game')
+    
+  })
+}
