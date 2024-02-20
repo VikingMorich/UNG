@@ -32,17 +32,19 @@ export function initSubscriptions() {
         }
       }
       if (window.location.pathname === '/battle'){
-        let objEnemy = document.getElementById('enemy')
-        const enemy = document.createElement('div')
-        enemy.id='currentEnemy'
-        enemy.className="c-roomPlayer__container"
-        //objEnemy.appendChild(enemy)
-        ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
-        let enemyChanged = document.getElementById('currentEnemy')
-        if (enemyChanged){
-          objEnemy.replaceChild(enemy, enemyChanged)
-        } else {
-            objEnemy.appendChild(enemy)
+        if (snap.key === key) {
+          let objEnemy = document.getElementById('enemy')
+          const enemy = document.createElement('div')
+          enemy.id='currentEnemy'
+          enemy.className="c-roomPlayer__container"
+          //objEnemy.appendChild(enemy)
+          ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
+          let enemyChanged = document.getElementById('currentEnemy')
+          if (enemyChanged){
+            objEnemy.replaceChild(enemy, enemyChanged)
+          } else {
+              objEnemy.appendChild(enemy)
+          }
         }
       }
   })
@@ -73,17 +75,19 @@ export function initSubscriptions() {
       }
     }
     if (window.location.pathname === '/battle') {
-      let enemyChanged = document.getElementById('currentEnemy')
-      let objEnemy = document.getElementById('enemy')
-      const enemy = document.createElement('div')
-      enemy.id='currentEnemy'
-      enemy.className="c-roomPlayer__container"
-      objEnemy.appendChild(enemy)
-      ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
-      if (enemyChanged){
-        objEnemy.replaceChild(enemy, enemyChanged)
-      } else {
-          objEnemy.appendChild(enemy)
+      if (snap.key === key) {
+        let enemyChanged = document.getElementById('currentEnemy')
+        let objEnemy = document.getElementById('enemy')
+        const enemy = document.createElement('div')
+        enemy.id='currentEnemy'
+        enemy.className="c-roomPlayer__container"
+        objEnemy.appendChild(enemy)
+        ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
+        if (enemyChanged){
+          objEnemy.replaceChild(enemy, enemyChanged)
+        } else {
+            objEnemy.appendChild(enemy)
+        }
       }
     }
   })
