@@ -98,7 +98,7 @@ export const itemsList = {
       stats: {
         DEF: 1,
       },
-      imgSrc: '/items/f_dauT5m.png',
+      imgSrc: '/items/00010-105951971.png',
       count: 1,
       gold: 100,
       sellPrice: 10
