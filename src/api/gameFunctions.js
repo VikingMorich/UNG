@@ -1,5 +1,7 @@
 import fire from '../fire'
 import Cookies from 'universal-cookie';
+import ReactDOM from 'react-dom'
+import { Star, Fail } from '../components/icon/icon'
 
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
@@ -260,5 +262,149 @@ export function saveReward(gold, obj) {
     ref.child(key).update(updates)
   }).then(() => {
     window.location = '/game'
+  })
+}
+
+export function getRandomEnemy(enemy) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(backpackSnap) {
+    let updates = backpackSnap.val()
+    updates['battle'] = enemy
+    ref.update(updates)
+  }).then(() => {
+    window.location = '/battle'
+  })
+}
+
+export function rollDices(type) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(snap) {
+
+    //PLAYER
+
+    let updates = snap.val()
+    let d1 = getRandomInt(100)
+    let d2 = getRandomInt(100)
+    let d3 = getRandomInt(100)
+    let frontDiceFace1 = document.getElementById("dice-1").getElementsByClassName('data-side-1')
+    let frontDiceFace2 = document.getElementById("dice-2").getElementsByClassName('data-side-1')
+    let frontDiceFace3 = document.getElementById("dice-3").getElementsByClassName('data-side-1')
+    let multiplier = 0
+    if( d1 <= snap.val()[type]) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      frontDiceFace1[0].appendChild(diceValue)
+      multiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      frontDiceFace1[0].appendChild(diceValue)
+    }
+    if( d2 <= snap.val()[type]) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      frontDiceFace2[0].appendChild(diceValue)
+      multiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      frontDiceFace2[0].appendChild(diceValue)
+    }
+    if( d3 <= snap.val()[type]) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      frontDiceFace3[0].appendChild(diceValue)
+      multiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      frontDiceFace3[0].appendChild(diceValue)
+    }
+
+    //ENEMY
+
+    let ed1 = getRandomInt(100)
+    let ed2 = getRandomInt(100)
+    let ed3 = getRandomInt(100)
+    let efrontDiceFace1 = document.getElementById("e-dice-1").getElementsByClassName('data-side-1')
+    let efrontDiceFace2 = document.getElementById("e-dice-2").getElementsByClassName('data-side-1')
+    let efrontDiceFace3 = document.getElementById("e-dice-3").getElementsByClassName('data-side-1')
+    let emultiplier = 0
+
+    if( ed1 <= snap.val().battle.FUE) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      efrontDiceFace1[0].appendChild(diceValue)
+      emultiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      efrontDiceFace1[0].appendChild(diceValue)
+    }
+    if( ed2 <= snap.val().battle.FUE) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      efrontDiceFace2[0].appendChild(diceValue)
+      emultiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      efrontDiceFace2[0].appendChild(diceValue)
+    }
+    if( ed3 <= snap.val().battle.FUE) {
+      //acert
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Star/>, diceValue)
+      efrontDiceFace3[0].appendChild(diceValue)
+      emultiplier += 1
+    } else {
+      //fallo
+      let diceValue = document.createElement('div')
+      ReactDOM.render(<Fail/>, diceValue)
+      efrontDiceFace3[0].appendChild(diceValue)
+    }
+
+    //UPDATE STATES
+
+    let enemyDmg = (emultiplier * updates.battle.ATK) - updates.DEF
+    if (enemyDmg < 0) enemyDmg = 0
+    let currentLive = updates.HP - enemyDmg
+    let playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+    if (playerDmg < 0) playerDmg = 0
+    let currentEnemyLive = updates.battle.HP - playerDmg
+    if (currentLive < 0) currentLive = 0
+    if (currentEnemyLive < 0) currentEnemyLive = 0
+    updates.HP = currentLive
+    updates.battle.HP = currentEnemyLive
+    ref.update(updates)
+
+    //CLEAN DICE ICONS
+
+    setTimeout(() => { 
+      let frontDiceFace1 = document.getElementById("dice-1").getElementsByClassName('data-side-1')
+      let frontDiceFace2 = document.getElementById("dice-2").getElementsByClassName('data-side-1')
+      let frontDiceFace3 = document.getElementById("dice-3").getElementsByClassName('data-side-1')
+      let efrontDiceFace1 = document.getElementById("e-dice-1").getElementsByClassName('data-side-1')
+      let efrontDiceFace2 = document.getElementById("e-dice-2").getElementsByClassName('data-side-1')
+      let efrontDiceFace3 = document.getElementById("e-dice-3").getElementsByClassName('data-side-1')
+      frontDiceFace1[0].innerHTML = ''
+      frontDiceFace2[0].innerHTML = ''
+      frontDiceFace3[0].innerHTML = ''
+      efrontDiceFace1[0].innerHTML = ''
+      efrontDiceFace2[0].innerHTML = ''
+      efrontDiceFace3[0].innerHTML = ''
+    }, 1500);
   })
 }

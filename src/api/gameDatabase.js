@@ -7,7 +7,9 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/AcxdY7s5.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     },
     {
       name: '* Goblin boots *',
@@ -17,7 +19,9 @@ export const itemsList = {
         SPIKES: 1,
       },
       imgSrc: '/items/mf8WgZ6V.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     },
   ],
   "swords": [
@@ -29,7 +33,9 @@ export const itemsList = {
         ATK: 3,
       },
       imgSrc: '/items/ouSkZLD1.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ],
   "helmets": [
@@ -40,7 +46,9 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/TuCiw51n.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ],
   "shields": [
@@ -52,7 +60,9 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/2_ghnqOu.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ],
   "armors": [
@@ -63,7 +73,9 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/Yk2NS47q.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ],
   "rings": [
@@ -74,7 +86,9 @@ export const itemsList = {
         DEF: 1,
       },
       imgSrc: '/items/LyYP-BzL.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ],
   "necklaces": [
@@ -85,7 +99,9 @@ export const itemsList = {
         DEF: 1,
       },
       imgSrc: '/items/f_dauT5m.png',
-      count: 1
+      count: 1,
+      gold: 100,
+      sellPrice: 10
     }
   ]
   // "consumable": [
@@ -96,3 +112,16 @@ export const itemsList = {
   //   }
   // ]
 }
+
+export const enemiesList = [
+  {
+    name: 'Demon',
+    imgSrc: '/enemies/demon.jpeg',
+    HP: 50,
+    maxHP: 50,
+    DEF: 1,
+    ATK: 3,
+    EXP: 100,
+    FUE: 70
+  }
+]

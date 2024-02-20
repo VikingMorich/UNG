@@ -1,0 +1,122 @@
+.enemy-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin: 0 20px;
+
+  .enemy-img-wrap {
+    position: relative;
+
+    .enemy-img {
+      border: 1px solid black;
+      width: 150px;
+      cursor: pointer;
+    }
+
+    .enemy-lvl {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-radius: 50%;
+      border: 1px solid black;
+      background-color: c('chicken-drumstick');
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+
+      span {
+        font-family: 'Pieces of Eight';
+        font-size: 20px;
+      }
+
+      &.update-available {
+        box-shadow: inset 0 0 10px c('milk-chocolate');
+      }
+    }
+  }
+
+  .enemy-bars{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 50vw;
+    margin-bottom: 70px;
+  }
+
+  .enemy-name {
+    font-family: 'FantaisieArtistique';
+    font-size: 24px;
+  }
+
+  .enemy-stat {
+    display: flex;
+    gap: 10px;
+
+    .text-stat {
+      width: 40px;
+      font-family: 'FantaisieArtistique';
+      font-size: 20px;
+    }
+  }
+
+  .enemy-statistics {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .char-stat {
+      display: flex;
+      gap: 15px;
+      font-family: 'Pieces of Eight';
+      font-size: 24px;
+    }
+
+    .char-stat:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  .stats-char {
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 70px;
+
+    .char-stat {
+      display: flex;
+      gap: 15px;
+      font-family: 'Pieces of Eight';
+      font-size: 24px;
+    }
+
+    .char-buttons {
+      display: flex;
+      gap: 10px;
+
+      .char-inv {
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border: 1px solid black;
+        font-size: 22px;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+    }
+  }
+}

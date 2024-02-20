@@ -222,3 +222,15 @@ export const Sword = () => {
         <img src="/icons/sword.png" alt='sword' width='100%' height='100%'></img>
     );
 };
+
+export const Fail = () => {
+    return (
+        <img src="/icons/doll.png" alt='sword' width='100%' height='100%'></img>
+    );
+};
+
+export const Star = () => {
+    return (
+        <img src="/icons/star.png" alt='sword' width='100%' height='100%'></img>
+    );
+};

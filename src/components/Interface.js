@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
-import { takeDmg, usePotion, winExp,  } from '../api/gameFunctions'
+import { takeDmg, usePotion, winExp, getRandomEnemy } from '../api/gameFunctions'
+import { enemiesList } from '../api/gameDatabase'
 
 export default function Interface() {
     const [t, i18n] = useTranslation("global")
@@ -11,6 +12,7 @@ export default function Interface() {
     const goToReward = () => window.location = '/reward'
     const goToSkill = () => window.location = '/skill'
     const goToStory = () => window.location = '/story'
+    const goToBattle = () => getRandomEnemy(enemiesList[0])
     //const goToStory2 = () => window.location = '/story2'
 
     
@@ -23,7 +25,7 @@ export default function Interface() {
                 <li className='link' onClick={useWinExp}>* Win 40 EXP *</li>
                 <li className='link' onClick={goToReward}>* Random reward *</li>
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
-                <li>* Try battle mode *</li>
+                <li className='link' onClick={goToBattle}>* Try battle mode *</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
                 <li>* Object details view *</li>

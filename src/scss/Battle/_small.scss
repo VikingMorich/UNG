@@ -1,0 +1,26 @@
+.enemy-hud {
+  display: flex;
+}
+
+.current-op {
+  display: flex;
+  border-top: 1px solid black;
+  padding-top: 5px;
+
+  .op-list {
+    width: 50%;
+  }
+
+  .dice-wrapper {
+    display: flex;
+    width: 50%;
+    margin-top: 20px;
+  }
+}
+
+.e-dice-wrapper {
+  display: flex;
+  position: absolute;
+  left: 400px;
+  top: 270px;
+}
