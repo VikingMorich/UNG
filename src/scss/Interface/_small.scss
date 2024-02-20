@@ -17,5 +17,11 @@
     &:hover {
       text-decoration: underline;
     }
+
+    &.disabled {
+      color: gray;
+      text-decoration: none !important;
+      cursor: progress;
+    }
   }
 }

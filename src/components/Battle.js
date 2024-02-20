@@ -6,11 +6,18 @@ import { rollDices } from '../api/gameFunctions'
 export default function Battle() {
     const [t, i18n] = useTranslation("global")
     const [even, setEven] = useState(false)
+    const [disabled, setDisabled] = useState(false)
     
     const rollDicesFunc = () => {
-        setEven(!even)
-        rollDices('FUE')
-        setTimeout(setEven(!even), 500)
+        if (!disabled) {
+            setEven(!even)
+            setDisabled(!disabled)
+            rollDices('FUE')
+            setTimeout(setEven(!even), 500)
+            setTimeout(() => {
+                setDisabled(false)
+            }, 1500)
+        }
     }
     const goGame = () => window.location = '/game'
 
@@ -29,7 +36,7 @@ export default function Battle() {
                 <div className='op-list'>
                     <ul className='ul-list'>
                         <li className='link' onClick={goGame}>* Back *</li>
-                        <li className='link' onClick={rollDicesFunc}>* Atack 💪🏻 *</li>
+                        <li className={`link ${disabled ? 'disabled' : ''}`} onClick={rollDicesFunc}>* Atack 💪🏻 *</li>
                     </ul>
                 </div>
                 <div className="dice-wrapper">
