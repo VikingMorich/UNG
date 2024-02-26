@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
 import { getRandomInt, saveReward } from '../api/gameFunctions'
-import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor} from './icon/objectIcon';
+import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook} from './icon/objectIcon';
 import { itemsList } from '../api/gameDatabase'
 
 export default function Reward() {
@@ -40,6 +40,8 @@ export default function Reward() {
                                     {itemValue.type === 'helmet' && <ObjHelmet/>}
                                     {itemValue.type === 'boots' && <ObjBoots/>}
                                     {itemValue.type === 'firstHand' && itemValue.objType === 'sword' && <ObjSword/>}
+                                    {itemValue.type === 'firstHand' && itemValue.objType === 'book' && <ObjSpellBook/>}
+                                    {itemValue.type === 'firstHand' && itemValue.objType === 'crossbow' && <ObjCrossbow/>}
                                     {itemValue.type === 'secondHand' && itemValue.objType === 'shield' && <ObjShield/>}
                                     {itemValue.type === 'armor' && <ObjArmor/>}
                                     {itemValue.type === 'ring' && <ObjRing/>}

@@ -12,6 +12,7 @@ import Contact from './components/Contact'
 import Skill_1 from './components/Skill_1'
 import Reward from './components/Reward'
 import Battle from './components/Battle'
+import Shop from './components/Shop'
 
 import { initSubscriptions } from './fireSubscription'
 
@@ -35,6 +36,7 @@ initSubscriptions()
           <Route path="/skill" exact component={Skill_1} />
           <Route path="/reward" exact component={Reward} />
           <Route path="/battle" exact component={Battle} />
+          <Route path="/shop" exact component={Shop} />
         </Switch>
       </main>
     </Router>

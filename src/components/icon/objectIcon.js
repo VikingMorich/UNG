@@ -59,3 +59,15 @@ export const ObjExp = () => {
         <img src="/icons/five-stars.png" alt='exp' width='100%' height='100%'></img>
     );
 };
+
+export const ObjCrossbow = () => {
+    return (
+        <img src="/icons/crossbow-black.png" alt='crossbow' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjSpellBook = () => {
+    return (
+        <img src="/icons/spell-book-black.png" alt='spell book' width='100%' height='100%'></img>
+    );
+};

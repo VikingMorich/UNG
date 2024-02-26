@@ -57,6 +57,41 @@
             display: flex;
             justify-content: center;
         }
+
+        .skills-wrap{
+            width: 100%;
+            display: flex;
+            margin: 20px 0;
+            justify-content: center;
+
+            .skill-tree {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .vertical-separator {
+                    border-right: 1px solid brown;
+                    width: 0px;
+                    height: 20px;
+                }
+
+                .skill-ball{
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 1px solid brown;
+                    background-color: burlywood;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+    
+                    span {
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
     }
 
     &--map {

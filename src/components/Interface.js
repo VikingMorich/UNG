@@ -12,6 +12,7 @@ export default function Interface() {
     const goToReward = () => window.location = '/reward'
     const goToSkill = () => window.location = '/skill'
     const goToStory = () => window.location = '/story'
+    const goToShop = () => window.location = '/shop'
     const goToBattle = () => getRandomEnemy(enemiesList[0])
     //const goToStory2 = () => window.location = '/story2'
 
@@ -28,11 +29,10 @@ export default function Interface() {
                 <li className='link' onClick={goToBattle}>* Try battle mode *</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
-                <li>* Object details view *</li>
                 <li>* Object compare with equiped *</li>
                 <li>* Arbre d'skills per cada personatge *</li>
                 <li>* Fitxa personatge *</li>
-                <li>* Mercader amb opcions *</li>
+                <li className='link' onClick={goToShop}>* Mercader amb opcions *</li>
                 <li>* Mapa view *</li>
 
             </ul>

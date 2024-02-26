@@ -2,6 +2,7 @@ import fire from '../fire'
 import Cookies from 'universal-cookie';
 import ReactDOM from 'react-dom'
 import { Star, Fail } from '../components/icon/icon'
+import { itemsList } from './gameDatabase';
 
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
@@ -15,6 +16,14 @@ export function getLogedUsername() {
   let key = cookies.get('key')
   return ref.child(key).child('username').once("value", function(playersStateSnap) {
     return playersStateSnap.val()
+  })
+}
+
+export function getCurrentGold() {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  return ref.child(key).child('gameStates').child('gold').once("value", function(goldSnap) {
+    return goldSnap.val()
   })
 }
 
@@ -173,6 +182,34 @@ export function winExp(exp) {
 //     ref.child(key).update(updates)
 //   })
 // }
+
+export function getSellPrice(obj) {
+  if (obj) {
+    let objInfo = Object.keys(itemsList).map(el => {
+      return itemsList[el].map(ele => ele)
+    }).flat(1).find(el => el.name === obj)
+    return objInfo.sellPrice
+  }
+  else return
+}
+
+export function sellObj(obj, price) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(gameStates) {
+    let updates = gameStates.val()
+    let currentKeyCount = updates.backpack[obj].count
+    if (currentKeyCount === 1) {
+      //delete key
+      updates.backpack[obj] = null
+    } else {
+      updates.backpack[obj].count = currentKeyCount - 1
+    }
+    updates.gold += price
+    ref.update(updates)
+  })
+
+}
 
 export function deleteObj(obj) {
   let key = cookies.get('key')
@@ -426,10 +463,12 @@ export function saveBattleReward(reward) {
           updates.LVL = updates.LVL + 1
           currentEXP -= updates.maxEXP
           updates.ATK += 1
+          updates.skillPoints = (updates.skillPoints || 0) + 1
           if(currentEXP >= updates.maxEXP) {
             updates.LVL = updates.LVL + 1
             currentEXP -= updates.maxEXP
             updates.ATK += 1
+            updates.skillPoints = (updates.skillPoints || 0) + 1
           }
         }
         updates.EXP = currentEXP
@@ -438,5 +477,48 @@ export function saveBattleReward(reward) {
     updates.battle.endBattle = true
     ref.update(updates).then(() => window.location = '/game')
     
+  })
+}
+
+export function buyObj(obj) {
+  let objInfo = Object.keys(itemsList).map(el => {
+      return itemsList[el].map(ele => ele)
+  }).flat(1).find(el => el.name === obj)
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    updates.gameStates.gold -= objInfo.gold
+    let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === objInfo.name)
+    if (exist) {
+      updates.gameStates.backpack[exist].count += 1
+    } else {
+      let Objkey = ref.push().key
+      let hasBackpack = updates.gameStates.backpack ? true : false
+      if (!hasBackpack)
+        updates.gameStates.backpack = {
+          [Objkey] : {
+            name: objInfo.name,
+            count: objInfo.count,
+            type: objInfo.type,
+            objType: objInfo.objType || null,
+            stats: objInfo.stats || null,
+            imgSrc: objInfo.imgSrc || null,
+            equiped: false
+          }
+        }
+      else {
+        updates.gameStates.backpack[Objkey] = {
+          name: objInfo.name,
+          count: objInfo.count,
+          type: objInfo.type,
+          objType: objInfo.objType || null,
+          stats: objInfo.stats || null,
+          imgSrc: objInfo.imgSrc || null,
+          equiped: false
+        }
+      }
+    }
+    ref.child(key).update(updates)
   })
 }

@@ -2,8 +2,9 @@ import React, {useState, useEffect, useRef} from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
-import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor } from './icon/objectIcon'
-import { deleteObj, equipObj, unequipObj } from '../api/gameFunctions'
+import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook } from './icon/objectIcon'
+import { deleteObj, equipObj, unequipObj, getSellPrice, sellObj } from '../api/gameFunctions'
+import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import ObjInspector from './ObjInspector'
 
 
@@ -12,6 +13,7 @@ export default function Modal(props) {
     const [openDetails, setOpenDetails] = useState(false)
     const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
+    const [sellPrice, setSellPrice] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
     let equipedItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
@@ -34,6 +36,9 @@ export default function Modal(props) {
             state: elemState
         }
     }) : []
+    let currentSkills = []
+    if (props.state && props.state.gameStates && props.state.gameStates.characterType)
+        currentSkills = props.state.gameStates.characterType === 'warrior' ? skillsWarrior : props.state.gameStates.characterType === 'mage' ? skillsMage : skillsArcher
 
     function useOutsideAlerter(ref) {
         useEffect(() => {
@@ -83,6 +88,10 @@ export default function Modal(props) {
         deleteObj(objClicked)
     }
 
+    const sellObjFunc = () => {
+        sellObj(objClicked, getSellPrice(props.state.gameStates.backpack[objClicked].name))
+    }
+
     const inspectObjFunc = () => {
         closeDetailsFunc()
         setOpenObjInspector(true)
@@ -103,6 +112,12 @@ export default function Modal(props) {
     const saveSkillChanges = () => {
 
     }
+
+    useEffect(() => {
+        if (objClicked && props.state && props.state.gameStates.backpack[objClicked]) {
+            setSellPrice(getSellPrice(props.state.gameStates.backpack[objClicked].name))
+        }
+    }, [objClicked, props.state]);
 
     return (
         <React.Fragment>
@@ -221,6 +236,8 @@ export default function Modal(props) {
                                                             {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'boots' && <ObjBoots/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'sword' && <ObjSword/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'book' && <ObjSpellBook/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'crossbow' && <ObjCrossbow/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'shield' && <ObjShield/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'armor' && <ObjArmor/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'ring' && <ObjRing/>}
@@ -252,6 +269,11 @@ export default function Modal(props) {
                                     <div className='option-wrapper' onClick={deleteObjFunc}>
                                         <span>* Delete *</span>
                                     </div>
+                                    {window.location.pathname === '/shop' && 
+                                        <div className='option-wrapper' onClick={sellObjFunc}>
+                                            <span>* Sell ({sellPrice}) *</span>
+                                        </div>
+                                    }
                                 </div>
                                 {openObjInspector && objClicked &&
                                     <ObjInspector obj={props.state.gameStates.backpack[objClicked] || null}/>
@@ -268,7 +290,23 @@ export default function Modal(props) {
                                     <span>* Skill points: </span>
                                     <span>{props.state.gameStates.skillPoints || 0}</span>
                                 </div>
-                                
+                                <div className='skills-wrap'>
+                                {currentSkills.map(el => {
+                                    return <div className='skill-tree'>
+                                        <div key={el.name} className='skill-ball'>
+                                            <span>{el.name}</span>
+                                        </div>
+                                        {el.children.length > 0 && el.children.map(ele => {
+                                        return <React.Fragment>
+                                            <div className='vertical-separator'></div>
+                                            <div key={ele.name} className='skill-ball'>
+                                                <span>{ele.name}</span>
+                                            </div>
+                                        </React.Fragment>
+                                        })}
+                                        </div>
+                                }) }
+                                </div>
                                 <div className="button" onClick={saveSkillChanges}>
                                     <span>* SAVE *</span>
                                 </div>
