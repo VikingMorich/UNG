@@ -1,0 +1,20 @@
+.skill-res{
+  font-family: 'Pieces of Eight';
+  font-size: 18px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .stop-button {
+    margin-top: 25px;
+    padding: 15px 25px;
+    justify-content: center;
+    font-family: 'FantaisieArtistique';
+  }
+}

@@ -30,11 +30,9 @@ export default function Interface() {
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
                 <li>* Object compare with equiped *</li>
-                <li>* Arbre d'skills per cada personatge *</li>
-                <li>* Fitxa personatge *</li>
+                <li>* Arbre d'skills per cada personatge, varios arbres (pasives, combat...) *</li>
+                <li>* Fitxa personatge, pensar be quins estats o que es mostra *</li>
                 <li className='link' onClick={goToShop}>* Mercader amb opcions *</li>
-                <li>* Mapa view *</li>
-
             </ul>
             <div id="player" className="user-hud">
                 
