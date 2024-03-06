@@ -2,10 +2,12 @@ import React, {useState, useEffect, useRef} from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
-import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook } from './icon/objectIcon'
-import { deleteObj, equipObj, unequipObj, getSellPrice, sellObj } from '../api/gameFunctions'
+import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook, ObjKnife, ObjPotion, ObjAxe, ObjLance, ObjStaff } from './icon/objectIcon'
+import { deleteObj, equipObj, unequipObj, getSellPrice, sellObj, saveSkillPoints, useBackpackPotion } from '../api/gameFunctions'
 import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import ObjInspector from './ObjInspector'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
+import { setInventoryStateOpen } from '../fireSubscription'
 
 
 export default function Modal(props) {
@@ -13,6 +15,8 @@ export default function Modal(props) {
     const [openDetails, setOpenDetails] = useState(false)
     const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
+    const [skillSelected, setSkillSelected] = useState([])
+    const [currSkillPoints, setCurrSkillPoints] = useState(props.state?.gameStates?.skillPoints || 0)
     const [sellPrice, setSellPrice] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
@@ -108,11 +112,67 @@ export default function Modal(props) {
     const unequipObjFunc = () => {
         unequipObj(objClicked)
     }
-
-    const saveSkillChanges = () => {
-
+    const useUsePotion = () => {
+        setInventoryStateOpen(false)
+        useBackpackPotion(objClicked)
     }
 
+    const saveSkillChanges = () => {
+        setInventoryStateOpen(false)
+        saveSkillPoints(skillSelected, props.state.gameStates.skillPoints - currSkillPoints)
+    }
+    const updateSelectSkill = (event) => {
+        if (props.state.gameStates) {
+        let x = event.currentTarget.id
+        //currentSkills
+
+        let listSkills = []
+        Object.keys(currentSkills).map(el => {
+            currentSkills[el].map(ele => {
+                ele.children.map(elem => {
+                    return listSkills.push({...elem, father: ele.name})
+                })
+                return listSkills.push(ele)
+            })
+            return listSkills
+        })
+        let itemCost = listSkills.find(el => el.name === x)?.skillPoints || 0
+        let element = listSkills.find(el => el.name === x)
+        if (skillSelected.indexOf(x) !== -1) {
+            let val = [...skillSelected]
+            if (element.children && skillSelected.indexOf(element.children[0].name) !== -1) {
+                setCurrSkillPoints(currSkillPoints + element.children[0].skillPoints + itemCost)
+                val.splice(skillSelected.indexOf(element.children[0].name), 1)
+                val.splice(skillSelected.indexOf(x), 1)
+                setSkillSelected(val)
+            }
+            else {
+                setCurrSkillPoints(currSkillPoints + itemCost)
+                val.splice(skillSelected.indexOf(x), 1)
+                setSkillSelected(val)
+            }
+        }
+        else {
+            if (currSkillPoints >= itemCost && (!props.state.gameStates.learnedSkills || props.state.gameStates.learnedSkills.indexOf(element.name) === -1)) {
+                if (listSkills.find(el => el.name === x)?.father && ((skillSelected.indexOf(listSkills.find(el => el.name === x)?.father) !== -1) || props.state.gameStates.learnedSkills.indexOf(listSkills.find(el => el.name === x)?.father) !== -1)) {
+                    setCurrSkillPoints(currSkillPoints - itemCost)
+                    let val = [...skillSelected]
+                    val.push(x)
+                    setSkillSelected(val)
+                }
+                else if (!listSkills.find(el => el.name === x)?.father) {
+                    setCurrSkillPoints(currSkillPoints - itemCost)
+                    let val = [...skillSelected]
+                    val.push(x)
+                    setSkillSelected(val)
+                }
+                
+            }
+            
+        }
+        }
+        
+    }
     useEffect(() => {
         if (objClicked && props.state && props.state.gameStates.backpack[objClicked]) {
             setSellPrice(getSellPrice(props.state.gameStates.backpack[objClicked].name))
@@ -184,7 +244,7 @@ export default function Modal(props) {
                                             <td className='char-icon'>
                                                 <Sword />
                                             </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : '-'}</td>
+                                            <td id={equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').key : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').state.name : '-'}</td>
                                         </tr>
                                         <tr>
                                             <td className='char-icon'>
@@ -242,6 +302,11 @@ export default function Modal(props) {
                                                             {props.state.gameStates.backpack[element.key].type === 'armor' && <ObjArmor/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'ring' && <ObjRing/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'necklace' && <ObjNecklace/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'axe' && <ObjAxe/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'staff' && <ObjStaff/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'lance' && <ObjLance/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'potion' && <ObjPotion/>}
+                                                            {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'knife' && <ObjKnife/>}
                                                             {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
                                                         </div>
                                                     </td>
@@ -252,7 +317,7 @@ export default function Modal(props) {
                                     </table>
                                 </div>
                                 <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand')&& 
+                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand' || props.state.gameStates.backpack[objClicked].type === 'twoHand') && 
                                         (props.state.gameStates.backpack[objClicked].equiped ? 
                                             <div className='option-wrapper' onClick={unequipObjFunc}>
                                                 <span>* Unequip *</span>
@@ -262,6 +327,11 @@ export default function Modal(props) {
                                                 <span>* Equip *</span>
                                             </div>
                                             )
+                                    }
+                                    {objClicked && props.state.gameStates.backpack[objClicked].type === 'potion' &&
+                                    <div className='option-wrapper' onClick={useUsePotion}>
+                                        <span>* Use *</span>
+                                    </div>
                                     }
                                     <div className='option-wrapper' onClick={inspectObjFunc}>
                                         <span>* Inspect *</span>
@@ -288,25 +358,65 @@ export default function Modal(props) {
                                 <h1>* SKILLS *</h1>
                                 <div className='points-wrapper'>
                                     <span>* Skill points: </span>
-                                    <span>{props.state.gameStates.skillPoints || 0}</span>
+                                    <span>{currSkillPoints}</span>
                                 </div>
-                                <div className='skills-wrap'>
-                                {currentSkills.map(el => {
-                                    return <div className='skill-tree'>
-                                        <div key={el.name} className='skill-ball'>
-                                            <span>{el.name}</span>
+                                <div className='skills-view'>
+                                    <div className='skills-tree'>
+                                        <h2>* PASIVES *</h2>
+                                        <div className='skills-wrap'>
+                                            {currentSkills.pasives.map(el => {
+                                                return <div className='skill-tree'>
+                                                    <div key={el.name} id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? ' selected' : '' ) + 
+                                                    ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
+                                                    (el.skillPoints > currSkillPoints ? ' disabled' : '')
+                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
+                                                        <span>{el.name}</span>
+                                                    </div>
+                                                    
+                                                    {el.children.length > 0 && el.children.map(ele => {
+                                                    return <React.Fragment>
+                                                        <div className='vertical-separator'></div>
+                                                        <div key={ele.name} id={ele.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? ' selected' : '' ) + 
+                                                        ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') +
+                                                        ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
+                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
+                                                            <span>{ele.name}</span>
+                                                        </div>
+                                                    </React.Fragment>
+                                                    })}
+                                                    </div>
+                                            }) }
                                         </div>
-                                        {el.children.length > 0 && el.children.map(ele => {
-                                        return <React.Fragment>
-                                            <div className='vertical-separator'></div>
-                                            <div key={ele.name} className='skill-ball'>
-                                                <span>{ele.name}</span>
-                                            </div>
-                                        </React.Fragment>
-                                        })}
+                                    </div>
+                                    <div className='skills-tree'>
+                                        <h2>* COMBAT *</h2>
+                                        <div className='skills-wrap'>
+                                            {currentSkills.combat.map(el => {
+                                                return <div className='skill-tree'>
+                                                    <div key={el.name} id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? 'selected' : '' ) + 
+                                                    ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
+                                                    (el.skillPoints > currSkillPoints ? ' disabled' : '')
+                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
+                                                        <span>{el.name}</span>
+                                                    </div>
+                                                    
+                                                    {el.children.length > 0 && el.children.map(ele => {
+                                                    return <React.Fragment>
+                                                        <div className='vertical-separator'></div>
+                                                        <div key={ele.name} id={ele.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? 'selected' : '' ) + 
+                                                        ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') + 
+                                                        ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
+                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
+                                                            <span>{ele.name}</span>
+                                                        </div>
+                                                    </React.Fragment>
+                                                    })}
+                                                    </div>
+                                            }) }
                                         </div>
-                                }) }
+                                    </div>
                                 </div>
+                                <ReactTooltip id="my-tooltip" place="top" type="dark" effect="float"/>
                                 <div className="button" onClick={saveSkillChanges}>
                                     <span>* SAVE *</span>
                                 </div>

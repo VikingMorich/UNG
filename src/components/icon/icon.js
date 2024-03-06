@@ -229,8 +229,20 @@ export const Fail = () => {
     );
 };
 
-export const Star = () => {
+// export const Star = () => {
+//     return (
+//         <img src="/icons/star.png" alt='sword' width='100%' height='100%'></img>
+//     );
+// };
+
+export const SecondHand = () => {
     return (
-        <img src="/icons/star.png" alt='sword' width='100%' height='100%'></img>
+        <img src="/icons/secondhand.png" alt='second hand' width='100%' height='100%'></img>
+    );
+};
+
+export const TwoHands = () => {
+    return (
+        <img src="/icons/twohands.png" alt='two hands' width='100%' height='100%'></img>
     );
 };

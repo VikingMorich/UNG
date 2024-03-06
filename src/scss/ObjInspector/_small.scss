@@ -26,6 +26,39 @@
         left: 31vw;
         background-color: c('brown-melon');
 
+        .used-state {
+            position: absolute;
+            top: 8px;
+            left: 20px;
+            border-radius: 50%;
+            height: 36px;
+            width: 36px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                font-size: 24px;
+            }
+        }
+
+        .special-state {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            border-radius: 50%;
+            height: 36px;
+            width: 36px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .img-icon {
+                height: 24px;
+                width: 24px;
+            }
+        }
+
         table {
             border-collapse: collapse;
             border: 1px solid grey;
@@ -52,5 +85,149 @@
             width: 36vw;
         }
     }
+
+    &--double-left{
+        width: 38vw;
+        position: absolute;
+        top: 13vh;
+        left: 8vw;
+        background-color: c('brown-melon');
+
+        .used-state {
+            position: absolute;
+            top: 8px;
+            left: 20px;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                font-size: 24px;
+            }
+        }
+        .special-state {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            border-radius: 50%;
+            height: 36px;
+            width: 36px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .img-icon {
+                height: 24px;
+                width: 24px;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid grey;
+            width: 100%;
+
+            td {
+                border: 1px solid grey;
+                font-family: 'FantaisieArtistique';
+            }
+
+            h2 {
+                margin-block-start: 0;
+                margin-block-end: 0;
+                text-align: center;
+            }
+
+            .maximize {
+                height: 20vh;
+            }
+        }
+
+        .item-img{
+            margin-left: calc(1vw - 2px);
+            width: 36vw;
+        }
+    }
+
+    &--double-right{
+        width: 38vw;
+        position: absolute;
+        top: 13vh;
+        left: 52vw;
+        background-color: c('brown-melon');
+
+        .used-state {
+            position: absolute;
+            top: 8px;
+            left: 20px;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span {
+                font-size: 24px;
+            }
+        }
+        .special-state {
+            position: absolute;
+            top: 8px;
+            right: 20px;
+            border-radius: 50%;
+            height: 36px;
+            width: 36px;
+            background: radial-gradient(ellipse at center, rgba(#d5b493, 1) 0%,rgba(#5c371d, 0.6) 84%,rgba(#5c371d, 0) 95%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .img-icon {
+                height: 24px;
+                width: 24px;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 1px solid grey;
+            width: 100%;
+
+            td {
+                border: 1px solid grey;
+                font-family: 'FantaisieArtistique';
+            }
+
+            h2 {
+                margin-block-start: 0;
+                margin-block-end: 0;
+                text-align: center;
+            }
+
+            .maximize {
+                height: 20vh;
+            }
+        }
+
+        .item-img{
+            margin-left: calc(1vw - 2px);
+            width: 36vw;
+        }
+    }
+
+    &--double-top-right {
+        position: absolute;
+        top: 8vh;
+        left: 52vw;
+        width: 38vw;
+        text-align: center;
+        font-family: 'FantaisieArtistique';
+        color: white;
+        font-size: 20px;
+    }
     
 }
+

@@ -3,7 +3,7 @@
   bottom: 0;
   background-color: c('medium-brown');
   width: 100%;
-  height: 200px;
+  height: 180px;
 }
 
 .ul-list {
@@ -13,6 +13,7 @@
   .link {
     color: c('dark-brown');
     cursor: pointer;
+    width: fit-content;
 
     &:hover {
       text-decoration: underline;

@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Cookies from 'universal-cookie'
 import UserHud from './components/UserHud'
 import EnemyHud from './components/EnemyHud'
+import ShopList from './components/ShopList'
 
 export let inventoryStateOpen = false
 
@@ -38,12 +39,27 @@ export function initSubscriptions() {
           enemy.id='currentEnemy'
           enemy.className="c-roomPlayer__container"
           //objEnemy.appendChild(enemy)
-          ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
+          ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} username={snap.val().username} />, enemy)
           let enemyChanged = document.getElementById('currentEnemy')
           if (enemyChanged){
             objEnemy.replaceChild(enemy, enemyChanged)
           } else {
               objEnemy.appendChild(enemy)
+          }
+        }
+      }
+      if (window.location.pathname === '/shop'){
+        if (snap.key === key) {
+          let objShop = document.getElementById('shoplist')
+          const shop = document.createElement('div')
+          shop.id='currentShop'
+          //objShop.appendChild(enemy)
+          ReactDOM.render(<ShopList state={snap.val()} />, shop)
+          let shopChanged = document.getElementById('currentShop')
+          if (shopChanged){
+            objShop.replaceChild(shop, shopChanged)
+          } else {
+              objShop.appendChild(shop)
           }
         }
       }
@@ -82,11 +98,26 @@ export function initSubscriptions() {
         enemy.id='currentEnemy'
         enemy.className="c-roomPlayer__container"
         objEnemy.appendChild(enemy)
-        ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} />, enemy)
+        ReactDOM.render(<EnemyHud state={snap.val().gameStates.battle} username={snap.val().username}/>, enemy)
         if (enemyChanged){
           objEnemy.replaceChild(enemy, enemyChanged)
         } else {
             objEnemy.appendChild(enemy)
+        }
+      }
+    }
+    if (window.location.pathname === '/shop'){
+      if (snap.key === key) {
+        let objShop = document.getElementById('shoplist')
+        const shop = document.createElement('div')
+        shop.id='currentShop'
+        //objShop.appendChild(enemy)
+        ReactDOM.render(<ShopList state={snap.val()} />, shop)
+        let shopChanged = document.getElementById('currentShop')
+        if (shopChanged){
+          objShop.replaceChild(shop, shopChanged)
+        } else {
+            objShop.appendChild(shop)
         }
       }
     }

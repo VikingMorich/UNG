@@ -3,7 +3,7 @@ import React from 'react';
 export default function RollingDice(props) {
     
     return (
-        <ol className={`die-list ${props.even ? 'odd-roll' : 'even-roll'}`} id={props.id}>
+        <ol className={`die-list ${props.even ? 'odd-roll' : 'even-roll'} ${props.visible ? '' : 'hidden'}`} id={props.id}>
             <li className={`die-item die--${props.color} data-side-1`}></li>
             <li className={`die-item die--${props.color} data-side-2`}></li>
             <li className={`die-item die--${props.color} data-side-3`}></li>

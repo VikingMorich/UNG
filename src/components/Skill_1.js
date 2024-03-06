@@ -11,10 +11,10 @@ export default function Skill_1() {
     const [win, setWin] = useState(null);
     const progressRef = useRef(null);
     const progressIntervalRef = useRef(null);
-    const downloadSpeed = 1; // Adjust this value to set the stable speed of loading
+    const downloadSpeed = 2; // Adjust this value to set the stable speed of loading
 
     //ordered from 0 to 100
-    const progressSuccess = [[10, 30], [70, 95]]
+    const progressSuccess = [[15, 20], [80, 90]]
 
     const getComputedGradient = () => {
         let computedGradientSuccess = 'linear-gradient(90deg'

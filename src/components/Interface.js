@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
-import { takeDmg, usePotion, winExp, getRandomEnemy } from '../api/gameFunctions'
+import { takeDmg, usePotion, winExp, getRandomEnemy, getRandomInt } from '../api/gameFunctions'
 import { enemiesList } from '../api/gameDatabase'
 
 export default function Interface() {
@@ -13,7 +13,7 @@ export default function Interface() {
     const goToSkill = () => window.location = '/skill'
     const goToStory = () => window.location = '/story'
     const goToShop = () => window.location = '/shop'
-    const goToBattle = () => getRandomEnemy(enemiesList[0])
+    const goToBattle = () => getRandomEnemy(enemiesList[getRandomInt(enemiesList.length)])
     //const goToStory2 = () => window.location = '/story2'
 
     
@@ -26,10 +26,10 @@ export default function Interface() {
                 <li className='link' onClick={useWinExp}>* Win 40 EXP *</li>
                 <li className='link' onClick={goToReward}>* Random reward *</li>
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
-                <li className='link' onClick={goToBattle}>* Try battle mode *</li>
+                <li className='link' onClick={goToBattle}>* Try battle mode (add, history of last dmg taken?)*</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
-                <li>* Object compare with equiped *</li>
+                <li>* View someone talks *</li>
                 <li>* Arbre d'skills per cada personatge, varios arbres (pasives, combat...) *</li>
                 <li>* Fitxa personatge, pensar be quins estats o que es mostra *</li>
                 <li className='link' onClick={goToShop}>* Mercader amb opcions *</li>

@@ -30,6 +30,23 @@ export default function EnemyHud(props) {
                   <span>{props.state.DEF}</span>
                 </div>
               </div>
+              <div className='last-attack-result'>
+                <h3>*Last attack result *</h3>
+                {(props.state.lastPlayerDmg || props.state.lastEnemyDmg) ?
+                <React.Fragment>
+                  <div className='op-dmg'>
+                    {props.state.name + ': -' + (props.state.lastPlayerDmg || 0 ) + 'HP'}
+                  </div>
+                  <div className='op-dmg'>
+                    {props.username + ': -' + (props.state.lastEnemyDmg || 0) + 'HP'}
+                  </div>
+                </React.Fragment> :
+                <div className='op-dmg'>
+                  * No previous attacks *
+                </div>
+                }
+                
+              </div>
             </div>
         </React.Fragment>
     );

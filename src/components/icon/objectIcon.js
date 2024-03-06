@@ -54,6 +54,36 @@ export const ObjArmor = () => {
     );
 };
 
+export const ObjAxe = () => {
+    return (
+        <img src="/icons/axe.png" alt='axe' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjPotion = () => {
+    return (
+        <img src="/icons/potion.png" alt='potion' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjKnife = () => {
+    return (
+        <img src="/icons/knife.png" alt='knife' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjLance = () => {
+    return (
+        <img src="/icons/lance.png" alt='knife' width='100%' height='100%'></img>
+    );
+};
+
+export const ObjStaff = () => {
+    return (
+        <img src="/icons/staff-black.png" alt='knife' width='100%' height='100%'></img>
+    );
+};
+
 export const ObjExp = () => {
     return (
         <img src="/icons/five-stars.png" alt='exp' width='100%' height='100%'></img>

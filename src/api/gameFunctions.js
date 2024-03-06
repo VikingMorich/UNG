@@ -1,7 +1,7 @@
 import fire from '../fire'
 import Cookies from 'universal-cookie';
 import ReactDOM from 'react-dom'
-import { Star, Fail } from '../components/icon/icon'
+import { Fail } from '../components/icon/icon'
 import { itemsList } from './gameDatabase';
 
 let cookies = new Cookies();
@@ -146,6 +146,25 @@ export function usePotion(heal) {
   })
 }
 
+export function useBackpackPotion(obj) {
+  let heal = 20
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    let currentHP = updates.gameStates.HP + heal
+    if (currentHP > updates.gameStates.maxHP) currentHP = updates.gameStates.maxHP
+    updates.gameStates.HP = currentHP
+    //remove the potion
+    if (updates.gameStates.backpack[obj].count === 1) {
+      updates.gameStates.backpack[obj] = null
+    } else {
+      updates.gameStates.backpack[obj].count = updates.gameStates.backpack[obj].count - 1
+    }
+    ref.child(key).update(updates)
+  })
+}
+
 export function winExp(exp) {
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
@@ -200,6 +219,15 @@ export function sellObj(obj, price) {
     let updates = gameStates.val()
     let currentKeyCount = updates.backpack[obj].count
     if (currentKeyCount === 1) {
+      //CHECK EQUIPED OBJ
+      if (updates.backpack[obj].equiped) {
+        if(updates.backpack[obj].stats.ATK) {
+          updates.ATK = updates.ATK - updates.backpack[obj].stats.ATK
+        }
+        if (updates.backpack[obj].stats.DEF) {
+          updates.DEF = updates.DEF - updates.backpack[obj].stats.DEF
+        }
+      }
       //delete key
       updates.backpack[obj] = null
     } else {
@@ -207,7 +235,7 @@ export function sellObj(obj, price) {
     }
     updates.gold += price
     ref.update(updates)
-  })
+  })//.then(() => { window.location.reload() })
 
 }
 
@@ -239,6 +267,35 @@ export function equipObj(obj) {
       if (updates.backpack[currentEquip].stats.DEF) updates.DEF = updates.DEF - updates.backpack[currentEquip].stats.DEF
       if (updates.backpack[currentEquip].stats.ATK) updates.ATK = updates.ATK - updates.backpack[currentEquip].stats.ATK
       updates.backpack[currentEquip].equiped = false
+    }
+    //two hand rules
+    if (!currentEquip && updates.backpack[obj].type === 'twoHand') {
+      let newType = 'firstHand'
+      currentEquip = Object.keys(updates.backpack).find(el => updates.backpack[el].type === newType && updates.backpack[el].equiped )
+      if (currentEquip) {
+        //UPDATE STATES
+        if (updates.backpack[currentEquip].stats.DEF) updates.DEF = updates.DEF - updates.backpack[currentEquip].stats.DEF
+        if (updates.backpack[currentEquip].stats.ATK) updates.ATK = updates.ATK - updates.backpack[currentEquip].stats.ATK
+        updates.backpack[currentEquip].equiped = false
+      }
+      newType = 'secondHand'
+      currentEquip = Object.keys(updates.backpack).find(el => updates.backpack[el].type === newType && updates.backpack[el].equiped )
+      if (currentEquip) {
+        //UPDATE STATES
+        if (updates.backpack[currentEquip].stats.DEF) updates.DEF = updates.DEF - updates.backpack[currentEquip].stats.DEF
+        if (updates.backpack[currentEquip].stats.ATK) updates.ATK = updates.ATK - updates.backpack[currentEquip].stats.ATK
+        updates.backpack[currentEquip].equiped = false
+      }
+    }
+    else if (!currentEquip && (updates.backpack[obj].type === 'firstHand' || updates.backpack[obj].type === 'secondHand')) {
+      let newType = 'twoHand'
+      currentEquip = Object.keys(updates.backpack).find(el => updates.backpack[el].type === newType && updates.backpack[el].equiped )
+      if (currentEquip) {
+        //UPDATE STATES
+        if (updates.backpack[currentEquip].stats.DEF) updates.DEF = updates.DEF - updates.backpack[currentEquip].stats.DEF
+        if (updates.backpack[currentEquip].stats.ATK) updates.ATK = updates.ATK - updates.backpack[currentEquip].stats.ATK
+        updates.backpack[currentEquip].equiped = false
+      }
     }
     updates.backpack[obj].equiped = true
     //UPDATE STATES
@@ -279,8 +336,10 @@ export function saveReward(gold, obj) {
             count: obj.count,
             type: obj.type,
             objType: obj.objType || null,
+            stateUsed: obj.stateUsed || null,
             stats: obj.stats || null,
             imgSrc: obj.imgSrc || null,
+            description: obj.description || null,
             equiped: false
           }
         }
@@ -290,7 +349,9 @@ export function saveReward(gold, obj) {
           count: obj.count,
           type: obj.type,
           objType: obj.objType || null,
+          stateUsed: obj.stateUsed || null,
           stats: obj.stats || null,
+          description: obj.description || null,
           imgSrc: obj.imgSrc || null,
           equiped: false
         }
@@ -314,7 +375,7 @@ export function getRandomEnemy(enemy) {
   })
 }
 
-export function rollDices(type) {
+export function rollDices(num, typeAttack) {
   let key = cookies.get('key')
   let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(snap) {
@@ -329,10 +390,22 @@ export function rollDices(type) {
     let frontDiceFace2 = document.getElementById("dice-2").getElementsByClassName('data-side-1')
     let frontDiceFace3 = document.getElementById("dice-3").getElementsByClassName('data-side-1')
     let multiplier = 0
+    //getWeaponState
+    let equipedItems = updates.backpack ? Object.keys(updates.backpack).filter(el => {
+          return updates.backpack[el].equiped
+      }).map(elem => {
+          return {
+              key: elem,
+              state: updates.backpack[elem]
+          }
+      }) : []
+    
+    let type = equipedItems.find(el => el.state.type === 'firstHand')?.state.stateUsed || equipedItems.find(el => el.state.type === 'twoHand')?.state.stateUsed || 'FUE'
+
     if( d1 <= snap.val()[type]) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
       frontDiceFace1[0].appendChild(diceValue)
       multiplier += 1
     } else {
@@ -344,7 +417,7 @@ export function rollDices(type) {
     if( d2 <= snap.val()[type]) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
       frontDiceFace2[0].appendChild(diceValue)
       multiplier += 1
     } else {
@@ -356,7 +429,7 @@ export function rollDices(type) {
     if( d3 <= snap.val()[type]) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
       frontDiceFace3[0].appendChild(diceValue)
       multiplier += 1
     } else {
@@ -379,7 +452,7 @@ export function rollDices(type) {
     if( ed1 <= snap.val().battle.FUE) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>💪🏻</span>, diceValue)
       efrontDiceFace1[0].appendChild(diceValue)
       emultiplier += 1
     } else {
@@ -391,7 +464,7 @@ export function rollDices(type) {
     if( ed2 <= snap.val().battle.FUE) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>💪🏻</span>, diceValue)
       efrontDiceFace2[0].appendChild(diceValue)
       emultiplier += 1
     } else {
@@ -403,7 +476,7 @@ export function rollDices(type) {
     if( ed3 <= snap.val().battle.FUE) {
       //acert
       let diceValue = document.createElement('div')
-      ReactDOM.render(<Star/>, diceValue)
+      ReactDOM.render(<span>💪🏻</span>, diceValue)
       efrontDiceFace3[0].appendChild(diceValue)
       emultiplier += 1
     } else {
@@ -421,6 +494,8 @@ export function rollDices(type) {
     let playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
     if (playerDmg < 0) playerDmg = 0
     let currentEnemyLive = updates.battle.HP - playerDmg
+    updates.battle.lastEnemyDmg = enemyDmg
+    updates.battle.lastPlayerDmg = playerDmg
     if (currentLive < 0) currentLive = 0
     if (currentEnemyLive < 0) currentEnemyLive = 0
     updates.HP = currentLive
@@ -502,7 +577,9 @@ export function buyObj(obj) {
             count: objInfo.count,
             type: objInfo.type,
             objType: objInfo.objType || null,
+            stateUsed: objInfo.stateUsed || null,
             stats: objInfo.stats || null,
+            description: objInfo.description || null,
             imgSrc: objInfo.imgSrc || null,
             equiped: false
           }
@@ -513,6 +590,8 @@ export function buyObj(obj) {
           count: objInfo.count,
           type: objInfo.type,
           objType: objInfo.objType || null,
+          description: objInfo.description || null,
+          stateUsed: objInfo.stateUsed || null,
           stats: objInfo.stats || null,
           imgSrc: objInfo.imgSrc || null,
           equiped: false
@@ -520,5 +599,38 @@ export function buyObj(obj) {
       }
     }
     ref.child(key).update(updates)
+  })//.then(() => { window.location.reload() })
+}
+
+export function getGameStates() {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  return ref.child(key).child('gameStates').once("value", function(gameStates) {
+    return gameStates.val()
+  })
+}
+
+export function saveSkillPoints(skills, cost) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(gameStates) {
+    let updates = gameStates.val()
+    let learned = updates.learnedSkills ? updates.learnedSkills : []
+    updates.learnedSkills = learned.concat(skills)
+    updates.skillPoints = updates.skillPoints - cost
+    if (skills.includes('Health')) {
+      updates.maxHP = updates.maxHP + 10
+      updates.HP = updates.HP + 10
+    }
+    if (skills.includes('Strength')) {
+      updates.FUE = updates.FUE + 3
+    }
+    if (skills.includes('Intelectual')) {
+      updates.INT = updates.INT + 3
+    }
+    if (skills.includes('Accurate')) {
+      updates.PUN = updates.PUN + 3
+    }
+    ref.update(updates)
   })
 }

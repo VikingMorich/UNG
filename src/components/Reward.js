@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
 import { getRandomInt, saveReward } from '../api/gameFunctions'
-import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook} from './icon/objectIcon';
+import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook, ObjKnife, ObjPotion, ObjAxe, ObjLance, ObjStaff} from './icon/objectIcon';
 import { itemsList } from '../api/gameDatabase'
 
 export default function Reward() {
@@ -46,6 +46,11 @@ export default function Reward() {
                                     {itemValue.type === 'armor' && <ObjArmor/>}
                                     {itemValue.type === 'ring' && <ObjRing/>}
                                     {itemValue.type === 'necklace' && <ObjNecklace/>}
+                                    {itemValue.type === 'twoHand' && itemValue.objType === 'axe' && <ObjAxe/>}
+                                    {itemValue.type === 'twoHand' && itemValue.objType === 'staff' && <ObjStaff/>}
+                                    {itemValue.type === 'twoHand' && itemValue.objType === 'lance' && <ObjLance/>}
+                                    {itemValue.type === 'potion' && <ObjPotion/>}
+                                    {itemValue.type === 'secondHand' && itemValue.objType === 'knife' && <ObjKnife/>}
                                     {itemValue.type === 'none' && <ObjNone/>}
                                 </div>
                             </td>

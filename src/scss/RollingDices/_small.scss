@@ -20,6 +20,10 @@
     list-style-type: none;
     transform-style: preserve-3d;
     width: 20px;
+
+    &.hidden {
+      display: none;
+    }
   }
   .even-roll {
     transition: transform 0.85s ease-out;

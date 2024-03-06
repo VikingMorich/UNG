@@ -42,6 +42,8 @@
     &--skills {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        align-items: center;
 
         h1 {
             text-align: center;
@@ -58,6 +60,25 @@
             justify-content: center;
         }
 
+        .skills-view {
+            display: flex;
+            gap: 50px;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 50px;
+
+            .skills-tree {
+                display: flex;
+                flex-direction: column;
+
+                h2 {
+                    text-align: center;
+                    font-family: 'FantaisieArtistique';
+                    font-size: 20px;
+                }
+            }
+        }
+
         .skills-wrap{
             width: 100%;
             display: flex;
@@ -70,7 +91,7 @@
                 align-items: center;
 
                 .vertical-separator {
-                    border-right: 1px solid brown;
+                    border-right: 1px solid c('chicken-wings');
                     width: 0px;
                     height: 20px;
                 }
@@ -79,7 +100,7 @@
                     width: 60px;
                     height: 60px;
                     border-radius: 50%;
-                    border: 1px solid brown;
+                    border: 1px solid c('chicken-wings');
                     background-color: burlywood;
                     display: flex;
                     justify-content: center;
@@ -88,6 +109,20 @@
     
                     span {
                         font-size: 10px;
+                    }
+
+                    &.selected {
+                        -webkit-box-shadow:inset 0 0 10px 2px #987557;
+                        box-shadow:inset 0 0 10px 2px #987557;
+                        background-color: burlywood !important;
+                    }
+
+                    &.learned {
+                        background-color: c('du-pape') !important;
+                    }
+
+                    &.disabled {
+                        background-color: c('chicken-tenders');
                     }
                 }
             }
