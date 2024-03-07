@@ -372,19 +372,24 @@ export default function Modal(props) {
                                                     } data-tooltip-id="my-tooltip" data-tooltip-html={el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
                                                         <span>{el.name}</span>
                                                     </div>
-                                                    
-                                                    {el.children.length > 0 && el.children.map(ele => {
-                                                    return <React.Fragment>
-                                                        <div className='vertical-separator'></div>
-                                                        <div key={ele.name} id={ele.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? ' selected' : '' ) + 
-                                                        ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') +
-                                                        ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
-                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
-                                                            <span>{ele.name}</span>
-                                                        </div>
-                                                    </React.Fragment>
-                                                    })}
+                                                    {el.children.length === 1 && <div className='vertical-separator'></div>}
+                                                    {el.children.length === 2 && <React.Fragment>
+                                                        <div className='short-vertical-separator'></div>
+                                                        <div className='double-separator'></div>
+                                                    </React.Fragment>}
+                                                    <div className='second-lvl'>
+                                                        {el.children.length > 0 && el.children.map(ele => {
+                                                        return <React.Fragment>
+                                                            <div key={ele.name} id={ele.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? ' selected' : '' ) + 
+                                                            ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') +
+                                                            ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
+                                                            } data-tooltip-id="my-tooltip" data-tooltip-html={ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
+                                                                <span>{ele.name}</span>
+                                                            </div>
+                                                        </React.Fragment>
+                                                        })}
                                                     </div>
+                                                </div>
                                             }) }
                                         </div>
                                     </div>

@@ -127,7 +127,7 @@ export default function ShopList(props) {
                     <ObjInspector obj={mappedItems.find(el => el.name === objClicked)}/>
                 }
                 <div className='shop-img'>
-                    <img alt="shop" src="./shop.png" />
+                    <img alt="shop" src="./locations/shop.png" />
                 </div>
             </div>
         </React.Fragment>

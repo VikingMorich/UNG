@@ -13,6 +13,7 @@ import Skill_1 from './components/Skill_1'
 import Reward from './components/Reward'
 import Battle from './components/Battle'
 import Shop from './components/Shop'
+import StoryTalk from './components/StoryTalk'
 
 import { initSubscriptions } from './fireSubscription'
 
@@ -29,6 +30,7 @@ initSubscriptions()
           <Route path="/" exact component={Cover} />
           <Route path="/home" exact component={Home} />
           <Route path="/story" exact component={StoryAnimation} />
+          <Route path="/story-talk" exact component={StoryTalk} />
           <Route path="/name" exact component={Name} />
           <Route path="/character-selection" exact component={CharacterSelection} />
           <Route path="/game" exact component={Interface} />

@@ -1,0 +1,83 @@
+.story-talk-swipe {
+  display: flex;
+
+  .background-img {
+    width: 100vw;
+    height: calc(100vh - 50px);
+  }
+
+  .page-swipe-animation {
+    width: 100%;
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .speach-wrapper {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    .people-img {
+      width: 280px;
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .text-wrapper {
+      background-color: c('bright-brown');
+      height: 150px;
+      padding-right: 300px;
+      padding-left: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 1px solid c('chicken-tenders');
+      font-family: 'FantaisieArtistique';
+      font-size: 22px;
+      position: relative;
+
+      .page-text {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: calc(100vw - 300px);
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+
+        &.hidden {
+          opacity: 0;
+        }
+
+        .op-choices {
+          margin: auto;
+          margin-top: 10px;
+          display: flex;
+          gap: 30px;
+
+          .link {
+            color: c('dark-brown');
+            cursor: pointer;
+            width: fit-content;
+        
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+}

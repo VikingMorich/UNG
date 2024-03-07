@@ -19,7 +19,7 @@ export default function StoryAnimation() {
                     <div className="page">
                         <div className="front">
                             <h1>Front Page</h1>
-                            <img className="background-img" alt="background" src='./quim_assets/village1.jpeg' />
+                            <img className="background-img" alt="background" src='./locations/village1.jpeg' />
                         </div>
                         <div className="back">
                             <h1>Back Page</h1>

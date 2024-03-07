@@ -263,6 +263,13 @@ export const skillsWarrior = {
     countdown: 0,
     children: [
       {
+        name: 'Lucky',
+        imgSrc: '',
+        description: 'Increase your 🍀 by 3 permanently',
+        skillPoints: 1,
+        countdown: 0,
+      },
+      {
         name: 'Strength',
         imgSrc: '',
         description: 'Increase your 💪🏻 by 3 permanently',
@@ -302,6 +309,13 @@ export const skillsMage = {
       countdown: 0,
       children: [
         {
+          name: 'Lucky',
+          imgSrc: '',
+          description: 'Increase your 🍀 by 3 permanently',
+          skillPoints: 1,
+          countdown: 0,
+        },
+        {
           name: 'Intelectual',
           imgSrc: '',
           description: 'Increase your 🧠 by 3 permanently',
@@ -340,6 +354,13 @@ export const skillsArcher = {
       skillPoints: 1,
       countdown: 0,
       children: [
+        {
+          name: 'Lucky',
+          imgSrc: '',
+          description: 'Increase your 🍀 by 3 permanently',
+          skillPoints: 1,
+          countdown: 0,
+        },
         {
           name: 'Accurate',
           imgSrc: '',

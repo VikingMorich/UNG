@@ -96,6 +96,25 @@
                     height: 20px;
                 }
 
+                .short-vertical-separator {
+                    border-right: 1px solid c('chicken-wings');
+                    width: 0px;
+                    height: 10px;
+                }
+
+                .double-separator {
+                    border-right: 1px solid c('chicken-wings');
+                    border-left: 1px solid c('chicken-wings');
+                    border-top: 1px solid c('chicken-wings');
+                    width: 90px;
+                    height: 10px;
+                }
+
+                .second-lvl {
+                    display: flex;
+                    gap: 30px;
+                }
+
                 .skill-ball{
                     width: 60px;
                     height: 60px;

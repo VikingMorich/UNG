@@ -12,6 +12,7 @@ export default function Interface() {
     const goToReward = () => window.location = '/reward'
     const goToSkill = () => window.location = '/skill'
     const goToStory = () => window.location = '/story'
+    const goToStoryTalk = () => window.location = '/story-talk'
     const goToShop = () => window.location = '/shop'
     const goToBattle = () => getRandomEnemy(enemiesList[getRandomInt(enemiesList.length)])
     //const goToStory2 = () => window.location = '/story2'
@@ -29,7 +30,7 @@ export default function Interface() {
                 <li className='link' onClick={goToBattle}>* Try battle mode (add, history of last dmg taken?)*</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
-                <li>* View someone talks *</li>
+                <li className='link' onClick={goToStoryTalk}>* View someone talks *</li>
                 <li>* Arbre d'skills per cada personatge, varios arbres (pasives, combat...) *</li>
                 <li>* Fitxa personatge, pensar be quins estats o que es mostra *</li>
                 <li className='link' onClick={goToShop}>* Mercader amb opcions *</li>

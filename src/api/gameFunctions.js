@@ -622,6 +622,9 @@ export function saveSkillPoints(skills, cost) {
       updates.maxHP = updates.maxHP + 10
       updates.HP = updates.HP + 10
     }
+    if (skills.includes('Lucky')) {
+      updates.SUE = updates.SUE + 3
+    }
     if (skills.includes('Strength')) {
       updates.FUE = updates.FUE + 3
     }
