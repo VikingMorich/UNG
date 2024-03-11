@@ -375,7 +375,7 @@ export function getRandomEnemy(enemy) {
   })
 }
 
-export function rollDices(num, typeAttack) {
+export function rollDices(typeAttack, numberDices) {
   let key = cookies.get('key')
   let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(snap) {
@@ -386,9 +386,13 @@ export function rollDices(num, typeAttack) {
     let d1 = getRandomInt(100)
     let d2 = getRandomInt(100)
     let d3 = getRandomInt(100)
+    let d4 = getRandomInt(100)
+    let d5 = getRandomInt(100)
     let frontDiceFace1 = document.getElementById("dice-1").getElementsByClassName('data-side-1')
     let frontDiceFace2 = document.getElementById("dice-2").getElementsByClassName('data-side-1')
     let frontDiceFace3 = document.getElementById("dice-3").getElementsByClassName('data-side-1')
+    let frontDiceFace4 = document.getElementById("dice-4").getElementsByClassName('data-side-1')
+    let frontDiceFace5 = document.getElementById("dice-5").getElementsByClassName('data-side-1')
     let multiplier = 0
     //getWeaponState
     let equipedItems = updates.backpack ? Object.keys(updates.backpack).filter(el => {
@@ -401,42 +405,83 @@ export function rollDices(num, typeAttack) {
       }) : []
     
     let type = equipedItems.find(el => el.state.type === 'firstHand')?.state.stateUsed || equipedItems.find(el => el.state.type === 'twoHand')?.state.stateUsed || 'FUE'
-
-    if( d1 <= snap.val()[type]) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
-      frontDiceFace1[0].appendChild(diceValue)
-      multiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      frontDiceFace1[0].appendChild(diceValue)
+    
+    let successLim = snap.val()[type]
+    if (typeAttack === 'Multishot') {
+      successLim -= 15
     }
-    if( d2 <= snap.val()[type]) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
-      frontDiceFace2[0].appendChild(diceValue)
-      multiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      frontDiceFace2[0].appendChild(diceValue)
+    if (typeAttack === 'Fireball') {
+      successLim += 5
     }
-    if( d3 <= snap.val()[type]) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
-      frontDiceFace3[0].appendChild(diceValue)
-      multiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      frontDiceFace3[0].appendChild(diceValue)
+    if (numberDices >= 1 ) {
+      if( d1 <= successLim) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        frontDiceFace1[0].appendChild(diceValue)
+        multiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        frontDiceFace1[0].appendChild(diceValue)
+      }
+    }
+    if (numberDices >= 2 ) {
+      if( d2 <= successLim) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        frontDiceFace2[0].appendChild(diceValue)
+        multiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        frontDiceFace2[0].appendChild(diceValue)
+      }
+    }
+    if (numberDices >= 3 ) {
+      if( d3 <= successLim) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        frontDiceFace3[0].appendChild(diceValue)
+        multiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        frontDiceFace3[0].appendChild(diceValue)
+      }
+    }
+    if (numberDices >= 4 ) {
+      if( d4 <= successLim) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        frontDiceFace4[0].appendChild(diceValue)
+        multiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        frontDiceFace4[0].appendChild(diceValue)
+      }
+    }
+    if (numberDices >= 5 ) {
+      if( d5 <= successLim) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        frontDiceFace5[0].appendChild(diceValue)
+        multiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        frontDiceFace5[0].appendChild(diceValue)
+      }
     }
 
     //ENEMY
@@ -486,21 +531,110 @@ export function rollDices(num, typeAttack) {
       efrontDiceFace3[0].appendChild(diceValue)
     }
 
-    //UPDATE STATES
+    
+      setTimeout(() => {
+        //UPDATE STATES
+        //decrease countdowns
+        if (updates.battle.countdown) {
+          Object.keys(updates.battle.countdown).forEach(el => {
+            if (updates.battle.countdown[el] === 1) {
+              updates.battle.countdown[el] = null
+            } else {
+              updates.battle.countdown[el] = updates.battle.countdown[el] - 1
+            }
+          })
+        }
+        let enemyDmg = (emultiplier * updates.battle.ATK) - updates.DEF
+        if (enemyDmg < 0) enemyDmg = 0
+        let currentLive = updates.HP - enemyDmg
+        let playerDmg
+        //Doublestrike
+        if (typeAttack === 'Doublestrike') {
+          playerDmg = (2 * multiplier * updates.ATK) - updates.battle.DEF
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 2}
+          else
+          updates.battle.countdown[typeAttack] = 2
+        } 
+        //PowerAttack
+        else if (typeAttack === 'PowerAttack') {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 3}
+          else
+            updates.battle.countdown[typeAttack] = 3
+        }
+        //Headshot
+        else if (typeAttack === 'Headshot') {
+          playerDmg = (multiplier * updates.ATK)
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 2}
+          else
+            updates.battle.countdown[typeAttack] = 2
+        }
+        //Multishot
+        else if (typeAttack === 'Multishot') {
+          playerDmg = (3 * multiplier * updates.ATK) - updates.battle.DEF
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 3}
+          else
+            updates.battle.countdown[typeAttack] = 3
+        }
+        //Rejuvenate
+        else if (typeAttack === 'Rejuvenate') {
+          playerDmg = 0
+          currentLive = currentLive + 15
+          if (currentLive > updates.maxHP) currentLive = updates.maxHP
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 3}
+          else
+            updates.battle.countdown[typeAttack] = 3
+        }
+        //Fireball
+        else if (typeAttack === 'Fireball') {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+          if (multiplier === 3) {
+            let burnedCountdown = 1
+            burnedCountdown += getRandomInt(3)
+            if (!updates.battle.countdown)
+            updates.battle.countdown = {Burned: burnedCountdown, [typeAttack]: 3}
+            else
+              updates.battle.countdown.Burned = burnedCountdown
+              updates.battle.countdown[typeAttack] = 3
+          } else {
+            //treure hardcoded
+            if (!updates.battle.countdown)
+              updates.battle.countdown = {[typeAttack]: 3}
+            else
+              updates.battle.countdown[typeAttack] = 3
+          }
+          
+        }
 
-    let enemyDmg = (emultiplier * updates.battle.ATK) - updates.DEF
-    if (enemyDmg < 0) enemyDmg = 0
-    let currentLive = updates.HP - enemyDmg
-    let playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
-    if (playerDmg < 0) playerDmg = 0
-    let currentEnemyLive = updates.battle.HP - playerDmg
-    updates.battle.lastEnemyDmg = enemyDmg
-    updates.battle.lastPlayerDmg = playerDmg
-    if (currentLive < 0) currentLive = 0
-    if (currentEnemyLive < 0) currentEnemyLive = 0
-    updates.HP = currentLive
-    updates.battle.HP = currentEnemyLive
-    ref.update(updates)
+        else {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+        }
+        
+        //Check states BURNED / POISONED or whatever
+        if(updates.battle.countdown?.Burned) {
+          playerDmg += 4
+        }
+
+        if (playerDmg < 0) playerDmg = 0
+        let currentEnemyLive = updates.battle.HP - playerDmg
+        updates.battle.lastEnemyDmg = enemyDmg
+        updates.battle.lastPlayerDmg = playerDmg
+        if (currentLive < 0) currentLive = 0
+        if (currentEnemyLive < 0) currentEnemyLive = 0
+        updates.HP = currentLive
+        updates.battle.HP = currentEnemyLive
+        ref.update(updates)
+      }, 1500)
     }, 500)
     
 
@@ -510,12 +644,16 @@ export function rollDices(num, typeAttack) {
       let frontDiceFace1 = document.getElementById("dice-1").getElementsByClassName('data-side-1')
       let frontDiceFace2 = document.getElementById("dice-2").getElementsByClassName('data-side-1')
       let frontDiceFace3 = document.getElementById("dice-3").getElementsByClassName('data-side-1')
+      let frontDiceFace4 = document.getElementById("dice-4").getElementsByClassName('data-side-1')
+      let frontDiceFace5 = document.getElementById("dice-5").getElementsByClassName('data-side-1')
       let efrontDiceFace1 = document.getElementById("e-dice-1").getElementsByClassName('data-side-1')
       let efrontDiceFace2 = document.getElementById("e-dice-2").getElementsByClassName('data-side-1')
       let efrontDiceFace3 = document.getElementById("e-dice-3").getElementsByClassName('data-side-1')
       frontDiceFace1[0].innerHTML = ''
       frontDiceFace2[0].innerHTML = ''
       frontDiceFace3[0].innerHTML = ''
+      frontDiceFace4[0].innerHTML = ''
+      frontDiceFace5[0].innerHTML = ''
       efrontDiceFace1[0].innerHTML = ''
       efrontDiceFace2[0].innerHTML = ''
       efrontDiceFace3[0].innerHTML = ''
@@ -547,6 +685,8 @@ export function saveBattleReward(reward) {
           }
         }
         updates.EXP = currentEXP
+        updates.battle.lastEnemyDmg = null
+        updates.battle.lastPlayerDmg = null
       }
     })
     updates.battle.endBattle = true
@@ -635,5 +775,17 @@ export function saveSkillPoints(skills, cost) {
       updates.PUN = updates.PUN + 3
     }
     ref.update(updates)
+  })
+}
+
+export function removeLastBattleAttak() {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(snap) {
+    let updates = snap.val()
+    updates.battle.lastEnemyDmg = null
+    updates.battle.lastPlayerDmg = null
+    ref.update(updates).then(() => window.location = '/game')
+    
   })
 }

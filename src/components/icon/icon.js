@@ -246,3 +246,15 @@ export const TwoHands = () => {
         <img src="/icons/twohands.png" alt='two hands' width='100%' height='100%'></img>
     );
 };
+
+export const Burned = () => {
+    return (
+        <img src="/icons/states/burned.png" alt='burned' width='100%' height='100%'></img>
+    );
+};
+
+export const Poisoned = () => {
+    return (
+        <img src="/icons/states/poisoned.png" alt='poisoned' width='100%' height='100%'></img>
+    );
+};

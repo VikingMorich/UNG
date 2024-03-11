@@ -67,7 +67,7 @@ export default function UserHud(props) {
                 <span className='user-name'>{props.state.username}</span>
                 <div className="user-stat">
                   <span className='text-stat'>HP</span>
-                  <ProgressBar value={props.state.gameStates.HP} maxValue={props.state.gameStates.maxHP} color='red' />
+                  <ProgressBar value={props.state.gameStates.HP} maxValue={props.state.gameStates.maxHP} lastAttack={props.state.gameStates.battle?.lastEnemyDmg || 0} color='red' />
                 </div>
                 <div className="user-stat">
                   <span className='text-stat'>EXP</span>

@@ -288,7 +288,7 @@ export const skillsWarrior = {
       countdown: 2,
       children: [
         {
-          name: 'PowerAttak',
+          name: 'PowerAttack',
           imgSrc: '',
           description: 'Add +2 dices to your attack',
           skillPoints: 2,
@@ -331,12 +331,12 @@ export const skillsMage = {
       imgSrc: '',
       description: 'Increase your 🧠 by 5 if you get </br>the full combo of hits add Burned to the enemy',
       skillPoints: 1,
-      countdown: 2,
+      countdown: 3,
       children: [
         {
           name: 'Rejuvenate',
           imgSrc: '',
-          description: 'Restore 10HP in combat',
+          description: 'Restore 15HP in combat',
           skillPoints: 2,
           countdown: 3,
         }
@@ -382,7 +382,7 @@ export const skillsArcher = {
         {
           name: 'Multishot',
           imgSrc: '',
-          description: 'Decrease your 👁️ by 20 but triplicate your dmg',
+          description: 'Decrease your 👁️ by 15 but triplicate your dmg',
           skillPoints: 2,
           countdown: 3,
         }

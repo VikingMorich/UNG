@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie'
 import UserHud from './components/UserHud'
 import EnemyHud from './components/EnemyHud'
 import ShopList from './components/ShopList'
+import BattlePage from './components/BattlePage'
 
 export let inventoryStateOpen = false
 
@@ -33,6 +34,19 @@ export function initSubscriptions() {
         }
       }
       if (window.location.pathname === '/battle'){
+        if (snap.key === key) {
+          let objBattle = document.getElementById('battle')
+          const battle = document.createElement('div')
+          battle.id='currentBattle'
+          //objEnemy.appendChild(enemy)
+          ReactDOM.render(<BattlePage state={snap.val().gameStates } />, battle)
+          let battleChanged = document.getElementById('currentBattle')
+          if (battleChanged){
+            objBattle.replaceChild(battle, battleChanged)
+          } else {
+              objBattle.appendChild(battle)
+          }
+        }
         if (snap.key === key) {
           let objEnemy = document.getElementById('enemy')
           const enemy = document.createElement('div')
@@ -91,6 +105,19 @@ export function initSubscriptions() {
       }
     }
     if (window.location.pathname === '/battle') {
+      if (snap.key === key) {
+        let objBattle = document.getElementById('battle')
+        const battle = document.createElement('div')
+        battle.id='currentBattle'
+        //objEnemy.appendChild(enemy)
+        ReactDOM.render(<BattlePage state={snap.val().gameStates } />, battle)
+        let battleChanged = document.getElementById('currentBattle')
+        if (battleChanged){
+          objBattle.replaceChild(battle, battleChanged)
+        } else {
+            objBattle.appendChild(battle)
+        }
+      }
       if (snap.key === key) {
         let enemyChanged = document.getElementById('currentEnemy')
         let objEnemy = document.getElementById('enemy')
