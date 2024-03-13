@@ -34,6 +34,10 @@ export default function EnemyHud(props) {
                   <span>🛡️</span>
                   <span>{props.state.DEF}</span>
                 </div>
+                <div className="char-stat">
+                  <span>💪🏻</span>
+                  <span>{props.state.FUE}</span>
+                </div>
               </div>
               <div className='last-attack-result'>
                 <h3>*Last attack result *</h3>
