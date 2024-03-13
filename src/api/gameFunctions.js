@@ -181,7 +181,7 @@ export function winExp(exp) {
       currentLVL += 1
       currentSkillPoints += 1
       currentAtk += 1
-      updates.gameStates.maxEXP = 2 * updates.gameStates.maxEXP
+      updates.gameStates.maxEXP = updates.gameStates.maxEXP + 150
     }
     updates.gameStates.EXP = currentEXP
     updates.gameStates.LVL = currentLVL
@@ -679,13 +679,13 @@ export function saveBattleReward(reward) {
           updates.LVL = updates.LVL + 1
           currentEXP -= updates.maxEXP
           updates.ATK += 1
-          updates.maxEXP = 2 * updates.maxEXP
+          updates.maxEXP = updates.maxEXP + 150
           updates.skillPoints = (updates.skillPoints || 0) + 1
           if(currentEXP >= updates.maxEXP) {
             updates.LVL = updates.LVL + 1
             currentEXP -= updates.maxEXP
             updates.ATK += 1
-            updates.maxEXP = 2 * updates.maxEXP
+            updates.maxEXP = updates.maxEXP + 150
             updates.skillPoints = (updates.skillPoints || 0) + 1
           }
         }
