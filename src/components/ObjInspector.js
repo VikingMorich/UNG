@@ -20,17 +20,17 @@ export default function ObjInspector(props) {
                 }
             }) : []
             let t = props.obj.type
-            let obj = equipedItems.find(el => el.state.type === t && props.obj.name !== el.state.name) || null
+            let obj = equipedItems.find(el => el.state.type === t) || null
             if (!obj && t === 'twoHand') {
                 t = 'firstHand'
-                obj = equipedItems.find(el => el.state.type === t && props.obj.name !== el.state.name) || null
+                obj = equipedItems.find(el => el.state.type === t) || null
                 if (!obj) {
                     t = 'secondHand'
-                    obj = equipedItems.find(el => el.state.type === t && props.obj.name !== el.state.name) || null
+                    obj = equipedItems.find(el => el.state.type === t) || null
                 }
             } else if (!obj && (t === 'firstHand' || t === 'secondHand')) {
                 t = 'twoHand'
-                obj = equipedItems.find(el => el.state.type === t && props.obj.name !== el.state.name) || null
+                obj = equipedItems.find(el => el.state.type === t) || null
             }
             if (obj) {
                 setObjCompare(obj.state)
@@ -41,7 +41,12 @@ export default function ObjInspector(props) {
     return (
         <React.Fragment>
             <div className="c-inspector-background">
-                {!objCompare && 
+                {(props.obj.equiped || (objCompare && objCompare.name === props.obj.name)) &&
+                    <div className="c-inspector--centered">
+                        <span>* EQUIPED *</span>
+                    </div>
+                }
+                {(!objCompare || objCompare.name === props.obj.name) && 
                 <div className="c-inspector--content">
                     <table>
                         <tbody>
@@ -95,7 +100,7 @@ export default function ObjInspector(props) {
                     </table>
                 </div>
                 }
-                {objCompare && 
+                {objCompare && props.obj.name !== objCompare.name && 
                 <React.Fragment>
                 <div className="c-inspector--double-left">
                     <table>

@@ -131,7 +131,7 @@ export default function BattlePage(props) {
                         }
                     </ul>
                 </div>
-                <ReactTooltip id="tooltip-attack" place="top" type="dark" effect="float"/>
+                <ReactTooltip id="tooltip-attack" place="top" type="dark" effect="float" className='font-tooltip'/>
                 <div className="dice-wrapper">
                     <RollingDice id="dice-1" color='olive' even={even} visible={numberDices >= 1} />
                     <RollingDice id="dice-2" color='olive' even={!even} visible={numberDices >= 2}/>

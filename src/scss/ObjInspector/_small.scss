@@ -229,5 +229,15 @@
         font-size: 20px;
     }
     
+    &--centered {
+        position: absolute;
+        top: 8vh;
+        left: 31vw;
+        width: 38vw;
+        text-align: center;
+        font-family: 'FantaisieArtistique';
+        color: white;
+        font-size: 20px;
+    }
 }
 

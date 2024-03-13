@@ -224,34 +224,116 @@ export const itemsList = {
   ]
 }
 
-export const enemiesList = [
-  {
-    name: 'Demon',
-    imgSrc: '/enemies/demon.jpeg',
-    HP: 50,
-    maxHP: 50,
-    DEF: 1,
-    ATK: 3,
-    EXP: 250,
-    maxGold: 300,
-    minGold: 200,
-    //obj amb chance de q surti?
-    FUE: 70
-  },
-  {
-    name: 'Werewolf',
-    imgSrc: '/enemies/werewolf.png',
-    HP: 75,
-    maxHP: 75,
-    DEF: 3,
-    ATK: 5,
-    EXP: 300,
-    maxGold: 300,
-    minGold: 200,
-    //obj amb chance de q surti?
-    FUE: 75
-  }
-]
+export const enemiesList = {
+  normal: [
+    {
+      name: 'Bird',
+      imgSrc: '/enemies/bird.png',
+      HP: 40,
+      maxHP: 40,
+      DEF: 1,
+      ATK: 3,
+      EXP: 50,
+      maxGold: 50,
+      minGold: 30,
+      //obj amb chance de q surti?
+      FUE: 60
+    },
+    {
+      name: 'Skeleton',
+      imgSrc: '/enemies/skeleton.png',
+      HP: 50,
+      maxHP: 50,
+      DEF: 2,
+      ATK: 6,
+      EXP: 100,
+      maxGold: 50,
+      minGold: 30,
+      //obj amb chance de q surti?
+      FUE: 40
+    },
+    {
+      name: 'Shark',
+      imgSrc: '/enemies/shark.jpeg',
+      HP: 45,
+      maxHP: 45,
+      DEF: 1,
+      ATK: 6,
+      EXP: 250,
+      maxGold: 300,
+      minGold: 200,
+      //obj amb chance de q surti?
+      FUE: 65
+    },
+    {
+      name: 'Demon',
+      imgSrc: '/enemies/demon.jpeg',
+      HP: 50,
+      maxHP: 50,
+      DEF: 1,
+      ATK: 3,
+      EXP: 250,
+      maxGold: 300,
+      minGold: 200,
+      //obj amb chance de q surti?
+      FUE: 70
+    },
+    {
+      name: 'Werewolf',
+      imgSrc: '/enemies/werewolf.png',
+      HP: 80,
+      maxHP: 80,
+      DEF: 3,
+      ATK: 5,
+      EXP: 400,
+      maxGold: 300,
+      minGold: 200,
+      //obj amb chance de q surti?
+      FUE: 75
+    }
+  ],
+  hard: [
+    {
+      name: 'Ninja',
+      imgSrc: '/enemies/ninja.png',
+      HP: 150,
+      maxHP: 150,
+      DEF: 8,
+      ATK: 5,
+      EXP: 1500,
+      maxGold: 2000,
+      minGold: 500,
+      //obj amb chance de q surti?
+      FUE: 60
+    },
+    {
+      name: 'Dark Angel',
+      imgSrc: '/enemies/darkangel.png',
+      HP: 200,
+      maxHP: 200,
+      DEF: 8,
+      ATK: 6,
+      EXP: 1500,
+      maxGold: 2000,
+      minGold: 500,
+      //obj amb chance de q surti?
+      FUE: 70
+    },
+    {
+      name: 'Dragon',
+      imgSrc: '/enemies/dragon.jpeg',
+      HP: 250,
+      maxHP: 250,
+      DEF: 7,
+      ATK: 10,
+      EXP: 3000,
+      maxGold: 3000,
+      minGold: 200,
+      //obj amb chance de q surti?
+      FUE: 85
+    }
+  ]
+}
 
 export const skillsWarrior = {
   pasives: [

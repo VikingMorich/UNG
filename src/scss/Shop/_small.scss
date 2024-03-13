@@ -40,7 +40,6 @@
             padding: 2px 6px;
             text-align: initial;
             border: 1px solid grey;
-            cursor: pointer;
             font-family: 'FantaisieArtistique';
   
             &.maximize {
@@ -50,6 +49,25 @@
             .icon-container {
                 width: 15px;
                 height: 15px;
+            }
+
+            .buttons-wrap {
+              display: flex;
+              gap: 5px;
+
+              .button-icon {
+                cursor: pointer;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background-color: c('medium-brown');
+                padding: 4px;
+
+                &.disabled {
+                  cursor: initial;
+                  background-color: #e2e2e2;
+                }
+              }
             }
         }
   

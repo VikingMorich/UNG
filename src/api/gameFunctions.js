@@ -146,7 +146,7 @@ export function usePotion(heal) {
   })
 }
 
-export function useBackpackPotion(obj) {
+export function funcUseBackpackPotion(obj) {
   let heal = 20
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
@@ -181,6 +181,7 @@ export function winExp(exp) {
       currentLVL += 1
       currentSkillPoints += 1
       currentAtk += 1
+      updates.gameStates.maxEXP = 2 * updates.gameStates.maxEXP
     }
     updates.gameStates.EXP = currentEXP
     updates.gameStates.LVL = currentLVL
@@ -339,6 +340,7 @@ export function saveReward(gold, obj) {
             stateUsed: obj.stateUsed || null,
             stats: obj.stats || null,
             imgSrc: obj.imgSrc || null,
+            sellPrice: obj.gold || null,
             description: obj.description || null,
             equiped: false
           }
@@ -353,6 +355,7 @@ export function saveReward(gold, obj) {
           stats: obj.stats || null,
           description: obj.description || null,
           imgSrc: obj.imgSrc || null,
+          sellPrice: obj.gold || null,
           equiped: false
         }
       }
@@ -676,11 +679,13 @@ export function saveBattleReward(reward) {
           updates.LVL = updates.LVL + 1
           currentEXP -= updates.maxEXP
           updates.ATK += 1
+          updates.maxEXP = 2 * updates.maxEXP
           updates.skillPoints = (updates.skillPoints || 0) + 1
           if(currentEXP >= updates.maxEXP) {
             updates.LVL = updates.LVL + 1
             currentEXP -= updates.maxEXP
             updates.ATK += 1
+            updates.maxEXP = 2 * updates.maxEXP
             updates.skillPoints = (updates.skillPoints || 0) + 1
           }
         }
@@ -695,7 +700,7 @@ export function saveBattleReward(reward) {
   })
 }
 
-export function buyObj(obj) {
+export function buyObj(obj, numberItems) {
   let objInfo = Object.keys(itemsList).map(el => {
       return itemsList[el].map(ele => ele)
   }).flat(1).find(el => el.name === obj)
@@ -703,10 +708,10 @@ export function buyObj(obj) {
   let key = cookies.get('key')
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
-    updates.gameStates.gold -= objInfo.gold
+    updates.gameStates.gold -= (objInfo.gold * numberItems)
     let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === objInfo.name)
     if (exist) {
-      updates.gameStates.backpack[exist].count += 1
+      updates.gameStates.backpack[exist].count += numberItems
     } else {
       let Objkey = ref.push().key
       let hasBackpack = updates.gameStates.backpack ? true : false
@@ -714,26 +719,28 @@ export function buyObj(obj) {
         updates.gameStates.backpack = {
           [Objkey] : {
             name: objInfo.name,
-            count: objInfo.count,
+            count: numberItems || objInfo.count,
             type: objInfo.type,
             objType: objInfo.objType || null,
             stateUsed: objInfo.stateUsed || null,
             stats: objInfo.stats || null,
             description: objInfo.description || null,
             imgSrc: objInfo.imgSrc || null,
+            sellPrice: objInfo.gold || null,
             equiped: false
           }
         }
       else {
         updates.gameStates.backpack[Objkey] = {
           name: objInfo.name,
-          count: objInfo.count,
+          count: numberItems || objInfo.count,
           type: objInfo.type,
           objType: objInfo.objType || null,
           description: objInfo.description || null,
           stateUsed: objInfo.stateUsed || null,
           stats: objInfo.stats || null,
           imgSrc: objInfo.imgSrc || null,
+          sellPrice: objInfo.gold || null,
           equiped: false
         }
       }

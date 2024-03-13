@@ -4,7 +4,9 @@ import ProgressBar from './ProgressBar'
 import Modal from './Modal'
 import EndBattleModal from './EndBattleModal'
 import { inventoryStateOpen, setInventoryStateOpen } from '../fireSubscription'
-import { getRandomInt } from '../api/gameFunctions'
+import { getRandomInt, funcUseBackpackPotion } from '../api/gameFunctions'
+import { Potion } from './icon/icon'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function UserHud(props) {
     //const [t, i18n] = useTranslation("global");
@@ -24,6 +26,7 @@ export default function UserHud(props) {
       setInventoryStateOpen(false)
       document.body.style.overflow = "auto"
     }
+    let potionObj = (props.state.gameStates.backpack && Object.keys(props.state.gameStates.backpack).find(el => props.state.gameStates.backpack[el].name === '* Health potion *')) || null
 
     //BATTLE IF
 
@@ -50,6 +53,9 @@ export default function UserHud(props) {
         setEndRes('win')
       }, 1000)
     }
+    const useBackpackPotionFunc = () => {
+      funcUseBackpackPotion(potionObj)
+    }
 
     const charTy = props.state.gameStates.characterType
     let imgCharacter = charTy === 'archer' ? './faces/archer1.png' : charTy === 'mage' ? './faces/mage1.png' : charTy === 'warrior' ? './faces/warrior1.png' : ''
@@ -58,8 +64,8 @@ export default function UserHud(props) {
         <React.Fragment>
             <div className="user-wrapper">
               <div className='user-img-wrap'>
-                <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} onClick={() => { toggleModal(); setType('character')}}/>
-                <div className={`user-lvl ${props.state.gameStates.skillPoints && props.state.gameStates.skillPoints !== 0 && 'update-available'}`} onClick={() => { toggleModal(); setType('skills')}}>
+                <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} onClick={() => { toggleModal(); setType('skills')}}/>
+                <div className={`user-lvl ${props.state.gameStates.skillPoints && props.state.gameStates.skillPoints !== 0 && 'update-available'}`} onClick={() => { toggleModal(); setType('skills')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Skills *'}>
                   <span>{props.state.gameStates.LVL}</span>
                 </div>
               </div>
@@ -74,47 +80,53 @@ export default function UserHud(props) {
                   <ProgressBar value={props.state.gameStates.EXP} maxValue={props.state.gameStates.maxEXP} color='blue' />
                 </div>
                 <div className="user-statistics">
-                  <div className="char-stat">
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Strength *'}>
                     <span>💪🏻</span>
                     <span>{props.state.gameStates.FUE}</span>
                   </div>
-                  <div className="char-stat">
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Inteligence *'}>
                     <span>🧠</span>
                     <span>{props.state.gameStates.INT}</span>
                   </div>
-                  <div className="char-stat">
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Dexterity *'}>
                     <span>👁️</span>
                     <span>{props.state.gameStates.PUN}</span>
                   </div>
-                  <div className="char-stat">
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Luck *'}>
                     <span>🍀</span>
                     <span>{props.state.gameStates.SUE}</span>
                   </div>
                 </div>
               </div>
               <div className="stats-char">
-                <div className="char-stat">
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Attack *'}>
                   <span>⚔️</span>
                   <span>{props.state.gameStates.ATK}</span>
                 </div>
-                <div className="char-stat">
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Defense *'}>
                   <span>🛡️</span>
                   <span>{props.state.gameStates.DEF}</span>
                 </div>
-                <div className="char-stat">
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Gold *'}>
                   <span>💰</span>
                   <span>{props.state.gameStates.gold}</span>
                 </div>
                 <div className='char-buttons'>
-                  <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}}>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Inventory *'}>
                     <span>🎒</span>
                   </div>
-                  <div className="char-inv" onClick={() => { toggleModal(); setType('map')}}>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('map')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Map *'}>
                     <span>🗺️</span>
                   </div>
+                  {potionObj && 
+                    <div className="char-inv" onClick={useBackpackPotionFunc} data-tooltip-id="tooltip-user" data-tooltip-html={'* Use potion *'}>
+                      <span><Potion/></span>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
+            <ReactTooltip id="tooltip-user" place="top" type="dark" effect="float" className='font-tooltip'/>
             <Modal open={open} toggleModal={() => closeModal()} type={type} state={props.state} />
             <EndBattleModal open={endBattle && !props.state.gameStates.battle.endBattle ? true : false} type={endRes} reward={endReward}/>
         </React.Fragment>

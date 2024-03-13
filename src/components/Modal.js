@@ -3,16 +3,17 @@ import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import { Helmet, Shield, Sword, Armor, Ring, Shoes, Pendant } from './icon/icon'
 import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook, ObjKnife, ObjPotion, ObjAxe, ObjLance, ObjStaff } from './icon/objectIcon'
-import { deleteObj, equipObj, unequipObj, getSellPrice, sellObj, saveSkillPoints, useBackpackPotion } from '../api/gameFunctions'
+import { deleteObj, equipObj, unequipObj, getSellPrice, sellObj, saveSkillPoints, funcUseBackpackPotion } from '../api/gameFunctions'
 import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import ObjInspector from './ObjInspector'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { setInventoryStateOpen } from '../fireSubscription'
+import { SellIcon, InspectIcon, EquipIcon, UnequipIcon, DeleteIcon, DrinkIcon } from './icon/icon'
+import ProgressBar from './ProgressBar'
 
 
 export default function Modal(props) {
     const [t] = useTranslation("global")
-    const [openDetails, setOpenDetails] = useState(false)
     const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
     const [skillSelected, setSkillSelected] = useState([])
@@ -40,6 +41,16 @@ export default function Modal(props) {
             state: elemState
         }
     }) : []
+
+    let equipedSwordId = equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').key : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').key : ''
+    let equipedShieldId = equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').key : ''
+    let equipedHelmetId = equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').key : ''
+    let equipedArmorId = equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').key : ''
+    let equipedBootsId = equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').key : ''
+    let equipedRingId = equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').key : ''
+    let equipedNecklaceId = equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').key : ''
+
+
     let currentSkills = []
     if (props.state && props.state.gameStates && props.state.gameStates.characterType)
         currentSkills = props.state.gameStates.characterType === 'warrior' ? skillsWarrior : props.state.gameStates.characterType === 'mage' ? skillsMage : skillsArcher
@@ -50,11 +61,8 @@ export default function Modal(props) {
            * Alert if clicked on outside of element
            */
           function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                closeDetailsFunc()
-                setObjClicked(null)
-                closeObjInspector()
-            }
+            setObjClicked(null)
+            closeObjInspector()
           }
           // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
@@ -67,37 +75,22 @@ export default function Modal(props) {
 
     useOutsideAlerter(ref);
 
-    const openDetailsFunc = (ev) => {
-        if (ev.currentTarget.textContent !== '-') {
-            setOpenDetails(true)
-            let clickedPos = ev.currentTarget.getBoundingClientRect()
-            let modalPos = refModal.current.getBoundingClientRect()
-            
-            let top = clickedPos.bottom - modalPos.top + 'px'
-            let left = clickedPos.left - modalPos.left + 'px'
-              
-            let detailsOp = ref.current
-            detailsOp.style.top = top
-            detailsOp.style.left = left
+    //setObjClicked(id)
 
-            //TO DO
-            let id = ev.currentTarget.id
-            setObjClicked(id)
-        }
-    }
-    const closeDetailsFunc = () => {
-        setOpenDetails(false)
-    }
-    const deleteObjFunc = () => {
-        deleteObj(objClicked)
+    const deleteObjFunc = (obj) => {
+        deleteObj(obj)
     }
 
-    const sellObjFunc = () => {
-        sellObj(objClicked, getSellPrice(props.state.gameStates.backpack[objClicked].name))
+    const sellObjFunc = (obj) => {
+        sellObj(obj, getSellPrice(props.state.gameStates.backpack[obj].name))
     }
 
-    const inspectObjFunc = () => {
-        closeDetailsFunc()
+    const funcUsePotion = (obj) => {
+        funcUseBackpackPotion(obj)
+    }
+
+    const inspectObjFunc = (obj) => {
+        setObjClicked(obj)
         setOpenObjInspector(true)
     }
 
@@ -105,16 +98,12 @@ export default function Modal(props) {
         setOpenObjInspector(false)
     }
 
-    const equipObjFunc = () => {
-        equipObj(objClicked)
+    const equipObjFunc = (obj) => {
+        equipObj(obj)
     }
 
-    const unequipObjFunc = () => {
-        unequipObj(objClicked)
-    }
-    const useUsePotion = () => {
-        setInventoryStateOpen(false)
-        useBackpackPotion(objClicked)
+    const unequipObjFunc = (obj) => {
+        unequipObj(obj)
     }
 
     const saveSkillChanges = () => {
@@ -173,17 +162,17 @@ export default function Modal(props) {
         }
         
     }
-    useEffect(() => {
-        if (objClicked && props.state && props.state.gameStates.backpack[objClicked]) {
-            setSellPrice(getSellPrice(props.state.gameStates.backpack[objClicked].name))
-        }
-    }, [objClicked, props.state]);
+    // useEffect(() => {
+    //     if (objClicked && props.state && props.state.gameStates.backpack[objClicked]) {
+    //         setSellPrice(getSellPrice(props.state.gameStates.backpack[objClicked].name))
+    //     }
+    // }, [objClicked, props.state]);
 
     return (
         <React.Fragment>
             {props.open &&
             <div className="c-modal-background">
-                <div ref={refModal} className="c-modal">
+                <div ref={refModal} className={props.type === 'inventory' ? 'big-modal' : "c-modal"}>
                     <img className="c-modal--cross" alt="menu-icon" src={cross} onClick={props.toggleModal}/>
                     {props.type === 'privacy' && 
                         <React.Fragment>
@@ -208,146 +197,421 @@ export default function Modal(props) {
                         <React.Fragment>
                             <div className="c-modal--inventory">
                                 <h1>* INVENTORY *</h1>
-                                <div className="user-statistics">
-                                    <div className="char-stat">
-                                        <span>💪🏻</span>
-                                        <span>{props.state.gameStates.FUE}</span>
+                                <div className='inv-wrap'>
+                                    <div className='img-wrap'>
+                                        <span>Username: {props.state.username}</span>
+                                        <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
+                                        <div className="user-stat">
+                                            <span className='text-stat'>HP</span>
+                                            <ProgressBar value={props.state.gameStates.HP} maxValue={props.state.gameStates.maxHP} lastAttack={props.state.gameStates.battle?.lastEnemyDmg || 0} color='red' size='s'/>
+                                        </div>
+                                        <div className="user-stat">
+                                            <span className='text-stat'>EXP</span>
+                                            <ProgressBar value={props.state.gameStates.EXP} maxValue={props.state.gameStates.maxEXP} color='blue' size='s'/>
+                                        </div>
                                     </div>
-                                    <div className="char-stat">
-                                        <span>🧠</span>
-                                        <span>{props.state.gameStates.INT}</span>
-                                    </div>
-                                    <div className="char-stat">
-                                        <span>👁️</span>
-                                        <span>{props.state.gameStates.PUN}</span>
-                                    </div>
-                                    <div className="char-stat">
-                                        <span>🍀</span>
-                                        <span>{props.state.gameStates.SUE}</span>
-                                    </div>
-                                    <div className="char-stat">
-                                        <span>⚔️</span>
-                                        <span>{props.state.gameStates.ATK}</span>
-                                    </div>
-                                    <div className="char-stat">
-                                        <span>🛡️</span>
-                                        <span>{props.state.gameStates.DEF}</span>
-                                    </div>
-                                    <div className="char-stat">
-                                        <span>💰</span>
-                                        <span>{props.state.gameStates.gold}</span>
-                                    </div>
-                                </div>
-                                <table className='pj-table'>
-                                    <tbody>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Sword />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').key : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Shield />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Helmet />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Armor />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Shoes />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Ring />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').state.name : '-'}</td>
-                                        </tr>
-                                        <tr>
-                                            <td className='char-icon'>
-                                                <Pendant />
-                                            </td>
-                                            <td id={equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').key : ''} onClick={openDetailsFunc}>{equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').state.name : '-'}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div className='obj-list'>
-                                    <span>* Backpack *</span>
-                                    <table className='pj-table'>
-                                        <tbody>
-                                            {otherItems.map((element) => {
-                                                return <tr key={element.key}>
-                                                    <td>{element.state.count}</td>
+                                    <div className='stat-wrap'>
+                                        <div className="user-statistics">
+                                            <div className="char-stat">
+                                                <span>💪🏻</span>
+                                                <span>{props.state.gameStates.FUE}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>🧠</span>
+                                                <span>{props.state.gameStates.INT}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>👁️</span>
+                                                <span>{props.state.gameStates.PUN}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>🍀</span>
+                                                <span>{props.state.gameStates.SUE}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>⚔️</span>
+                                                <span>{props.state.gameStates.ATK}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>🛡️</span>
+                                                <span>{props.state.gameStates.DEF}</span>
+                                            </div>
+                                            <div className="char-stat">
+                                                <span>💰</span>
+                                                <span>{props.state.gameStates.gold}</span>
+                                            </div>
+                                        </div>
+                                        <table className='pj-table'>
+                                            <tbody>
+                                                <tr>
                                                     <td>
-                                                        <div className='icon-container'>
-                                                            {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'boots' && <ObjBoots/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'sword' && <ObjSword/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'book' && <ObjSpellBook/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'crossbow' && <ObjCrossbow/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'shield' && <ObjShield/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'armor' && <ObjArmor/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'ring' && <ObjRing/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'necklace' && <ObjNecklace/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'axe' && <ObjAxe/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'staff' && <ObjStaff/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'lance' && <ObjLance/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'potion' && <ObjPotion/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'knife' && <ObjKnife/>}
-                                                            {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
+                                                        <div className='char-icon-container'>
+                                                            <Sword />
                                                         </div>
                                                     </td>
-                                                    <td className="maximize" id={element.key} onClick={openDetailsFunc} >{props.state.gameStates.backpack[element.key].name}</td>
-                                                </tr>;
-                                            })}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                                    {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand' || props.state.gameStates.backpack[objClicked].type === 'twoHand') && 
-                                        (props.state.gameStates.backpack[objClicked].equiped ? 
-                                            <div className='option-wrapper' onClick={unequipObjFunc}>
-                                                <span>* Unequip *</span>
+                                                    <td id={equipedSwordId} className="maximize">{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedSwordId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedSwordId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedSwordId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedSwordId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Shield />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedShieldId}>{equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedShieldId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedShieldId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedShieldId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedShieldId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Helmet />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedHelmetId}>{equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedHelmetId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedHelmetId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedHelmetId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedHelmetId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Armor />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedArmorId}>{equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedArmorId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedArmorId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedArmorId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedArmorId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Shoes />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedBootsId}>{equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedBootsId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedBootsId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedBootsId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedBootsId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Ring />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedRingId}>{equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedRingId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedRingId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedRingId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedRingId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div className='char-icon-container'>
+                                                            <Pendant />
+                                                        </div>
+                                                    </td>
+                                                    <td id={equipedNecklaceId}>{equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').state.name : '-'}</td>
+                                                    <td>
+                                                        {equipedNecklaceId !== '' &&
+                                                        
+                                                            <div className='buttons-wrap'>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                    <DeleteIcon />
+                                                                </div>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                    <InspectIcon />
+                                                                </div>
+                                                                {props.state.gameStates.backpack[equipedNecklaceId].type !== 'potion' && 
+                                                                <React.Fragment>
+                                                                    {!props.state.gameStates.backpack[equipedNecklaceId].equiped ? 
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                        <EquipIcon />
+                                                                    </div> :
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                        <UnequipIcon />
+                                                                    </div>
+                                                                    }
+                                                                </React.Fragment>
+                                                                }
+                                                                {window.location.pathname === '/shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedNecklaceId].sellPrice + ')'}>
+                                                                        <SellIcon />
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div className='obj-list'>
+                                            <span>* Backpack *</span>
+                                            <div className='table-wrapper'>
+                                                <table className='pj-table'>
+                                                    <tbody>
+                                                        {otherItems.map((element) => {
+                                                            return <tr key={element.key}>
+                                                                <td>{element.state.count}</td>
+                                                                <td>
+                                                                    <div className='icon-container'>
+                                                                        {props.state.gameStates.backpack[element.key].type === 'helmet' && <ObjHelmet/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'boots' && <ObjBoots/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'sword' && <ObjSword/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'book' && <ObjSpellBook/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'firstHand' && props.state.gameStates.backpack[element.key].objType === 'crossbow' && <ObjCrossbow/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'shield' && <ObjShield/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'armor' && <ObjArmor/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'ring' && <ObjRing/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'necklace' && <ObjNecklace/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'axe' && <ObjAxe/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'staff' && <ObjStaff/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'twoHand' && props.state.gameStates.backpack[element.key].objType === 'lance' && <ObjLance/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'potion' && <ObjPotion/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'secondHand' && props.state.gameStates.backpack[element.key].objType === 'knife' && <ObjKnife/>}
+                                                                        {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="maximize" id={element.key}>{props.state.gameStates.backpack[element.key].name}</td>
+                                                                <td>
+                                                                    <div className='buttons-wrap'>
+                                                                        <div className={`button-icon`} onClick={() => deleteObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                            <DeleteIcon />
+                                                                        </div>
+                                                                        <div className='button-icon' onClick={() => inspectObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                            <InspectIcon />
+                                                                        </div>
+                                                                        {props.state.gameStates.backpack[element.key].type !== 'potion' && 
+                                                                        <React.Fragment>
+                                                                            {!props.state.gameStates.backpack[element.key].equiped ? 
+                                                                            <div className={`button-icon`} onClick={() => equipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                                <EquipIcon />
+                                                                            </div> :
+                                                                            <div className={`button-icon`} onClick={() => unequipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                                <UnequipIcon />
+                                                                            </div>
+                                                                            }
+                                                                        </React.Fragment>
+                                                                        }
+                                                                        {props.state.gameStates.backpack[element.key].type === 'potion' && 
+                                                                            <div className={`button-icon`} onClick={() => {funcUsePotion(element.key)}} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Drink *'}>
+                                                                                <DrinkIcon />
+                                                                            </div>
+                                                                        }
+                                                                        {window.location.pathname === '/shop' && 
+                                                                            <div className={`button-icon`} onClick={() => sellObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + element.state.sellPrice + ')'}>
+                                                                                <SellIcon />
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </td>
+                                                            </tr>;
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                                <ReactTooltip id="tooltip-inventory" place="top" type="dark" effect="float"/>
                                             </div>
-                                            : 
-                                            <div className='option-wrapper' onClick={equipObjFunc}>
-                                                <span>* Equip *</span>
-                                            </div>
-                                            )
-                                    }
-                                    {objClicked && props.state.gameStates.backpack[objClicked].type === 'potion' &&
-                                    <div className='option-wrapper' onClick={useUsePotion}>
-                                        <span>* Use *</span>
-                                    </div>
-                                    }
-                                    <div className='option-wrapper' onClick={inspectObjFunc}>
-                                        <span>* Inspect *</span>
-                                    </div>
-                                    <div className='option-wrapper' onClick={deleteObjFunc}>
-                                        <span>* Delete *</span>
-                                    </div>
-                                    {window.location.pathname === '/shop' && 
-                                        <div className='option-wrapper' onClick={sellObjFunc}>
-                                            <span>* Sell ({sellPrice}) *</span>
                                         </div>
-                                    }
+                                        {/* <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
+                                            {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand' || props.state.gameStates.backpack[objClicked].type === 'twoHand') && 
+                                                (props.state.gameStates.backpack[objClicked].equiped ? 
+                                                    <div className='option-wrapper' onClick={unequipObjFunc}>
+                                                        <span>* Unequip *</span>
+                                                    </div>
+                                                    : 
+                                                    <div className='option-wrapper' onClick={equipObjFunc}>
+                                                        <span>* Equip *</span>
+                                                    </div>
+                                                    )
+                                            }
+                                            {objClicked && props.state.gameStates.backpack[objClicked].type === 'potion' &&
+                                            <div className='option-wrapper' onClick={useUsePotion}>
+                                                <span>* Use *</span>
+                                            </div>
+                                            }
+                                            <div className='option-wrapper' onClick={inspectObjFunc}>
+                                                <span>* Inspect *</span>
+                                            </div>
+                                            <div className='option-wrapper' onClick={deleteObjFunc}>
+                                                <span>* Delete *</span>
+                                            </div>
+                                            {window.location.pathname === '/shop' && 
+                                                <div className='option-wrapper' onClick={sellObjFunc}>
+                                                    <span>* Sell ({sellPrice}) *</span>
+                                                </div>
+                                            }
+                                        </div> */}
+                                        {openObjInspector && objClicked &&
+                                            <ObjInspector obj={props.state.gameStates.backpack[objClicked] || null}/>
+                                        }
+                                    </div>
                                 </div>
-                                {openObjInspector && objClicked &&
-                                    <ObjInspector obj={props.state.gameStates.backpack[objClicked] || null}/>
-                                }
                             </div>
                         </React.Fragment>
                     }
@@ -401,7 +665,7 @@ export default function Modal(props) {
                                                     <div key={el.name} id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? 'selected' : '' ) + 
                                                     ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
                                                     (el.skillPoints > currSkillPoints ? ' disabled' : '')
-                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
+                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + el.description + '</br>Skill Points: ' + el.skillPoints + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '')}>
                                                         <span>{el.name}</span>
                                                     </div>
                                                     
@@ -411,7 +675,7 @@ export default function Modal(props) {
                                                         <div key={ele.name} id={ele.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? 'selected' : '' ) + 
                                                         ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') + 
                                                         ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
-                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
+                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + ele.description + '</br>Skill Points: ' + ele.skillPoints + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '')}>
                                                             <span>{ele.name}</span>
                                                         </div>
                                                     </React.Fragment>
@@ -421,7 +685,7 @@ export default function Modal(props) {
                                         </div>
                                     </div>
                                 </div>
-                                <ReactTooltip id="my-tooltip" place="top" type="dark" effect="float"/>
+                                <ReactTooltip id="my-tooltip" place="top" type="dark" effect="float" className='font-tooltip'/>
                                 <div className="button" onClick={saveSkillChanges}>
                                     <span>* SAVE *</span>
                                 </div>
@@ -434,47 +698,6 @@ export default function Modal(props) {
                             <div className="c-modal--map">
                                 <h1>* MAPA *</h1>
                                 <img className='map-view' alt="map" src="./map1.jpg" />
-                            </div>
-                        </React.Fragment>
-                    }
-                    {
-                        props.type === 'character' && 
-                        <React.Fragment>
-                            <div className="c-modal--character">
-                                <h1>* CHARACTER *</h1>
-                                <div className='char-wrapp'>
-                                    <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <td colSpan="2">
-                                                    <span>* Name:</span>
-                                                    <span>{props.state.username}</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span>💪🏻</span>
-                                                    <span>{props.state.gameStates.FUE}</span>
-                                                </td>
-                                                <td>
-                                                    <span>🧠</span>
-                                                    <span>{props.state.gameStates.INT}</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span>👁️</span>
-                                                    <span>{props.state.gameStates.PUN}</span>
-                                                </td>
-                                                <td>
-                                                    <span>🍀</span>
-                                                    <span>{props.state.gameStates.SUE}</span>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
                             </div>
                         </React.Fragment>
                     }

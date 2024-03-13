@@ -4,64 +4,64 @@ import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace
 import { itemsList } from '../api/gameDatabase'
 import { buyObj } from "../api/gameFunctions";
 import ObjInspector from './ObjInspector'
+import Counter from './Counter'
+import { BuyIcon, InspectIcon } from './icon/icon'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function ShopList(props) {
     const [t, i18n] = useTranslation("global")
-    const [openDetails, setOpenDetails] = useState(false)
     const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
     const goToGame = () => window.location = '/game'
     let mappedItems = Object.keys(itemsList).map(el => {
         return itemsList[el].map(ele => ele)
     }).flat(1)
-    const ref = useRef(null)
+    const [counterArray, setCounterArray] = useState(mappedItems.map(el => 1))
 
-    const closeDetailsFunc = () => {
-        setOpenDetails(false)
+    const decrement = (index) => {
+        if ((counterArray[index] - 1) > 0) {
+            let newCounterArray = [...counterArray]
+            newCounterArray[index] = newCounterArray[index] - 1
+            setCounterArray(newCounterArray)
+        }
     }
+
+    const increment = (index) => {
+        let newCounterArray = [...counterArray]
+        newCounterArray[index] = newCounterArray[index] + 1
+        setCounterArray(newCounterArray)
+    }
+
+    const buyObjFunc = (obj, i) => {
+        if (props.state.gameStates.gold > (counterArray[i] * obj.gold)) {
+            buyObj(obj.name, counterArray[i])
+        }
+    }
+
+    const ref = useRef(null)
 
     const closeObjInspector = () => {
         setOpenObjInspector(false)
     }
 
     const inspectObjFunc = () => {
-        closeDetailsFunc()
         setOpenObjInspector(true)
     }
 
-    const buyObjFunc = () => {
-        closeDetailsFunc()
-        buyObj(objClicked)
-    }
-
     const openDetailsFunc = (ev) => {
-        setOpenDetails(true)
-        let clickedPos = ev.currentTarget.getElementsByClassName('maximize')[0].getBoundingClientRect()
-        let docPos = document.body.getBoundingClientRect()
-        
-        let top = clickedPos.bottom - docPos.top + 'px'
-        let left = clickedPos.left - docPos.left + 'px'
-          
-        let detailsOp = ref.current
-        detailsOp.style.top = top
-        detailsOp.style.left = left
-
         //TO DO
         let id = ev.currentTarget.id
         setObjClicked(id)
     }
 
-    function useOutsideAlerter(ref) {
+    function useOutsideAlerter() {
         useEffect(() => {
           /**
            * Alert if clicked on outside of element
            */
-          function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                closeDetailsFunc()
+          function handleClickOutside() {
                 setObjClicked(null)
                 closeObjInspector()
-            }
           }
           // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
@@ -69,7 +69,7 @@ export default function ShopList(props) {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
           };
-        }, [ref]);
+        }, []);
     }
 
     useOutsideAlerter(ref);
@@ -84,8 +84,8 @@ export default function ShopList(props) {
                     <div className='table-wrapper'>
                         <table>
                             <tbody>
-                                {mappedItems.map(el => {
-                                    return <tr key={el.name} id={el.name} className={props.state.gameStates.gold < el.gold ? 'disabled' : ''} onClick={openDetailsFunc}>
+                                {mappedItems.map((el, i) => {
+                                    return <tr key={el.name} id={el.name} className={props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''} onClick={openDetailsFunc}>
                                         <td>∞</td>
                                         <td>
                                             <div className='icon-container'>
@@ -107,21 +107,24 @@ export default function ShopList(props) {
                                             </div>
                                         </td>
                                         <td className='maximize'>{el.name}</td>
-                                        <td>{el.gold}</td>
+                                        <td><Counter counter={counterArray[i]} increment={() => {increment(i)}} decrement={() => {decrement(i)}}/></td>
+                                        <td>
+                                            <div className='buttons-wrap'>
+                                                <div className={`button-icon ${props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''}`} onClick={() => buyObjFunc(el, i)} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Buy *'}>
+                                                    <BuyIcon />
+                                                </div>
+                                                <div className='button-icon' onClick={inspectObjFunc} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Inspect *'}>
+                                                    <InspectIcon />
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>{counterArray[i] * el.gold}</td>
                                     </tr>
                                 })}
                             </tbody>
                         </table>
+                        <ReactTooltip id="tooltip-shop" place="top" type="dark" effect="float" className='font-tooltip'/>
                     </div>
-                </div>
-                <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                    <div className='option-wrapper' onClick={inspectObjFunc}>
-                        <span>* Inspect *</span>
-                    </div>
-                    {objClicked && props.state.gameStates.gold > (mappedItems.find(el => el.name === objClicked).gold) &&
-                    <div className='option-wrapper' onClick={buyObjFunc}>
-                        <span>* Buy *</span>
-                    </div>}
                 </div>
                 {openObjInspector && objClicked &&
                     <ObjInspector obj={mappedItems.find(el => el.name === objClicked)}/>

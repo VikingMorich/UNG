@@ -6,6 +6,20 @@
     top: 0px;
     z-index: 13;
 }
+
+.big-modal {
+    background-color: c('medium-brown');
+    width: 86vw;
+    height: 86vh;
+    position: fixed;
+    left: calc(7vw - 10px);
+    top: 9vh;
+    z-index: 15;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .c-modal {
     background-color: c('medium-brown');
     width: 86vw;
@@ -161,38 +175,51 @@
         }
     }
 
-    &--character {
-        display: flex;
-        flex-direction: column;
-
-        h1 {
-            text-align: center;
-        }
-
-        .char-wrapp {
-            display: flex;
-            width: 68vw;
-
-            .char-img {
-                height: 400px;
-            }
-            table {
-                border-collapse: collapse;
-                border: 1px solid grey;
-                width: 100%;
-
-                td {
-                    border: 1px solid grey;
-                    font-family: 'FantaisieArtistique';
-                }
-            }
-        }
-    }
-
     &--inventory{
         overflow: auto;
         height: 100%;
         width: 94%;
+
+        .inv-wrap{
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            
+            .img-wrap{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+
+                span {
+                    font-family: 'Pieces of Eight';
+                    font-size: 24px;
+                }
+                
+                .char-img {
+                    height: 400px;
+                }
+
+                .user-stat{
+                    display: flex;
+                    width: 100%;
+                    gap: 10px;
+                    
+                    .text-stat {
+                        width: 40px;
+                        font-family: 'FantaisieArtistique';
+                        font-size: 16px;
+                    }
+                }
+            }
+
+            
+            .stat-wrap {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+        }
 
         .user-statistics {
             display: flex;
@@ -217,6 +244,7 @@
         }
         h1{
             text-align: center;
+            margin-block-end: 15px;
         }
 
         .option-details {
@@ -237,27 +265,37 @@
 
         .obj-list {
             margin-top: 20px;
-            height: 130px;
-            overflow: auto;
             font-family: 'FantaisieArtistique';
+            .table-wrapper {
+                height: 190px;
+                overflow: auto;
+                margin-top: 5px;
+            }
         }
 
         .pj-table {
             border-collapse: collapse;
             border: 1px solid grey;
             width: 100%;
-            margin-top: 5px;
 
             td, th {
                 padding: 2px 6px;
                 text-align: initial;
                 border: 1px solid grey;
-                cursor: pointer;
                 font-family: 'FantaisieArtistique';
 
-                &.char-icon {
-                    width: 20px;
-                    height: 20px;
+                .buttons-wrap {
+                    display: flex;
+                    gap: 5px;
+      
+                    .button-icon {
+                        cursor: pointer;
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50%;
+                        background-color: c('medium-brown');
+                        padding: 4px;
+                    }
                 }
 
                 &.maximize {
@@ -267,6 +305,11 @@
                 .icon-container {
                     width: 15px;
                     height: 15px;
+                }
+                .char-icon-container {
+                    width: 22px;
+                    height: 22px;
+                    margin: 2px;
                 }
             }
 

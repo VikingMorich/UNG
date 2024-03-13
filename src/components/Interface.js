@@ -14,7 +14,8 @@ export default function Interface() {
     const goToStory = () => window.location = '/story'
     const goToStoryTalk = () => window.location = '/story-talk'
     const goToShop = () => window.location = '/shop'
-    const goToBattle = () => getRandomEnemy(enemiesList[getRandomInt(enemiesList.length)])
+    const goToBattle = () => getRandomEnemy(enemiesList.normal[getRandomInt(enemiesList.normal.length)])
+    const goToBattleLvl2 = () => getRandomEnemy(enemiesList.hard[getRandomInt(enemiesList.hard.length)])
     //const goToStory2 = () => window.location = '/story2'
 
     
@@ -28,6 +29,7 @@ export default function Interface() {
                 <li className='link' onClick={goToReward}>* Random reward *</li>
                 <li className='link' onClick={goToSkill}>* Skill hability *</li>
                 <li className='link' onClick={goToBattle}>* Try battle mode (add, history of last dmg taken?)*</li>
+                <li className='link' onClick={goToBattleLvl2}>* Try battle mode 2nd lvl enemies*</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
                 <li>* Try option selecion arbre possibilitats *</li>
                 <li className='link' onClick={goToStoryTalk}>* View someone talks *</li>

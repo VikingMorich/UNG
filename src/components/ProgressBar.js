@@ -8,7 +8,7 @@ export default function ProgressBar(props) {
     
     return (
         <React.Fragment>
-            <div className="progress" id="progressBar">
+            <div className={"progress " + (props.size === 's' ? 'minified' : '')} id="progressBar">
               <div className="rounded">
                 <div className={"progress-bar " + props.color} style={{width: percentage + '%'}}/>
                 {props.lastAttack !== 0 &&

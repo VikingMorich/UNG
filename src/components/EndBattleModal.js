@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
 import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCoins, ObjExp } from './icon/objectIcon'
-import { saveBattleReward } from '../api/gameFunctions'
+import { saveBattleReward, removeLastBattleAttak } from '../api/gameFunctions'
 
 
 export default function EndBattleModal(props) {
@@ -10,7 +10,7 @@ export default function EndBattleModal(props) {
     const collectFunc = () => {
         saveBattleReward(props.reward)
     }
-    const goGame = () => window.location = '/game'
+    const goGame = () => removeLastBattleAttak()
 
     return (
         <React.Fragment>

@@ -258,3 +258,51 @@ export const Poisoned = () => {
         <img src="/icons/states/poisoned.png" alt='poisoned' width='100%' height='100%'></img>
     );
 };
+
+export const Potion = () => {
+    return (
+        <img src="/icons/potion-color.png" alt='potion' width='100%' height='100%'></img>
+    );
+};
+
+export const BuyIcon = () => {
+    return (
+        <img src="/icons/buy.png" alt='buy' width='100%' height='100%'></img>
+    );
+};
+
+export const InspectIcon = () => {
+    return (
+        <img src="/icons/inspect.png" alt='inspect' width='100%' height='100%'></img>
+    );
+};
+
+export const SellIcon = () => {
+    return (
+        <img src="/icons/sell.png" alt='sell' width='100%' height='100%'></img>
+    );
+};
+
+export const EquipIcon = () => {
+    return (
+        <img src="/icons/equip.png" alt='equip' width='100%' height='100%'></img>
+    );
+};
+
+export const UnequipIcon = () => {
+    return (
+        <img src="/icons/unequip.png" alt='unequip' width='100%' height='100%'></img>
+    );
+};
+
+export const DeleteIcon = () => {
+    return (
+        <img src="/icons/delete.png" alt='delete' width='100%' height='100%'></img>
+    );
+};
+
+export const DrinkIcon = () => {
+    return (
+        <img src="/icons/cheers.png" alt='drink' width='100%' height='100%'></img>
+    );
+};
