@@ -8,7 +8,7 @@ import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import ObjInspector from './ObjInspector'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { setInventoryStateOpen } from '../fireSubscription'
-import { SellIcon, InspectIcon, EquipIcon, UnequipIcon, DeleteIcon, DrinkIcon } from './icon/icon'
+import { SellIcon, InspectIcon, EquipIcon, UnequipIcon, DeleteIcon, DrinkIcon, BasicAttack, BasicBrain, BasicDex, BasicLuck, BasicMoney, BasicShield, BasicStrength } from './icon/icon'
 import ProgressBar from './ProgressBar'
 
 
@@ -107,8 +107,13 @@ export default function Modal(props) {
     }
 
     const saveSkillChanges = () => {
-        setInventoryStateOpen(false)
-        saveSkillPoints(skillSelected, props.state.gameStates.skillPoints - currSkillPoints)
+        if (window.location.pathname !== '/battle') {
+            setInventoryStateOpen(false)
+            saveSkillPoints(skillSelected, props.state.gameStates.skillPoints - currSkillPoints)
+        } else {
+            alert("* You cannot update skills in the middle of a combat *")
+        }
+        
     }
     const updateSelectSkill = (event) => {
         if (props.state.gameStates) {
@@ -119,6 +124,11 @@ export default function Modal(props) {
         Object.keys(currentSkills).map(el => {
             currentSkills[el].map(ele => {
                 ele.children.map(elem => {
+                    if (elem.children) {
+                        elem.children.map(eleme => {
+                            return listSkills.push({...eleme, father: elem.name})
+                        })
+                    }
                     return listSkills.push({...elem, father: ele.name})
                 })
                 return listSkills.push(ele)
@@ -213,31 +223,45 @@ export default function Modal(props) {
                                     <div className='stat-wrap'>
                                         <div className="user-statistics">
                                             <div className="char-stat">
-                                                <span>💪🏻</span>
+                                            <div className='basic-state-icon'>
+                                                <BasicStrength/>
+                                            </div>
                                                 <span>{props.state.gameStates.FUE}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>🧠</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicBrain/>
+                                                </div>
                                                 <span>{props.state.gameStates.INT}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>👁️</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicDex/>
+                                                </div>
                                                 <span>{props.state.gameStates.PUN}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>🍀</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicLuck/>
+                                                </div>
                                                 <span>{props.state.gameStates.SUE}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>⚔️</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicAttack/>
+                                                </div>
                                                 <span>{props.state.gameStates.ATK}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>🛡️</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicShield/>
+                                                </div>
                                                 <span>{props.state.gameStates.DEF}</span>
                                             </div>
                                             <div className="char-stat">
-                                                <span>💰</span>
+                                                <div className='basic-state-icon'>
+                                                    <BasicMoney/>
+                                                </div>
                                                 <span>{props.state.gameStates.gold}</span>
                                             </div>
                                         </div>
@@ -629,8 +653,8 @@ export default function Modal(props) {
                                         <h2>* PASIVES *</h2>
                                         <div className='skills-wrap'>
                                             {currentSkills.pasives.map(el => {
-                                                return <div className='skill-tree'>
-                                                    <div key={el.name} id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? ' selected' : '' ) + 
+                                                return <div key={el.name} className='skill-tree'>
+                                                    <div id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? ' selected' : '' ) + 
                                                     ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
                                                     (el.skillPoints > currSkillPoints ? ' disabled' : '')
                                                     } data-tooltip-id="my-tooltip" data-tooltip-html={el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
@@ -641,16 +665,41 @@ export default function Modal(props) {
                                                         <div className='short-vertical-separator'></div>
                                                         <div className='double-separator'></div>
                                                     </React.Fragment>}
+                                                    {el.children.length === 3 && <React.Fragment>
+                                                        <div className='short-vertical-separator'/>
+                                                        <div className='triple-separator'><div className='short-vertical-separator'/></div>
+                                                    </React.Fragment>}
                                                     <div className='second-lvl'>
                                                         {el.children.length > 0 && el.children.map(ele => {
-                                                        return <React.Fragment>
+                                                        return <div className='skill-subnode'>
                                                             <div key={ele.name} id={ele.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? ' selected' : '' ) + 
                                                             ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') +
                                                             ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
                                                             } data-tooltip-id="my-tooltip" data-tooltip-html={ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
                                                                 <span>{ele.name}</span>
                                                             </div>
-                                                        </React.Fragment>
+
+                                                            {ele.children && 
+                                                            <React.Fragment>
+                                                                {ele.children.length === 2 && <React.Fragment>
+                                                                    <div className='short-vertical-separator'></div>
+                                                                    <div className='double-separator'></div>
+                                                                </React.Fragment>}
+                                                                <div className='third-lvl'>
+                                                                    {ele.children.length > 0 && ele.children.map(elem => {
+                                                                    return <React.Fragment>
+                                                                        <div key={elem.name} id={elem.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(elem.name) !== -1 ? ' selected' : '' ) + 
+                                                                        ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(elem.name) !== -1) ? ' learned' : '') +
+                                                                        ((elem.skillPoints <= currSkillPoints && ((skillSelected.indexOf(ele.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1))) ? '' : ' disabled')
+                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={elem.description + (elem.countdown !== 0 ? ('</br>Countdown: ' + elem.countdown ) : '') + '</br>Skill Points: ' + elem.skillPoints}>
+                                                                            <span>{elem.name}</span>
+                                                                        </div>
+                                                                    </React.Fragment>
+                                                                    })}
+                                                                </div>
+                                                            </React.Fragment>
+                                                            }
+                                                        </div>
                                                         })}
                                                     </div>
                                                 </div>
@@ -678,6 +727,23 @@ export default function Modal(props) {
                                                         } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + ele.description + '</br>Skill Points: ' + ele.skillPoints + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '')}>
                                                             <span>{ele.name}</span>
                                                         </div>
+                                                        {ele.children && 
+                                                            <React.Fragment>
+                                                                <div className='vertical-separator'></div>
+                                                                <div className='third-lvl'>
+                                                                    {ele.children.length > 0 && ele.children.map(elem => {
+                                                                    return <React.Fragment>
+                                                                        <div key={elem.name} id={elem.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(elem.name) !== -1 ? ' selected' : '' ) + 
+                                                                        ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(elem.name) !== -1) ? ' learned' : '') +
+                                                                        ((elem.skillPoints <= currSkillPoints && ((skillSelected.indexOf(ele.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1))) ? '' : ' disabled')
+                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={elem.description + (elem.countdown !== 0 ? ('</br>Countdown: ' + elem.countdown ) : '') + '</br>Skill Points: ' + elem.skillPoints}>
+                                                                            <span>{elem.name}</span>
+                                                                        </div>
+                                                                    </React.Fragment>
+                                                                    })}
+                                                                </div>
+                                                            </React.Fragment>
+                                                            }
                                                     </React.Fragment>
                                                     })}
                                                     </div>

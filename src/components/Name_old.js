@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { changeUserName, getLogedUsername } from "../api/gameFunctions";
-import { setHistoryPage } from '../api/gameFunctions'
+import { changeUserNameOld, getLogedUsername } from "../api/gameFunctions";
 
 function useInput(initialValue) {
   const [value, setValue] = useState(initialValue);
@@ -13,7 +12,7 @@ function useInput(initialValue) {
   return [value, handleChange, setValue];
 }
 
-export default function Name(props) {
+export default function Name() {
   const [t, i18n] = useTranslation("global");
   const [name, handleChange, setName] = useInput("");
     
@@ -22,8 +21,7 @@ export default function Name(props) {
   }, []);
 
   const continueClick = () => {
-    changeUserName(name);
-    setHistoryPage(props.values.choices[0].history)
+    changeUserNameOld(name);
   };
 
   function handleChangeName(e) {
@@ -41,7 +39,7 @@ export default function Name(props) {
         onChange={handleChangeName}
       />
       <div className="button" onClick={continueClick}>
-        <span>{props.values.choices[0].name}</span>
+        <span>* CONTINUE *</span>
       </div>
     </React.Fragment>
   );

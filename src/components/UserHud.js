@@ -5,7 +5,7 @@ import Modal from './Modal'
 import EndBattleModal from './EndBattleModal'
 import { inventoryStateOpen, setInventoryStateOpen } from '../fireSubscription'
 import { getRandomInt, funcUseBackpackPotion } from '../api/gameFunctions'
-import { Potion } from './icon/icon'
+import { Potion, BasicAttack, BasicBrain, BasicDex, BasicLuck, BasicMoney, BasicShield, BasicStrength, BasicBackpack, BasicMap } from './icon/icon'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function UserHud(props) {
@@ -81,46 +81,66 @@ export default function UserHud(props) {
                 </div>
                 <div className="user-statistics">
                   <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Strength *'}>
-                    <span>💪🏻</span>
+                    <div className='basic-state-icon'>
+                      <BasicStrength/>
+                    </div>
                     <span>{props.state.gameStates.FUE}</span>
                   </div>
                   <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Inteligence *'}>
-                    <span>🧠</span>
+                    <div className='basic-state-icon'>
+                      <BasicBrain/>
+                    </div>
                     <span>{props.state.gameStates.INT}</span>
                   </div>
                   <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Dexterity *'}>
-                    <span>👁️</span>
+                    <div className='basic-state-icon'>
+                      <BasicDex/>
+                    </div>
                     <span>{props.state.gameStates.PUN}</span>
                   </div>
                   <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Luck *'}>
-                    <span>🍀</span>
+                    <div className='basic-state-icon'>
+                      <BasicLuck/>
+                    </div>
                     <span>{props.state.gameStates.SUE}</span>
                   </div>
                 </div>
               </div>
               <div className="stats-char">
                 <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Attack *'}>
-                  <span>⚔️</span>
+                  <div className='basic-state-icon'>
+                    <BasicAttack/>
+                  </div>
                   <span>{props.state.gameStates.ATK}</span>
                 </div>
                 <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Defense *'}>
-                  <span>🛡️</span>
+                  <div className='basic-state-icon'>
+                    <BasicShield/>
+                  </div>
                   <span>{props.state.gameStates.DEF}</span>
                 </div>
                 <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Gold *'}>
-                  <span>💰</span>
+                  <div className='basic-state-icon'>
+                    <BasicMoney/>
+                  </div>
                   <span>{props.state.gameStates.gold}</span>
                 </div>
                 <div className='char-buttons'>
                   <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Inventory *'}>
-                    <span>🎒</span>
+                    <div className='basic-state-icon'>
+                      <BasicBackpack/>
+                    </div>
                   </div>
                   <div className="char-inv" onClick={() => { toggleModal(); setType('map')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Map *'}>
-                    <span>🗺️</span>
+                    <div className='basic-state-icon'>
+                      <BasicMap/>
+                    </div>
                   </div>
                   {potionObj && 
                     <div className="char-inv" onClick={useBackpackPotionFunc} data-tooltip-id="tooltip-user" data-tooltip-html={'* Use potion *'}>
-                      <span><Potion/></span>
+                      <div className='basic-state-icon'>
+                        <Potion/>
+                      </div>
                     </div>
                   }
                 </div>

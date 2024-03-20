@@ -1,7 +1,7 @@
 import React from 'react';
 //import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
-import { Burned, Poisoned } from './icon/icon';
+import { Burned, Stuned, Poisoned, BasicAttack, BasicStrength, BasicShield } from './icon/icon';
 
 export default function EnemyHud(props) {
     //const [t, i18n] = useTranslation("global");
@@ -19,6 +19,9 @@ export default function EnemyHud(props) {
                   {props.state.countdown?.Burned && 
                     <div className='enemy-state'><Burned/></div>
                   }
+                  {props.state.countdown?.Stuned && 
+                    <div className='enemy-state'><Stuned/></div>
+                  }
                 </span>
                 <div className="enemy-stat">
                   <span className='text-stat'>HP</span>
@@ -27,15 +30,21 @@ export default function EnemyHud(props) {
               </div>
               <div className="stats-char">
                 <div className="char-stat">
-                  <span>⚔️</span>
+                  <div className='basic-state-icon'>
+                    <BasicAttack/>
+                  </div>
                   <span>{props.state.ATK}</span>
                 </div>
                 <div className="char-stat">
-                  <span>🛡️</span>
+                  <div className='basic-state-icon'>
+                    <BasicShield/>
+                  </div>
                   <span>{props.state.DEF}</span>
                 </div>
                 <div className="char-stat">
-                  <span>💪🏻</span>
+                  <div className='basic-state-icon'>
+                    <BasicStrength/>
+                  </div>
                   <span>{props.state.FUE}</span>
                 </div>
               </div>

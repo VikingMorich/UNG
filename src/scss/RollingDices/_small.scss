@@ -42,6 +42,10 @@
     padding: 12px;
     width: 100%;
     overflow: hidden;
+
+    &.ghost {
+      opacity: 0.3;
+    }
   }
   .die--olive{
     background-color: #a7a700;

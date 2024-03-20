@@ -2,6 +2,24 @@
   display: flex;
 }
 
+.battle-header{
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  .link {
+    color: c('dark-brown');
+    cursor: pointer;
+    font-family: 'FantaisieArtistique';
+    font-size: 20px;
+    width: fit-content;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .current-op {
   display: flex;
   border-top: 1px solid black;

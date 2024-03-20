@@ -1,21 +1,24 @@
 import React, {useState} from 'react';
 import { useTranslation } from "react-i18next"
+import { setHistoryPage } from '../api/gameFunctions'
+import expand from "../icons/expand_more-white-18dp.svg"
 
-export default function StoryTalk() {
+export default function StoryTalk(props) {
     const [t, i18n] = useTranslation("global")
     const [swiped, setSwiped] = useState(0);
-    const goToGame = () => window.location = '/game'
 
     const handleClick = () => {
-        if (swiped < 2)
+        if (swiped < (props.values.text.length - 1))
             setSwiped(swiped + 1);
         // Do something when the swipe animation is triggered
-        if (swiped === 3)
-            goToGame()
+        // if (swiped === 3)
+        //     goToGame()
     };
 
-    const changeBackground = () => {
-        setSwiped(3)
+    const backClick = (event) => {
+        if (swiped !== 0)
+            setSwiped(swiped - 1);
+        event.stopPropagation();
     }
     
     return (
@@ -23,24 +26,31 @@ export default function StoryTalk() {
             <div className='story-talk-swipe'>
                 <div className={`page-swipe-animation`} onClick={handleClick}>
                 {/* You can put any content inside this component */}
-                    <div className="page">
-                        <img className="background-img" alt="background" src={swiped === 3 ? './locations/ocean3.jpeg' : './locations/beach.jpeg'} />
-                        <div className={`speach-wrapper ${swiped === 3 ? 'hidden' : ''}`}>
-                            <img className="people-img" alt="people" src='./people/shaman.png' />
+                    <div>
+                        <img className="background-img" alt="background" src={'./locations/' + props.values.location +'.jpeg'} />
+                        <div className={`speach-wrapper`}>
+                            <img className="people-img" alt="people" src={'./people/' + props.values.character + '.png'} />
                             <div className="text-wrapper">
-                                <div className={`page-text ${swiped !== 0 ? 'hidden' : ''}`} >
-                                    <span>* Hace un dia precioso no crees? *</span>
-                                </div>
-                                <div className={`page-text ${swiped !== 1 ? 'hidden' : ''}`} >
-                                    <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>
-                                </div>
-                                <div className={`page-text ${swiped !== 2 ? 'hidden' : ''}`} >
-                                    <span>* Si me ganas a una carrera hasta la otra isla te invito a un cóctel *</span>
-                                    <div className='op-choices'>
-                                        <span className='link' onClick={changeBackground}>Aceptar</span>
-                                        <span className='link' onClick={goToGame}>Volver</span>
-                                    </div>
-                                </div>
+                                {props.values.text.map((element, i) => {
+                                    return (
+                                    <div key={i} className={`page-text ${swiped !== i ? 'hidden' : ''}`} >
+                                        <span>{element}</span>
+                                        {(props.values.text.length - 1) === i &&
+                                        <div className='op-choices'>
+                                            {props.values.choices.map(el => {
+                                                return (
+                                                    <span key={el.name} className='link' onClick={() => {setHistoryPage(el.history)}}>{el.name}</span>
+                                                )
+                                            })}
+                                            
+                                        </div>
+                                        }
+                                    </div>)
+                                })}
+                                {swiped !== 0 && 
+                                <div className='button-back' onClick={backClick}>
+                                    <img className="back-icon" alt="back-icon" src={expand}/>
+                                </div>}
                             </div>
                         </div>
                     </div>

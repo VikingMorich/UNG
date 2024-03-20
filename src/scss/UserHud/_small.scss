@@ -45,11 +45,13 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: calc(60vw - 200px);
   }
 
   .user-name {
     font-family: 'FantaisieArtistique';
     font-size: 24px;
+    text-align: center;
   }
 
   .user-stat {
@@ -65,14 +67,21 @@
 
   .user-statistics {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
+    gap: 10px;
 
     .char-stat {
       display: flex;
       gap: 15px;
       font-family: 'Pieces of Eight';
       font-size: 24px;
+      align-items: center;
+
+      .basic-state-icon {
+        height: 22px;
+        width: 22px;
+      }
     }
 
     .char-stat:not(:first-child) {
@@ -92,6 +101,12 @@
       gap: 15px;
       font-family: 'Pieces of Eight';
       font-size: 24px;
+      align-items: center;
+
+      .basic-state-icon {
+        height: 22px;
+        width: 22px;
+      }
     }
 
     .char-buttons {
@@ -114,6 +129,12 @@
         &:hover {
           background-color: rgba(0, 0, 0, 0.2);
         }
+
+        .basic-state-icon {
+          height: 22px;
+          width: 22px;
+        }
+        
       }
 
     }
@@ -122,4 +143,9 @@
 
 .font-tooltip {
   font-family: 'FantaisieArtistique';
+}
+
+.font-tooltip-centered {
+  font-family: 'FantaisieArtistique';
+  text-align: center;
 }

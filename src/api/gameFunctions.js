@@ -1,11 +1,11 @@
 import fire from '../fire'
 import Cookies from 'universal-cookie';
 import ReactDOM from 'react-dom'
-import { Fail } from '../components/icon/icon'
+import { Fail, BasicLuck, BasicBrain, BasicDex, BasicStrength, Stuned } from '../components/icon/icon'
 import { itemsList } from './gameDatabase';
 
 let cookies = new Cookies();
-let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
+let timeExpiration = new Date(Date.now() + (1000 * 3600 * 24))
 
 export const getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
@@ -33,9 +33,60 @@ export function changeUserName(name) {
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
     updates['username'] = name
+    ref.child(key).update(updates)
+  })
+}
+
+export function changeUserNameOld(name) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    updates['username'] = name
     ref.child(key).update(updates).then(() => {
       window.location = '/character-selection'
     })
+  })
+}
+
+export function setUserCharacterTypeOld(type) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    updates['gameStates'] = {
+      characterType: type,
+      INT: type === 'mage' ? 75 : 50,
+      FUE: type === 'warrior' ? 75 : 50,
+      PUN: type === 'archer' ? 75 : 50,
+      SUE: 50,
+      gold: 0,
+      HP: 100,
+      maxHP: 100,
+      EXP: 0,
+      maxEXP: 200,
+      ATK: 1,
+      DEF: 0,
+      LVL: 1,
+      history: 'page0',
+    }
+    //
+    updates.gameStates['backpack'] = {}
+    // let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
+    // harcodedObjects.forEach(el => {
+    //   let objkey = ref.push().key
+    //   updates.gameStates.backpack[objkey] = {
+    //     name: el.name,
+    //     count: el.count,
+    //     type: el.type,
+    //     equiped: el.equiped
+    //   }
+    // })
+    
+
+    ref.child(key).update(updates)
+  }).then(() => {
+    window.location = '/game'
   })
 }
 
@@ -58,6 +109,7 @@ export function setUserCharacterType(type) {
       ATK: 1,
       DEF: 0,
       LVL: 1,
+      history: 'page00',
     }
     //
     updates.gameStates['backpack'] = {}
@@ -74,8 +126,6 @@ export function setUserCharacterType(type) {
     
 
     ref.child(key).update(updates)
-  }).then(() => {
-    window.location = '/game'
   })
 }
 
@@ -234,7 +284,11 @@ export function sellObj(obj, price) {
     } else {
       updates.backpack[obj].count = currentKeyCount - 1
     }
-    updates.gold += price
+    let plusGain = 0
+    if (updates.learnedSkills && updates.learnedSkills.includes('Greedy')) {
+      plusGain = parseInt(price * 5 / 100)
+    }
+    updates.gold = updates.gold + price + plusGain
     ref.update(updates)
   })//.then(() => { window.location.reload() })
 
@@ -323,7 +377,11 @@ export function saveReward(gold, obj) {
   let key = cookies.get('key')
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
-    updates.gameStates.gold += gold
+    let plusGain = 0
+    if (updates.gameStates.learnedSkills && updates.gameStates.learnedSkills.includes('Greedy')) {
+      plusGain = parseInt(gold * 5 / 100)
+    }
+    updates.gameStates.gold += gold + plusGain
     let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
     if (exist) {
       updates.gameStates.backpack[exist].count += 1
@@ -420,7 +478,7 @@ export function rollDices(typeAttack, numberDices) {
       if( d1 <= successLim) {
         //acert
         let diceValue = document.createElement('div')
-        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        ReactDOM.render(<div className='basic-state-icon'>{type === 'FUE' ? <BasicStrength/> : type === 'INT' ? <BasicBrain/> : type === 'PUN' ? <BasicDex/> : <BasicLuck/>}</div>, diceValue)
         frontDiceFace1[0].appendChild(diceValue)
         multiplier += 1
       } else {
@@ -434,7 +492,7 @@ export function rollDices(typeAttack, numberDices) {
       if( d2 <= successLim) {
         //acert
         let diceValue = document.createElement('div')
-        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        ReactDOM.render(<div className='basic-state-icon'>{type === 'FUE' ? <BasicStrength/> : type === 'INT' ? <BasicBrain/> : type === 'PUN' ? <BasicDex/> : <BasicLuck/>}</div>, diceValue)
         frontDiceFace2[0].appendChild(diceValue)
         multiplier += 1
       } else {
@@ -448,7 +506,7 @@ export function rollDices(typeAttack, numberDices) {
       if( d3 <= successLim) {
         //acert
         let diceValue = document.createElement('div')
-        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        ReactDOM.render(<div className='basic-state-icon'>{type === 'FUE' ? <BasicStrength/> : type === 'INT' ? <BasicBrain/> : type === 'PUN' ? <BasicDex/> : <BasicLuck/>}</div>, diceValue)
         frontDiceFace3[0].appendChild(diceValue)
         multiplier += 1
       } else {
@@ -462,7 +520,7 @@ export function rollDices(typeAttack, numberDices) {
       if( d4 <= successLim) {
         //acert
         let diceValue = document.createElement('div')
-        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        ReactDOM.render(<div className='basic-state-icon'>{type === 'FUE' ? <BasicStrength/> : type === 'INT' ? <BasicBrain/> : type === 'PUN' ? <BasicDex/> : <BasicLuck/>}</div>, diceValue)
         frontDiceFace4[0].appendChild(diceValue)
         multiplier += 1
       } else {
@@ -476,7 +534,7 @@ export function rollDices(typeAttack, numberDices) {
       if( d5 <= successLim) {
         //acert
         let diceValue = document.createElement('div')
-        ReactDOM.render(<span>{type === 'FUE' ? '💪🏻' : type === 'INT' ? '🧠' : type === 'PUN' ? '👁️' : '🍀'}</span>, diceValue)
+        ReactDOM.render(<div className='basic-state-icon'>{type === 'FUE' ? <BasicStrength/> : type === 'INT' ? <BasicBrain/> : type === 'PUN' ? <BasicDex/> : <BasicLuck/>}</div>, diceValue)
         frontDiceFace5[0].appendChild(diceValue)
         multiplier += 1
       } else {
@@ -489,49 +547,71 @@ export function rollDices(typeAttack, numberDices) {
 
     //ENEMY
     setTimeout(() => {
-      let ed1 = getRandomInt(100)
+    let ed1 = getRandomInt(100)
     let ed2 = getRandomInt(100)
     let ed3 = getRandomInt(100)
+    if (typeAttack === 'Ghost attack') {
+      let firstDice = document.getElementById("e-dice-1").getElementsByClassName('die-item')
+      Object.keys(firstDice).forEach(el => {
+        firstDice[el].className += ' ghost'
+      })
+    }
     let efrontDiceFace1 = document.getElementById("e-dice-1").getElementsByClassName('data-side-1')
     let efrontDiceFace2 = document.getElementById("e-dice-2").getElementsByClassName('data-side-1')
     let efrontDiceFace3 = document.getElementById("e-dice-3").getElementsByClassName('data-side-1')
     let emultiplier = 0
-
-    if( ed1 <= snap.val().battle.FUE) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>💪🏻</span>, diceValue)
-      efrontDiceFace1[0].appendChild(diceValue)
-      emultiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      efrontDiceFace1[0].appendChild(diceValue)
+    
+    //STUNED
+    if (updates.battle.countdown && updates.battle.countdown.Stuned) {
+      let diceValue1 = document.createElement('div')
+      ReactDOM.render(<div className='basic-state-icon'><Stuned/></div>, diceValue1)
+      let diceValue2 = document.createElement('div')
+      ReactDOM.render(<div className='basic-state-icon'><Stuned/></div>, diceValue2)
+      let diceValue3 = document.createElement('div')
+      ReactDOM.render(<div className='basic-state-icon'><Stuned/></div>, diceValue3)
+      efrontDiceFace1[0].appendChild(diceValue1)
+      efrontDiceFace2[0].appendChild(diceValue2)
+      efrontDiceFace3[0].appendChild(diceValue3)
     }
-    if( ed2 <= snap.val().battle.FUE) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>💪🏻</span>, diceValue)
-      efrontDiceFace2[0].appendChild(diceValue)
-      emultiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      efrontDiceFace2[0].appendChild(diceValue)
-    }
-    if( ed3 <= snap.val().battle.FUE) {
-      //acert
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<span>💪🏻</span>, diceValue)
-      efrontDiceFace3[0].appendChild(diceValue)
-      emultiplier += 1
-    } else {
-      //fallo
-      let diceValue = document.createElement('div')
-      ReactDOM.render(<Fail/>, diceValue)
-      efrontDiceFace3[0].appendChild(diceValue)
+    else {
+      if( ed1 <= snap.val().battle.FUE) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<div className='basic-state-icon'><BasicStrength/></div>, diceValue)
+        efrontDiceFace1[0].appendChild(diceValue)
+        if (typeAttack !== 'Ghost attack') {
+          emultiplier += 1
+        }
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        efrontDiceFace1[0].appendChild(diceValue)
+      }
+      if( ed2 <= snap.val().battle.FUE) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<div className='basic-state-icon'><BasicStrength/></div>, diceValue)
+        efrontDiceFace2[0].appendChild(diceValue)
+        emultiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        efrontDiceFace2[0].appendChild(diceValue)
+      }
+      if( ed3 <= snap.val().battle.FUE) {
+        //acert
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<div className='basic-state-icon'><BasicStrength/></div>, diceValue)
+        efrontDiceFace3[0].appendChild(diceValue)
+        emultiplier += 1
+      } else {
+        //fallo
+        let diceValue = document.createElement('div')
+        ReactDOM.render(<Fail/>, diceValue)
+        efrontDiceFace3[0].appendChild(diceValue)
+      }
     }
 
     
@@ -550,7 +630,7 @@ export function rollDices(typeAttack, numberDices) {
         let enemyDmg = (emultiplier * updates.battle.ATK) - updates.DEF
         if (enemyDmg < 0) enemyDmg = 0
         let currentLive = updates.HP - enemyDmg
-        let playerDmg
+        let playerDmg = 0
         //Doublestrike
         if (typeAttack === 'Doublestrike') {
           playerDmg = (2 * multiplier * updates.ATK) - updates.battle.DEF
@@ -568,6 +648,23 @@ export function rollDices(typeAttack, numberDices) {
             updates.battle.countdown = {[typeAttack]: 3}
           else
             updates.battle.countdown[typeAttack] = 3
+        }
+        //Charge
+        else if (typeAttack === 'Charge') {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+          if (multiplier === 3) {
+            if (!updates.battle.countdown)
+            updates.battle.countdown = {Stuned: 1, [typeAttack]: 3}
+            else
+              updates.battle.countdown.Stuned = 1
+              updates.battle.countdown[typeAttack] = 3
+          } else {
+            //treure hardcoded
+            if (!updates.battle.countdown)
+              updates.battle.countdown = {[typeAttack]: 3}
+            else
+              updates.battle.countdown[typeAttack] = 3
+          }
         }
         //Headshot
         else if (typeAttack === 'Headshot') {
@@ -587,11 +684,28 @@ export function rollDices(typeAttack, numberDices) {
           else
             updates.battle.countdown[typeAttack] = 3
         }
+        //Vampire arrow
+        else if (typeAttack === 'Vampire arrow') {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 3}
+          else
+            updates.battle.countdown[typeAttack] = 3
+        }
         //Rejuvenate
         else if (typeAttack === 'Rejuvenate') {
           playerDmg = 0
           currentLive = currentLive + 15
-          if (currentLive > updates.maxHP) currentLive = updates.maxHP
+          //treure hardcoded
+          if (!updates.battle.countdown)
+            updates.battle.countdown = {[typeAttack]: 3}
+          else
+            updates.battle.countdown[typeAttack] = 3
+        }
+        //Ghost attack
+        else if (typeAttack === 'Ghost attack') {
+          playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
           //treure hardcoded
           if (!updates.battle.countdown)
             updates.battle.countdown = {[typeAttack]: 3}
@@ -633,7 +747,15 @@ export function rollDices(typeAttack, numberDices) {
         updates.battle.lastEnemyDmg = enemyDmg
         updates.battle.lastPlayerDmg = playerDmg
         if (currentLive < 0) currentLive = 0
-        if (currentEnemyLive < 0) currentEnemyLive = 0
+        let overkill = null
+        if (currentEnemyLive < 0) {
+          overkill = currentEnemyLive * (-1)
+          currentEnemyLive = 0
+        }
+        //vampire arrow
+        if (typeAttack === 'Vampire arrow' && overkill)
+          currentLive = currentLive + overkill
+        if (currentLive > updates.maxHP) currentLive = updates.maxHP
         updates.HP = currentLive
         updates.battle.HP = currentEnemyLive
         ref.update(updates)
@@ -671,7 +793,13 @@ export function saveBattleReward(reward) {
   ref.once("value", function(snap) {
     let updates = snap.val()
     reward.forEach(el => {
-      if(el.type === 'coins') updates.gold = updates.gold + el.count
+      if(el.type === 'coins') {
+        let plusGain = 0
+        if (updates.learnedSkills && updates.learnedSkills.includes('Greedy')) {
+          plusGain = parseInt(el.count * 5 / 100)
+        }
+        updates.gold = updates.gold + el.count + plusGain
+      }
       if(el.type === 'EXP') {
         let currentEXP = updates.EXP + el.count
         //LVL UP
@@ -764,22 +892,42 @@ export function saveSkillPoints(skills, cost) {
     let updates = gameStates.val()
     let learned = updates.learnedSkills ? updates.learnedSkills : []
     updates.learnedSkills = learned.concat(skills)
-    updates.skillPoints = updates.skillPoints - cost
+    updates.skillPoints = (updates.skillPoints ? updates.skillPoints : 0) - (cost ? cost : 0)
     if (skills.includes('Health')) {
       updates.maxHP = updates.maxHP + 10
       updates.HP = updates.HP + 10
     }
+    if (skills.includes('Health II')) {
+      updates.maxHP = updates.maxHP + 40
+      updates.HP = updates.HP + 40
+    }
     if (skills.includes('Lucky')) {
       updates.SUE = updates.SUE + 3
+    }
+    if (skills.includes('Lucky II')) {
+      updates.SUE = updates.SUE + 5
     }
     if (skills.includes('Strength')) {
       updates.FUE = updates.FUE + 3
     }
+    if (skills.includes('Strength II')) {
+      updates.FUE = updates.FUE + 5
+    }
     if (skills.includes('Intelectual')) {
       updates.INT = updates.INT + 3
     }
+    if (skills.includes('Intelectual II')) {
+      updates.INT = updates.INT + 5
+    }
     if (skills.includes('Accurate')) {
       updates.PUN = updates.PUN + 3
+    }
+    if (skills.includes('Accurate II')) {
+      updates.PUN = updates.PUN + 5
+    }
+    if (skills.includes('Brawler')) {
+      updates.ATK = updates.ATK + 1
+      updates.DEF = updates.DEF + 1
     }
     ref.update(updates)
   })
@@ -793,6 +941,17 @@ export function removeLastBattleAttak() {
     updates.battle.lastEnemyDmg = null
     updates.battle.lastPlayerDmg = null
     ref.update(updates).then(() => window.location = '/game')
+    
+  })
+}
+
+export function setHistoryPage(page) {
+  let key = cookies.get('key')
+  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
+  ref.once("value", function(snap) {
+    let updates = snap.val()
+    updates.history = page
+    ref.update(updates)
     
   })
 }

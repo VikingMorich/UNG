@@ -8,10 +8,11 @@ export default function Skill_1() {
     //PATILLADA CHATGPT
     const [progressValue, setProgressValue] = useState(0);
     const [direction, setDirection] = useState('right');
-    const [win, setWin] = useState(null);
+    const [lvl, setLvl] = useState(1);
+    const [arrRes, setArrRes] = useState([]);
     const progressRef = useRef(null);
     const progressIntervalRef = useRef(null);
-    const downloadSpeed = 2; // Adjust this value to set the stable speed of loading
+    const downloadSpeed = 1; // Adjust this value to set the stable speed of loading
 
     //ordered from 0 to 100
     const progressSuccess = [[15, 20], [80, 90]]
@@ -33,6 +34,12 @@ export default function Skill_1() {
         return computedGradientSuccess
     }
 
+    const setWin = (res) => {
+        let x = arrRes
+        x.push(res === 'win' ? '✅' : '❌')
+        setArrRes(x)
+    }
+
     const checkIfSuccess = (prog) => {
         let succ = false
         progressSuccess.forEach(el => {
@@ -41,6 +48,9 @@ export default function Skill_1() {
             }
         })
         setWin(succ ? 'win' : 'lose')
+        if (lvl > 4) setTimeout(() => {clearInterval(progressIntervalRef.current)}, 100)
+        else setLvl(lvl + 1)
+        
     }
 
     useEffect(() => {
@@ -68,7 +78,7 @@ export default function Skill_1() {
         // You can handle the progress value here
         console.log("Progress stopped at", progressValue);
         checkIfSuccess(progressValue)
-        clearInterval(progressIntervalRef.current);
+        //clearInterval(progressIntervalRef.current)
     };
 
     useEffect(() => {
@@ -84,6 +94,7 @@ export default function Skill_1() {
             <ul className='ul-list'>
                 <li className='link' onClick={goGame}>* Back *</li>
             </ul>
+            <h3>LVL {lvl}</h3>
             <div style={{ backgroundImage: getComputedGradient(), height: '30px', width: '100%', position: 'relative', overflow: 'hidden' }}>
                 <div ref={progressRef} style={{ /* backgroundColor: '#000000', opacity: 0.7, */ borderRight: '5px solid black', height: '100%', width: '100%', transition: 'transform 0.5s linear' }}>
                     <span style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#fff' }}>{progressValue}%</span>
@@ -92,17 +103,29 @@ export default function Skill_1() {
             <div className='button-wrapper'>
                 <button onClick={stopProgress} className='stop-button'>Stop Progress</button>
             </div>
-            {win === 'win' &&
-                <div className='skill-res'>
-                    * YOU WIN *
-                </div>
-            }
-            {win === 'lose' &&
-                <div className='skill-res'>
-                    * YOU LOSE * 
-                </div>
-            }
-            
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>{arrRes[0] || ''}</td>
+                            <td>{arrRes[1] || ''}</td>
+                            <td>{arrRes[2] || ''}</td>
+                            <td>{arrRes[3] || ''}</td>
+                            <td>{arrRes[4] || ''}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div className='button-wrapper'>
+                <button onClick={() => window.location.reload()} className='stop-button'>Restart</button>
+            </div>
             <div id="player" className="user-hud">
                 
             </div>

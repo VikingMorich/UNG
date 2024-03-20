@@ -11,7 +11,6 @@
     .enemy-img {
       border: 1px solid black;
       width: 150px;
-      cursor: pointer;
     }
 
   }
@@ -49,23 +48,6 @@
     }
   }
 
-  .enemy-statistics {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    .char-stat {
-      display: flex;
-      gap: 15px;
-      font-family: 'Pieces of Eight';
-      font-size: 24px;
-    }
-
-    .char-stat:not(:first-child) {
-      margin-left: 10px;
-    }
-  }
-
   .last-attack-result {
     margin-left: 70px;
     margin-bottom: 100px;
@@ -95,6 +77,12 @@
       gap: 15px;
       font-family: 'Pieces of Eight';
       font-size: 24px;
+      align-items: center;
+      
+      .basic-state-icon {
+        height: 22px;
+        width: 22px;
+      }
     }
 
     .char-buttons {

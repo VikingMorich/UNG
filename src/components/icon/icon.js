@@ -259,9 +259,15 @@ export const Poisoned = () => {
     );
 };
 
+export const Stuned = () => {
+    return (
+        <img src="/icons/states/stuned.png" alt='stuned' width='100%' height='100%'></img>
+    );
+};
+
 export const Potion = () => {
     return (
-        <img src="/icons/potion-color.png" alt='potion' width='100%' height='100%'></img>
+        <img src="/icons/basicstates/potion.png" alt='potion' width='100%' height='100%'></img>
     );
 };
 
@@ -304,5 +310,59 @@ export const DeleteIcon = () => {
 export const DrinkIcon = () => {
     return (
         <img src="/icons/cheers.png" alt='drink' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicAttack = () => {
+    return (
+        <img src="/icons/basicstates/attack.png" alt='attack' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicBrain = () => {
+    return (
+        <img src="/icons/basicstates/brain.png" alt='brain' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicDex = () => {
+    return (
+        <img src="/icons/basicstates/dex.png" alt='dexterity' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicLuck = () => {
+    return (
+        <img src="/icons/basicstates/luck.png" alt='luck' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicMoney = () => {
+    return (
+        <img src="/icons/basicstates/money.png" alt='money' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicShield = () => {
+    return (
+        <img src="/icons/basicstates/shield.png" alt='shield' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicStrength = () => {
+    return (
+        <img src="/icons/basicstates/strength.png" alt='strength' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicBackpack = () => {
+    return (
+        <img src="/icons/basicstates/backpack.png" alt='backpack' width='100%' height='100%'></img>
+    );
+};
+
+export const BasicMap = () => {
+    return (
+        <img src="/icons/basicstates/map.png" alt='backpack' width='100%' height='100%'></img>
     );
 };

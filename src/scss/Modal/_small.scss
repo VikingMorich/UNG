@@ -9,10 +9,10 @@
 
 .big-modal {
     background-color: c('medium-brown');
-    width: 86vw;
+    width: 72vw;
     height: 86vh;
     position: fixed;
-    left: calc(7vw - 10px);
+    left: calc(12vw - 10px);
     top: 9vh;
     z-index: 15;
     padding: 10px;
@@ -124,9 +124,44 @@
                     height: 10px;
                 }
 
+                .triple-separator {
+                    border-right: 1px solid c('chicken-wings');
+                    border-left: 1px solid c('chicken-wings');
+                    border-top: 1px solid c('chicken-wings');
+                    width: 276px;
+                    height: 10px;
+                    display: flex;
+                    justify-content: center;
+                }
+
                 .second-lvl {
                     display: flex;
                     gap: 30px;
+
+                    .skill-subnode {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        
+                        .short-vertical-separator {
+                            border-right: 1px solid c('chicken-wings');
+                            width: 0px;
+                            height: 10px;
+                        }
+        
+                        .double-separator {
+                            border-right: 1px solid c('chicken-wings');
+                            border-left: 1px solid c('chicken-wings');
+                            border-top: 1px solid c('chicken-wings');
+                            width: 90px;
+                            height: 10px;
+                        }
+                    }
+
+                    .third-lvl {
+                        display: flex;
+                        gap: 30px;
+                    }
                 }
 
                 .skill-ball{
@@ -142,6 +177,7 @@
     
                     span {
                         font-size: 10px;
+                        text-align: center;
                     }
 
                     &.selected {
@@ -232,6 +268,12 @@
               gap: 15px;
               font-family: 'Pieces of Eight';
               font-size: 24px;
+              align-items: center;
+
+                .basic-state-icon {
+                    height: 22px;
+                    width: 22px;
+                }
             }
         
             .char-stat:not(:first-child) {

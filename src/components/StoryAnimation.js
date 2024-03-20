@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useTranslation } from "react-i18next"
 
-export default function StoryAnimation() {
+export default function StoryAnimation(props) {
     const [t, i18n] = useTranslation("global")
     const [swiped, setSwiped] = useState(false);
     const goToGame = () => window.location = '/game'

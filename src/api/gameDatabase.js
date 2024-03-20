@@ -300,7 +300,7 @@ export const enemiesList = {
       maxHP: 150,
       DEF: 8,
       ATK: 5,
-      EXP: 1500,
+      EXP: 1200,
       maxGold: 2000,
       minGold: 500,
       //obj amb chance de q surti?
@@ -326,7 +326,7 @@ export const enemiesList = {
       maxHP: 250,
       DEF: 7,
       ATK: 10,
-      EXP: 3000,
+      EXP: 2000,
       maxGold: 3000,
       minGold: 200,
       //obj amb chance de q surti?
@@ -350,6 +350,29 @@ export const skillsWarrior = {
         description: 'Increase your 🍀 by 3 permanently',
         skillPoints: 1,
         countdown: 0,
+        children: [
+          {
+            name: 'Greedy',
+            imgSrc: '',
+            description: '+5% multiplier in gold rewards',
+            skillPoints: 1,
+            countdown: 0,
+          },
+          {
+            name: 'Lucky II',
+            imgSrc: '',
+            description: 'Increase your 🍀 by 5 permanently',
+            skillPoints: 1,
+            countdown: 0,
+          }
+        ]
+      },
+      {
+        name: 'Health II',
+        imgSrc: '',
+        description: 'Increase your max HP by 40 permanently',
+        skillPoints: 2,
+        countdown: 0,
       },
       {
         name: 'Strength',
@@ -357,6 +380,22 @@ export const skillsWarrior = {
         description: 'Increase your 💪🏻 by 3 permanently',
         skillPoints: 1,
         countdown: 0,
+        children: [
+          {
+            name: 'Brawler',
+            imgSrc: '',
+            description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+            skillPoints: 1,
+            countdown: 0,
+          },
+          {
+            name: 'Strength II',
+            imgSrc: '',
+            description: 'Increase your 💪🏻 by 5 permanently',
+            skillPoints: 1,
+            countdown: 0,
+          }
+        ]
       }
     ]
   }
@@ -375,6 +414,15 @@ export const skillsWarrior = {
           description: 'Add +2 dices to your attack',
           skillPoints: 2,
           countdown: 3,
+          children: [
+            {
+              name: 'Charge',
+              imgSrc: '',
+              description: 'Attack the enemt, if you get the full </br>combo of hits, add stunned to the enemy',
+              skillPoints: 2,
+              countdown: 3,
+            }
+          ]
         }
       ]
     }
@@ -396,6 +444,29 @@ export const skillsMage = {
           description: 'Increase your 🍀 by 3 permanently',
           skillPoints: 1,
           countdown: 0,
+          children: [
+            {
+              name: 'Greedy',
+              imgSrc: '',
+              description: '+5% multiplier in gold rewards',
+              skillPoints: 1,
+              countdown: 0,
+            },
+            {
+              name: 'Lucky II',
+              imgSrc: '',
+              description: 'Increase your 🍀 by 5 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            }
+          ]
+        },
+        {
+          name: 'Health II',
+          imgSrc: '',
+          description: 'Increase your max HP by 40 permanently',
+          skillPoints: 2,
+          countdown: 0,
         },
         {
           name: 'Intelectual',
@@ -403,6 +474,22 @@ export const skillsMage = {
           description: 'Increase your 🧠 by 3 permanently',
           skillPoints: 1,
           countdown: 0,
+          children: [
+            {
+              name: 'Brawler',
+              imgSrc: '',
+              description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            },
+            {
+              name: 'Intelectual II',
+              imgSrc: '',
+              description: 'Increase your 🧠 by 5 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            }
+          ]
         }
       ]
     }
@@ -421,6 +508,16 @@ export const skillsMage = {
           description: 'Restore 15HP in combat',
           skillPoints: 2,
           countdown: 3,
+          children: [
+            {
+              name: 'Ghost attack',
+              imgSrc: '',
+              description: "Remove the value of the first enemy's dice </br>when you use this attack",
+              skillPoints: 2,
+              countdown: 3,
+              
+            }
+          ]
         }
       ]
     }
@@ -442,6 +539,29 @@ export const skillsArcher = {
           description: 'Increase your 🍀 by 3 permanently',
           skillPoints: 1,
           countdown: 0,
+          children: [
+            {
+              name: 'Greedy',
+              imgSrc: '',
+              description: '+5% multiplier in gold rewards',
+              skillPoints: 1,
+              countdown: 0,
+            },
+            {
+              name: 'Lucky II',
+              imgSrc: '',
+              description: 'Increase your 🍀 by 5 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            }
+          ]
+        },
+        {
+          name: 'Health II',
+          imgSrc: '',
+          description: 'Increase your max HP by 40 permanently',
+          skillPoints: 2,
+          countdown: 0,
         },
         {
           name: 'Accurate',
@@ -449,6 +569,22 @@ export const skillsArcher = {
           description: 'Increase your 👁️ by 3 permanently',
           skillPoints: 1,
           countdown: 0,
+          children: [
+            {
+              name: 'Brawler',
+              imgSrc: '',
+              description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            },
+            {
+              name: 'Accurate II',
+              imgSrc: '',
+              description: 'Increase your 👁️ by 5 permanently',
+              skillPoints: 1,
+              countdown: 0,
+            }
+          ]
         }
       ]
     }
@@ -467,6 +603,15 @@ export const skillsArcher = {
           description: 'Decrease your 👁️ by 15 but triplicate your dmg',
           skillPoints: 2,
           countdown: 3,
+          children: [
+            {
+              name: 'Vampire arrow',
+              imgSrc: '',
+              description: 'The amount of overkill to the enemy heals the player',
+              skillPoints: 2,
+              countdown: 3,
+            }
+          ]
         }
       ]
     }

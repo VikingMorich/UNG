@@ -1,0 +1,22 @@
+.trippi-wrapper {
+  display: flex;
+  margin-bottom: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid purple;
+  min-height: 384px;
+  min-width: 384px;
+
+  .infinite-rotate{
+    animation-name: rotate;
+    animation-duration: 12s;
+    padding: 12px;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+@keyframes rotate {
+  from {transform: rotate(0);}
+  to {transform: rotate(360deg);}
+}

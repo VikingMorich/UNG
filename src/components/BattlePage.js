@@ -2,7 +2,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import React, {useState} from 'react';
 import RollingDice from './RollingDice'
-import { rollDices, removeLastBattleAttak } from '../api/gameFunctions'
+import { rollDices } from '../api/gameFunctions'
 
 
 export default function BattlePage(props) {
@@ -16,6 +16,11 @@ export default function BattlePage(props) {
     skillsWarrior.combat.forEach(el => {
         if (el.children) {
             el.children.forEach(ele => {
+                if (ele.children) {
+                    ele.children.forEach(elem => {
+                        mapCombatWarriorSkills.push(elem)
+                    })
+                }
                 mapCombatWarriorSkills.push(ele)
             })
         }
@@ -26,6 +31,11 @@ export default function BattlePage(props) {
     skillsMage.combat.forEach(el => {
         if (el.children) {
             el.children.forEach(ele => {
+                if (ele.children) {
+                    ele.children.forEach(elem => {
+                        mapCombatMageSkills.push(elem)
+                    })
+                }
                 mapCombatMageSkills.push(ele)
             })
         }
@@ -36,6 +46,11 @@ export default function BattlePage(props) {
     skillsArcher.combat.forEach(el => {
         if (el.children) {
             el.children.forEach(ele => {
+                if (ele.children) {
+                    ele.children.forEach(elem => {
+                        mapCombatArcherSkills.push(elem)
+                    })
+                }
                 mapCombatArcherSkills.push(ele)
             })
         }
@@ -72,6 +87,18 @@ export default function BattlePage(props) {
         rollDicesFunc('Fireball')
     }
 
+    const rollGhostAttack = () => {
+        rollDicesFunc('Ghost attack')
+    }
+
+    const rollCharge = () => {
+        rollDicesFunc('Charge')
+    }
+
+    const rollVampireArrow = () => {
+        rollDicesFunc('Vampire arrow')
+    }
+
     const rollRejuvenate = () => {
         setNumberDices(0)
         rollDicesFunc('Rejuvenate', 0)
@@ -95,8 +122,6 @@ export default function BattlePage(props) {
             }, 2500)
         }
     }
-    const goGame = () => removeLastBattleAttak()
-  
 
     return (
         <React.Fragment>
@@ -108,7 +133,6 @@ export default function BattlePage(props) {
             <div className='current-op'>
                 <div className='op-list'>
                     <ul className='ul-list'>
-                        <li className='link' onClick={goGame}>* Back *</li>
                         <li className={`link ${disabled ? 'disabled' : ''}`} onClick={rollDicesFunc}>* Atack *</li>
                         { props.state.learnedSkills && props.state.learnedSkills.includes('Doublestrike') &&
                         //(!props.state.battle.countdown || props.state.battle.countdown['Doublestrike'])
@@ -117,17 +141,26 @@ export default function BattlePage(props) {
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('PowerAttack') &&
                             <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['PowerAttack']) ? 'disabled' : ''}`} onClick={rollPowerAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').description + '</br>Countdown: ' + mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').countdown}>* PowerAttack * {props.state.battle.countdown && props.state.battle.countdown['PowerAttack'] ? '(' + props.state.battle.countdown['PowerAttack'] + ')' : ''}</li>
                         }
+                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Charge') &&
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Charge']) ? 'disabled' : ''}`} onClick={rollCharge} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatWarriorSkills.find(el => el.name === 'Charge').description + '</br>Countdown: ' + mapCombatWarriorSkills.find(el => el.name === 'Charge').countdown}>* Charge * {props.state.battle.countdown && props.state.battle.countdown['Charge'] ? '(' + props.state.battle.countdown['Charge'] + ')' : ''}</li>
+                        }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Fireball') &&
                             <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Fireball']) ? 'disabled' : ''}`} onClick={rollFireball} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Fireball').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Fireball').countdown}>* Fireball * {props.state.battle.countdown && props.state.battle.countdown['Fireball'] ? '(' + props.state.battle.countdown['Fireball'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Rejuvenate') &&
                             <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Rejuvenate']) ? 'disabled' : ''}`} onClick={rollRejuvenate} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Rejuvenate').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Rejuvenate').countdown}>* Rejuvenate * {props.state.battle.countdown && props.state.battle.countdown['Rejuvenate'] ? '(' + props.state.battle.countdown['Rejuvenate'] + ')' : ''}</li>
                         }
+                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Ghost attack') &&
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Ghost attack']) ? 'disabled' : ''}`} onClick={rollGhostAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Ghost attack').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Ghost attack').countdown}>* Ghost attack * {props.state.battle.countdown && props.state.battle.countdown['Ghost attack'] ? '(' + props.state.battle.countdown['Ghost attack'] + ')' : ''}</li>
+                        }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Headshot') &&
                             <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Headshot']) ? 'disabled' : ''}`} onClick={rollHeadshot} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Headshot').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Headshot').countdown}>* Headshot * {props.state.battle.countdown && props.state.battle.countdown['Headshot'] ? '(' + props.state.battle.countdown['Headshot'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Multishot') &&
                             <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Multishot']) ? 'disabled' : ''}`} onClick={rollMultishot} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Multishot').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Multishot').countdown}>* Multishot * {props.state.battle.countdown && props.state.battle.countdown['Multishot'] ? '(' + props.state.battle.countdown['Multishot'] + ')' : ''}</li>
+                        }
+                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Vampire arrow') &&
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Vampire arrow']) ? 'disabled' : ''}`} onClick={rollVampireArrow} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Vampire arrow').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Vampire arrow').countdown}>* Vampire arrow * {props.state.battle.countdown && props.state.battle.countdown['Vampire arrow'] ? '(' + props.state.battle.countdown['Vampire arrow'] + ')' : ''}</li>
                         }
                     </ul>
                 </div>

@@ -6,6 +6,7 @@ import UserHud from './components/UserHud'
 import EnemyHud from './components/EnemyHud'
 import ShopList from './components/ShopList'
 import BattlePage from './components/BattlePage'
+import HistoryPage from './components/HistoryPage'
 
 export let inventoryStateOpen = false
 
@@ -77,6 +78,20 @@ export function initSubscriptions() {
           }
         }
       }
+      if (window.location.pathname === '/history'){
+        if (snap.key === key) {
+          let objGame = document.getElementById('history')
+          const game = document.createElement('div')
+          game.id='currentGame'
+          ReactDOM.render(<HistoryPage state={snap.val()} />, game)
+          let gameChanged = document.getElementById('currentGame')
+          if (gameChanged){
+            objGame.replaceChild(game, gameChanged)
+          } else {
+              objGame.appendChild(game)
+          }
+        }
+      }
   })
   dbRefPlayers.on('child_removed', snap => {
     if (snap.key === key) {
@@ -145,6 +160,20 @@ export function initSubscriptions() {
           objShop.replaceChild(shop, shopChanged)
         } else {
             objShop.appendChild(shop)
+        }
+      }
+    }
+    if (window.location.pathname === '/history'){
+      if (snap.key === key) {
+        let objGame = document.getElementById('history')
+        const game = document.createElement('div')
+        game.id='currentGame'
+        ReactDOM.render(<HistoryPage state={snap.val()} />, game)
+        let gameChanged = document.getElementById('currentGame')
+        if (gameChanged){
+          objGame.replaceChild(game, gameChanged)
+        } else {
+            objGame.appendChild(game)
         }
       }
     }
