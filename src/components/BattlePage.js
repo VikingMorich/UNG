@@ -68,7 +68,7 @@ export default function BattlePage(props) {
         rollDicesFunc('PowerAttack', 5)
         setTimeout(() => {
             setNumberDices(3)
-        }, 2500)
+        }, 3000)
     }
 
     const rollHeadshot = () => {
@@ -76,7 +76,7 @@ export default function BattlePage(props) {
         rollDicesFunc('Headshot', 4)
         setTimeout(() => {
             setNumberDices(3)
-        }, 2500)
+        }, 3000)
     }
 
     const rollMultishot = () => {
@@ -104,7 +104,7 @@ export default function BattlePage(props) {
         rollDicesFunc('Rejuvenate', 0)
         setTimeout(() => {
             setNumberDices(3)
-        }, 2500)
+        }, 3000)
     }
     
     const rollDicesFunc = (type, num) => {
@@ -119,7 +119,7 @@ export default function BattlePage(props) {
             setTimeout(() => setEven2(!even2), 800)
             setTimeout(() => {
                 setDisabled(false)
-            }, 2500)
+            }, 3000)
         }
     }
 

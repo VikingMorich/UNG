@@ -1,0 +1,87 @@
+.end-game-page {
+  height: calc(100vh - 50px);
+  background-color: c('dark-blue');
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .background-container{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(100vh - 50px);
+    overflow: hidden;
+
+    .background-video{
+      position: absolute;
+      width: auto;
+      height: auto;
+      min-width: 100%; 
+      min-height: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
+  }
+  .presentation {
+    position: absolute;
+    color: white;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+    opacity: 0;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    h1{
+        font-size: 30px;
+        font-family: 'Pieces of Eight';
+        margin-block-start: 0em;
+        margin-block-end: 0em;
+        text-shadow: 0 0 0.2em #000
+    }
+    h2 {
+        font-size: 24px;
+        font-family: 'FantaisieArtistique';
+        text-shadow: 0 0 0.2em #000
+    }
+
+    .button-restart{
+      font-size: 24px;
+      font-family: 'FantaisieArtistique';
+      padding: 6px 16px;
+      background-color: rgba(c('other-chicken'), 0.5);
+      border: 1px solid c('chicken-wings');
+      width: fit-content;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 20px;
+
+      &:hover{
+        background-color: c('chicken-tenders');
+      }
+    }
+
+    &.fadeIn {
+      -webkit-animation-name: fadeIn;
+      animation-name: fadeIn;
+    }
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;} 
+}
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;} 
+}

@@ -98,7 +98,7 @@
 
 .book-page {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: calc(100% - 40px);
   width: calc(100% - 40px);
   user-select: none;
@@ -107,9 +107,11 @@
   padding: 20px;
   gap: 20px;
   font-family: 'FantaisieArtistique';
+  font-size: 24px;
 
   img {
-    height: 200px;
+    max-height: 500px;
+    height: 100%;
     width: fit-content;
   }
 
@@ -134,7 +136,7 @@
 .book-control-pages {
   display: flex;
   position: absolute;
-  bottom: 20px;
+  bottom: 65px;
   padding: 20px;
   background-color: c('medium-brown');
   right: 20px;

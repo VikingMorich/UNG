@@ -4,7 +4,6 @@ export const itemsList = {
       name: '* Health potion *',
       type: 'potion',
       imgSrc: '/items/potion_img.png',
-      count: 1,
       description: 'description',
       gold: 20,
       sellPrice: 10,
@@ -23,7 +22,6 @@ export const itemsList = {
       },
       stateUsed: 'FUE',
       imgSrc: '/items/ouSkZLD1.png',
-      count: 1,
       description: 'description',
       gold: 1,
       sellPrice: 10
@@ -39,7 +37,6 @@ export const itemsList = {
       },
       stateUsed: 'PUN',
       imgSrc: '/items/00022-195167288.png',
-      count: 1,
       description: 'description',
       gold: 2,
       sellPrice: 10
@@ -55,7 +52,6 @@ export const itemsList = {
       },
       stateUsed: 'INT',
       imgSrc: '/items/00027-195167288.png',
-      count: 1,
       description: 'description',
       gold: 3,
       sellPrice: 10
@@ -71,7 +67,6 @@ export const itemsList = {
       },
       stateUsed: 'FUE',
       imgSrc: '/items/00390-3121183695.png',
-      count: 1,
       description: 'description',
       gold: 50,
       sellPrice: 50
@@ -87,7 +82,6 @@ export const itemsList = {
       },
       stateUsed: 'PUN',
       imgSrc: '/items/00332-3121183697.png',
-      count: 1,
       description: 'description',
       gold: 50,
       sellPrice: 50
@@ -103,7 +97,6 @@ export const itemsList = {
       },
       stateUsed: 'INT',
       imgSrc: '/items/00058-195167289.png',
-      count: 1,
       description: 'description',
       gold: 50,
       sellPrice: 50
@@ -118,7 +111,6 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/2_ghnqOu.png',
-      count: 1,
       description: 'description',
       gold: 5,
       sellPrice: 10
@@ -133,7 +125,6 @@ export const itemsList = {
         ATK: 2,
       },
       imgSrc: '/items/00014-811999689.png',
-      count: 1,
       description: 'description',
       gold: 5,
       sellPrice: 10
@@ -147,7 +138,6 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/TuCiw51n.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10
@@ -161,7 +151,6 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/Yk2NS47q.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10
@@ -175,7 +164,6 @@ export const itemsList = {
         DEF: 2,
       },
       imgSrc: '/items/AcxdY7s5.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10
@@ -188,7 +176,6 @@ export const itemsList = {
         SPIKES: 1,
       },
       imgSrc: '/items/mf8WgZ6V.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10
@@ -202,7 +189,6 @@ export const itemsList = {
         DEF: 1,
       },
       imgSrc: '/items/LyYP-BzL.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10
@@ -216,7 +202,6 @@ export const itemsList = {
         DEF: 1,
       },
       imgSrc: '/items/00010-105951971.png',
-      count: 1,
       description: 'description',
       gold: 100,
       sellPrice: 10

@@ -8,6 +8,10 @@ import { setHistoryPage } from '../api/gameFunctions'
 import Name from './Name';
 import Book from './Book'
 import UserHud from './UserHud'
+import Questionary from './Questionary';
+import Shop from './Shop';
+import Battle from './Battle';
+import EndGame from './EndGame'
 
 
 export default function HistoryPage(props) {
@@ -34,6 +38,18 @@ export default function HistoryPage(props) {
                 <UserHud state={props.state} />
               </div>
             </React.Fragment>
+          }
+          {history[props.state.gameStates.history] && history[props.state.gameStates.history].type === 'questionary' &&
+            <Questionary end={history[props.state.gameStates.history].end} />
+          }
+          {history[props.state.gameStates.history] && history[props.state.gameStates.history].type === 'shop' &&
+            <Shop values={history[props.state.gameStates.history]} state={props.state} />
+          }
+          {history[props.state.gameStates.history] && history[props.state.gameStates.history].type === 'battle' &&
+            <Battle values={history[props.state.gameStates.history]} state={props.state} />
+          }
+          {history[props.state.gameStates.history] && history[props.state.gameStates.history].type === 'end' &&
+            <EndGame />
           }
           {props.state.gameStates.history !== 'page00' && !history[props.state.gameStates.history] &&
             <button onClick={() => {setHistoryPage('page0')}}>Restart</button>

@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar'
 import Modal from './Modal'
 import EndBattleModal from './EndBattleModal'
 import { inventoryStateOpen, setInventoryStateOpen } from '../fireSubscription'
-import { getRandomInt, funcUseBackpackPotion } from '../api/gameFunctions'
+import { funcUseBackpackPotion } from '../api/gameFunctions'
 import { Potion, BasicAttack, BasicBrain, BasicDex, BasicLuck, BasicMoney, BasicShield, BasicStrength, BasicBackpack, BasicMap } from './icon/icon'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
@@ -14,7 +14,15 @@ export default function UserHud(props) {
     const [type, setType] = useState(inventoryStateOpen ? 'inventory' : '')
     const [endBattle, setEndBattle] = useState(false)
     const [endRes, setEndRes] = useState('')
-    const [endReward, setEndReward] = useState(null)
+    const computedCompanion = 
+      props.state.gameStates.companion === 'boar' ? 'boar.png' : 
+      props.state.gameStates.companion === 'eagle' ? 'eagle.png' : 
+      props.state.gameStates.companion === 'snake' ? 'snake.png' : 
+      props.state.gameStates.companion === 'wolf' ? 'wolf.png' : 
+      props.state.gameStates.companion === 'otter' ? 'otter.png' : 
+      props.state.gameStates.companion === 'fox' ? 'fox.png' : 
+      props.state.gameStates.companion === 'deer' ? 'deer.png' : 'unknown.png'
+
     const toggleModal = () => {
       setOpen(!open)
       setInventoryStateOpen(!open)
@@ -30,26 +38,15 @@ export default function UserHud(props) {
 
     //BATTLE IF
 
-    if (window.location.pathname === '/battle' && props.state.gameStates.HP === 0 && !endBattle) {
+    if (props.values && props.values.type === 'battle' && props.state.gameStates.HP === 0 && !endBattle) {
       setTimeout(() => {
         setEndBattle(true)
         setEndRes('lose')
       }, 1500)
       
-    } else if (window.location.pathname === '/battle' && props.state.gameStates.battle.HP === 0 && !endBattle) {
+    } else if (props.values && props.values.type === 'battle' && props.state.gameStates.battle.HP === 0 && !endBattle) {
       setTimeout(() => {
         setEndBattle(true)
-        let gold = getRandomInt(props.state.gameStates.battle.maxGold - props.state.gameStates.battle.minGold) + props.state.gameStates.battle.minGold
-        setEndReward([{
-          type: 'coins',
-          name: '* Coins *',
-          count: gold
-        }, 
-        {
-          type: 'EXP',
-          name: '* Experience *',
-          count: props.state.gameStates.battle.EXP
-        }])
         setEndRes('win')
       }, 1000)
     }
@@ -145,10 +142,13 @@ export default function UserHud(props) {
                   }
                 </div>
               </div>
+              <div className='companion-img-wrap'>
+                <img className="user-img" alt="user-companion" src={`./companions/${computedCompanion}`}/>
+              </div>
             </div>
             <ReactTooltip id="tooltip-user" place="top" type="dark" effect="float" className='font-tooltip'/>
             <Modal open={open} toggleModal={() => closeModal()} type={type} state={props.state} />
-            <EndBattleModal open={endBattle && !props.state.gameStates.battle.endBattle ? true : false} type={endRes} reward={endReward}/>
+            <EndBattleModal open={endBattle && !props.state.gameStates.battle.endBattle ? true : false} type={endRes} reward={props.state.gameStates.battle?.battleReward || null} values={props.values} />
         </React.Fragment>
     );
 }

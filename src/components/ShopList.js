@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useTranslation } from "react-i18next"
 import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook, ObjKnife, ObjPotion, ObjAxe, ObjLance, ObjStaff } from './icon/objectIcon'
 import { itemsList } from '../api/gameDatabase'
-import { buyObj } from "../api/gameFunctions";
+import { buyObj, setHistoryPage } from "../api/gameFunctions";
 import ObjInspector from './ObjInspector'
 import Counter from './Counter'
 import { BuyIcon, InspectIcon } from './icon/icon'
@@ -16,8 +16,17 @@ export default function ShopList(props) {
     let mappedItems = Object.keys(itemsList).map(el => {
         return itemsList[el].map(ele => ele)
     }).flat(1)
-    const [counterArray, setCounterArray] = useState(mappedItems.map(el => 1))
-
+    if (props.values) {
+        mappedItems = mappedItems.filter(el => props.values.items.find(x => x.name === el.name) )
+    }
+    const [counterArray, setCounterArray] = useState(mappedItems.map(() => 1))
+    const [maxCounterArray] = useState(mappedItems.map(el => {
+        if (props.state.gameStates.shop && props.state.gameStates.shop.find(x => x.name === el.name))
+            return props.state.gameStates.shop.find(x => x.name === el.name).count
+        else {
+            return 666
+        }
+    }))
     const decrement = (index) => {
         if ((counterArray[index] - 1) > 0) {
             let newCounterArray = [...counterArray]
@@ -28,8 +37,10 @@ export default function ShopList(props) {
 
     const increment = (index) => {
         let newCounterArray = [...counterArray]
-        newCounterArray[index] = newCounterArray[index] + 1
-        setCounterArray(newCounterArray)
+        if (props.values && newCounterArray[index] < maxCounterArray[index]) {
+            newCounterArray[index] = newCounterArray[index] + 1
+            setCounterArray(newCounterArray)
+        }
     }
 
     const buyObjFunc = (obj, i) => {
@@ -78,15 +89,12 @@ export default function ShopList(props) {
         <React.Fragment>
             <div className='c-shop'>
                 <div className='shop-options'>
-                    <ul className='ul-list'>
-                        <li className='link' onClick={goToGame}>* Back *</li>
-                    </ul>
                     <div className='table-wrapper'>
                         <table>
                             <tbody>
                                 {mappedItems.map((el, i) => {
-                                    return <tr key={el.name} id={el.name} className={props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''} onClick={openDetailsFunc}>
-                                        <td>∞</td>
+                                    return <tr key={el.name} id={el.name} className={((props.state.gameStates.gold < (counterArray[i] * el.gold) || maxCounterArray[i] === 0)) ? 'disabled' : ''} onClick={openDetailsFunc}>
+                                        <td>{maxCounterArray[i]}</td>
                                         <td>
                                             <div className='icon-container'>
                                                 {el.type === 'helmet' && <ObjHelmet/>}
@@ -110,7 +118,7 @@ export default function ShopList(props) {
                                         <td><Counter counter={counterArray[i]} increment={() => {increment(i)}} decrement={() => {decrement(i)}}/></td>
                                         <td>
                                             <div className='buttons-wrap'>
-                                                <div className={`button-icon ${props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''}`} onClick={() => buyObjFunc(el, i)} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Buy *'}>
+                                                <div className={`button-icon ${props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''}`} onClick={() => {if(maxCounterArray[i] !== 0) {buyObjFunc(el, i)}}} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Buy *'}>
                                                     <BuyIcon />
                                                 </div>
                                                 <div className='button-icon' onClick={inspectObjFunc} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Inspect *'}>
@@ -125,6 +133,9 @@ export default function ShopList(props) {
                         </table>
                         <ReactTooltip id="tooltip-shop" place="top" type="dark" effect="float" className='font-tooltip'/>
                     </div>
+                    {props.values && <ul className='ul-list'>
+                        <li className='link' onClick={() => setHistoryPage(props.values.end)}>Terminar compras</li>
+                    </ul>}
                 </div>
                 {openObjInspector && objClicked &&
                     <ObjInspector obj={mappedItems.find(el => el.name === objClicked)}/>

@@ -366,3 +366,15 @@ export const BasicMap = () => {
         <img src="/icons/basicstates/map.png" alt='backpack' width='100%' height='100%'></img>
     );
 };
+
+export const RadioButton = () => {
+    return (
+        <img src="/icons/radio-button.png" alt='backpack' width='100%' height='100%'></img>
+    );
+};
+
+export const RadioButtonChecked = () => {
+    return (
+        <img src="/icons/radio-button-checked.png" alt='backpack' width='100%' height='100%'></img>
+    );
+};

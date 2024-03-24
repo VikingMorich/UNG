@@ -17,7 +17,7 @@ export default function Cover() {
       document.body.style.overflow = "auto"
     }
 
-    const goHome = () => window.location = '/home'
+    const goHome = () => window.location = '/start'
 
     return (
         <React.Fragment>

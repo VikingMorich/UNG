@@ -31,10 +31,10 @@ const Book = (props) => {
                     {props.values.text.map((el, i) => {
                         return (
                             <div key={i} className="book-page">
-                                <span>{el}</span>
                                 {props.values.resources && props.values.resources.find(el => el.slide === i) &&
                                     <img src={'./' + props.values.resources.find(el => el.slide === i).src} alt="resource"/>
                                 }
+                                <span>{el}</span>
                                 {i === (props.values.text.length - 1) && 
                                 <div className='op-choices'>
                                     {props.values.choices.map(elem => {

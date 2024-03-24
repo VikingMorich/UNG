@@ -1,3 +1,13 @@
+.shop-view {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    margin-left: 20px;
+    text-align: center;
+  }
+}
+
 .c-shop {
   display: flex;
   width: 100%;
@@ -103,6 +113,8 @@
 
     img {
       height: 320px;
+      width: 100%;
+      object-fit: cover;
     }
   }
 }

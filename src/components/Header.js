@@ -31,6 +31,7 @@ export default function Header() {
                         <img className="c-header-mobile--icon" alt="cross-icon" src={language} onClick={() => setMobileMenuType('language')}/>
                         <img className="c-header-mobile--icon" alt="cross-icon" src={cross} onClick={() => setMobileMenu(false)}/>
                     </div>
+                    <div className="c-header-mobile--option">* Wiki *</div>
                     <div className="c-header-mobile--option">{t("header.music")}</div>
                     <GoogleBtn type = "header"/>
                 </React.Fragment> 
@@ -55,7 +56,7 @@ export default function Header() {
         }
         <div className={`c-header`}>
             <div className="c-header-nav">
-                <a href="/" className="c-header--logo">
+                <a href="/start" className="c-header--logo">
                     <span>{t('game-title')}</span>
                 </a>
             </div>

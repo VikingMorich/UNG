@@ -1,0 +1,188 @@
+.questionary-swipe {
+  display: flex;
+
+  .page-swipe-animation {
+    width: 100%;
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+
+    .question-page {
+      width: 100vw;
+      height: calc(100vh - 50px);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease-in-out;
+
+      .speach-wrapper {
+        position: absolute;
+        width: 100%;
+        bottom: 0px;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
+      }
+
+      .page-container {
+        width: 100%;
+        bottom: 0px;
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
+
+        .questionary-info {
+          width: 100%;
+          background-color: c('bright-brown');
+          padding: 10px 20px;
+          font-family: 'FantaisieArtistique';
+          text-align: center;
+          font-size: 18px;
+        }
+
+        .page-text {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: calc(100vw - 300px);
+          opacity: 1;
+          margin-left: 20px;
+          margin-top: 20px;
+          font-family: 'FantaisieArtistique';
+          font-size: 22px;
+          transition: opacity 0.5s ease-in-out;
+
+          .op-choices {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-left: 20px;
+
+            .opt {
+              display: flex;
+              gap: 5px;
+              align-items: center;
+              cursor: pointer;
+
+              .op-check {
+                height: 18px;
+                width: 22px;
+              }
+            }
+          }
+  
+          &.hidden {
+            opacity: 0;
+            display: none;
+          }
+        }
+      }
+
+      &.hidden {
+        opacity: 0;
+      }
+  
+      .people-img {
+        width: 280px;
+        position: absolute;
+        right: 10px;
+        bottom: 0;
+        z-index: 2;
+      }
+  
+      .text-wrapper {
+        background-color: c('bright-brown');
+        height: 25px;
+        padding-right: 300px;
+        padding-left: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        border-top: 1px solid c('chicken-tenders');
+        font-family: 'FantaisieArtistique';
+        font-size: 22px;
+        position: relative;
+  
+        .page-text {
+          position: absolute;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          width: calc(100vw - 300px);
+          opacity: 1;
+          transition: opacity 0.5s ease-in-out;
+  
+          &.hidden {
+            opacity: 0;
+          }
+        }
+      }
+    }
+    .button-back {
+      position: absolute;
+      bottom: 90px;
+      left: 20px;
+      padding: 4px;
+      background-color: c('other-chicken');
+      border: 1px solid c('chicken-wings');
+      width: fit-content;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+  
+      &:hover{
+        background-color: c('chicken-tenders');
+      }
+  
+      .back-icon {
+        transform: rotate(90deg);
+      }
+    }
+
+    .button-next {
+      position: absolute;
+      bottom: 90px;
+      right: 300px;
+      padding: 4px;
+      background-color: c('other-chicken');
+      border: 1px solid c('chicken-wings');
+      width: fit-content;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+  
+      &:hover{
+        background-color: c('chicken-tenders');
+      }
+  
+      .next-icon {
+        transform: rotate(270deg);
+      }
+    }
+
+    .button-result {
+      position: absolute;
+      bottom: 90px;
+      background-color: c('other-chicken');
+      border: 1px solid c('chicken-wings');
+      padding: 6px 16px;
+      color: white;
+      font-family: 'FantaisieArtistique';
+      cursor: pointer;
+      right: 55vw;
+      border-radius: 4px;
+
+      &:hover{
+        background-color: c('chicken-tenders');
+      }
+    }
+  }
+}

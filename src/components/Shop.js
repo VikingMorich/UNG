@@ -1,16 +1,18 @@
 import React from 'react';
+import UserHud from './UserHud';
+import ShopList from './ShopList'
 
-export default function Shop() {
+export default function Shop(props) {
     
     return (
-        <React.Fragment>
-            <h1>* Shop *</h1>
+        <div className='shop-view'>
+            <h1>* Tienda *</h1>
             <div id="shoplist">
-                
+                <ShopList state={props.state} values={props.values} />
             </div>
             <div id="player" className="user-hud">
-                
+                <UserHud state={props.state}/>
             </div>
-        </React.Fragment>
+        </div>
     );
 }

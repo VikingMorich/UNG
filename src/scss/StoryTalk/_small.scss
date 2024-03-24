@@ -15,6 +15,40 @@
     align-items: center;
     overflow: hidden;
     position: relative;
+
+    .question-page {
+      width: 100vw;
+      height: calc(100vh - 50px);
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease-in-out;
+
+      
+    }
+    .button-back {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      padding: 4px;
+      background-color: c('other-chicken');
+      border: 1px solid c('chicken-wings');
+      width: fit-content;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+  
+      &:hover{
+        background-color: c('chicken-tenders');
+      }
+  
+      .back-icon {
+        transform: rotate(90deg);
+      }
+    }
   }
   
   .speach-wrapper {

@@ -2,7 +2,8 @@ import fire from '../fire'
 import Cookies from 'universal-cookie';
 import ReactDOM from 'react-dom'
 import { Fail, BasicLuck, BasicBrain, BasicDex, BasicStrength, Stuned } from '../components/icon/icon'
-import { itemsList } from './gameDatabase';
+import { itemsList, enemiesList } from './gameDatabase';
+import { history } from '../api/gameHistory'
 
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 24))
@@ -37,59 +38,6 @@ export function changeUserName(name) {
   })
 }
 
-export function changeUserNameOld(name) {
-  let ref = fire.database().ref().child('Players')
-  let key = cookies.get('key')
-  ref.child(key).once("value", function(playersStateSnap) {
-    let updates = playersStateSnap.val()
-    updates['username'] = name
-    ref.child(key).update(updates).then(() => {
-      window.location = '/character-selection'
-    })
-  })
-}
-
-export function setUserCharacterTypeOld(type) {
-  let ref = fire.database().ref().child('Players')
-  let key = cookies.get('key')
-  ref.child(key).once("value", function(playersStateSnap) {
-    let updates = playersStateSnap.val()
-    updates['gameStates'] = {
-      characterType: type,
-      INT: type === 'mage' ? 75 : 50,
-      FUE: type === 'warrior' ? 75 : 50,
-      PUN: type === 'archer' ? 75 : 50,
-      SUE: 50,
-      gold: 0,
-      HP: 100,
-      maxHP: 100,
-      EXP: 0,
-      maxEXP: 200,
-      ATK: 1,
-      DEF: 0,
-      LVL: 1,
-      history: 'page0',
-    }
-    //
-    updates.gameStates['backpack'] = {}
-    // let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
-    // harcodedObjects.forEach(el => {
-    //   let objkey = ref.push().key
-    //   updates.gameStates.backpack[objkey] = {
-    //     name: el.name,
-    //     count: el.count,
-    //     type: el.type,
-    //     equiped: el.equiped
-    //   }
-    // })
-    
-
-    ref.child(key).update(updates)
-  }).then(() => {
-    window.location = '/game'
-  })
-}
-
 export function setUserCharacterType(type) {
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
@@ -110,41 +58,37 @@ export function setUserCharacterType(type) {
       DEF: 0,
       LVL: 1,
       history: 'page00',
+      companion: 'undefined'
     }
-    //
     updates.gameStates['backpack'] = {}
-    // let harcodedObjects = [{name: '* Wood *', type: 'none', count: 20, equiped: false}]
-    // harcodedObjects.forEach(el => {
-    //   let objkey = ref.push().key
-    //   updates.gameStates.backpack[objkey] = {
-    //     name: el.name,
-    //     count: el.count,
-    //     type: el.type,
-    //     equiped: el.equiped
-    //   }
-    // })
     
 
     ref.child(key).update(updates)
   })
 }
 
-export function addPlayerDB(name, email, imageUrl) {
+export function addPlayerDB(name, email, imageUrl, keyUser) {
   let ref = fire.database().ref().child('Players')
-  let key = ref.push().key
+  let key = keyUser ? keyUser : ref.push().key
   cookies.set('key', key, { path: '/', expires: timeExpiration });
   cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
   cookies.set('email', email, { path: '/', expires: timeExpiration });
   cookies.set('userName', name, { path: '/', expires: timeExpiration });
   let updates = {}
-  updates[key] = {
-    username: name,
-    email: email,
-    googleImg: imageUrl,
-    dateLogin: new Date(),
+  if (!keyUser) {
+    updates[key] = {
+      username: name,
+      email: email,
+      googleImg: imageUrl,
+      dateLogin: new Date(),
+      gameStates: { history: 'page0' }
+    }
+  }
+  else {
+    
   }
   ref.update(updates).then(() => {
-    window.location = '/name'
+    window.location = '/history'
   })
 }
 
@@ -152,19 +96,22 @@ export function checkPlayerExist(name, email, imageUrl) {
   let ref = fire.database().ref().child('Players')
   ref.once("value", function(playersStateSnap) {
     let players = playersStateSnap.val()
-    let exist = false
+    // let exist = false
     let key = null
-    Object.keys(players).forEach(i => {
-      if (players[i].email === email) {
-        exist = true
-        key = i
-      }
-    })
-    if (exist) {
-      cookies.set('key', key, { path: '/', expires: timeExpiration });
-      cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
-      cookies.set('email', email, { path: '/', expires: timeExpiration });
-      cookies.set('userName', name, { path: '/', expires: timeExpiration });
+    if (players) {
+      Object.keys(players).forEach(i => {
+        if (players[i].email === email) {
+          // exist = true
+          key = i
+        }
+      })
+      // if (exist) {
+      //   cookies.set('key', key, { path: '/', expires: timeExpiration });
+      //   cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
+      //   cookies.set('email', email, { path: '/', expires: timeExpiration });
+      //   cookies.set('userName', name, { path: '/', expires: timeExpiration });
+      // }
+      addPlayerDB(name, email, imageUrl, key)
     }
     else {
       addPlayerDB(name, email, imageUrl)
@@ -180,6 +127,17 @@ export function takeDmg(dmg) {
     let currentHP = updates.gameStates.HP - dmg
     if (currentHP < 0) currentHP = 0
     updates.gameStates.HP = currentHP
+    ref.child(key).update(updates)
+  })
+}
+
+export function setCompanion(animal, end) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    updates.gameStates.companion = animal
+    if (end) updates.gameStates.history = end
     ref.child(key).update(updates)
   })
 }
@@ -211,33 +169,6 @@ export function funcUseBackpackPotion(obj) {
     } else {
       updates.gameStates.backpack[obj].count = updates.gameStates.backpack[obj].count - 1
     }
-    ref.child(key).update(updates)
-  })
-}
-
-export function winExp(exp) {
-  let ref = fire.database().ref().child('Players')
-  let key = cookies.get('key')
-  ref.child(key).once("value", function(playersStateSnap) {
-    let updates = playersStateSnap.val()
-    let currentEXP = updates.gameStates.EXP + exp
-    let currentLVL = updates.gameStates.LVL
-    let currentSkillPoints = updates.gameStates.skillPoints || 0
-    let currentAtk = updates.gameStates.ATK
-    if (currentEXP >= updates.gameStates.maxEXP) {
-      //make it recursive
-      //probably future function to diferent upgrades in lvl up (dmg or whatever)
-      currentEXP = currentEXP - updates.gameStates.maxEXP
-      currentLVL += 1
-      currentSkillPoints += 1
-      currentAtk += 1
-      updates.gameStates.maxEXP = updates.gameStates.maxEXP + 150
-    }
-    updates.gameStates.EXP = currentEXP
-    updates.gameStates.LVL = currentLVL
-    updates.gameStates.ATK = currentAtk
-    updates.gameStates.skillPoints = currentSkillPoints
-    
     ref.child(key).update(updates)
   })
 }
@@ -392,7 +323,7 @@ export function saveReward(gold, obj) {
         updates.gameStates.backpack = {
           [Objkey] : {
             name: obj.name,
-            count: obj.count,
+            count: obj.count || 1,
             type: obj.type,
             objType: obj.objType || null,
             stateUsed: obj.stateUsed || null,
@@ -406,7 +337,7 @@ export function saveReward(gold, obj) {
       else {
         updates.gameStates.backpack[Objkey] = {
           name: obj.name,
-          count: obj.count,
+          count: obj.count || 1,
           type: obj.type,
           objType: obj.objType || null,
           stateUsed: obj.stateUsed || null,
@@ -421,18 +352,6 @@ export function saveReward(gold, obj) {
     ref.child(key).update(updates)
   }).then(() => {
     window.location = '/game'
-  })
-}
-
-export function getRandomEnemy(enemy) {
-  let key = cookies.get('key')
-  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
-  ref.once("value", function(backpackSnap) {
-    let updates = backpackSnap.val()
-    updates['battle'] = enemy
-    ref.update(updates)
-  }).then(() => {
-    window.location = '/battle'
   })
 }
 
@@ -787,7 +706,7 @@ export function rollDices(typeAttack, numberDices) {
 }
 
 
-export function saveBattleReward(reward) {
+export function saveBattleReward(reward, page) {
   let key = cookies.get('key')
   let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(snap) {
@@ -823,7 +742,8 @@ export function saveBattleReward(reward) {
       }
     })
     updates.battle.endBattle = true
-    ref.update(updates).then(() => window.location = '/game')
+    updates.history = page
+    ref.update(updates)
     
   })
 }
@@ -873,6 +793,11 @@ export function buyObj(obj, numberItems) {
         }
       }
     }
+    //update shop state
+    let objRef = Object.keys(updates.gameStates.shop).find(el => updates.gameStates.shop[el].name === obj)
+    updates.gameStates.shop[objRef].count -= numberItems
+
+
     ref.child(key).update(updates)
   })//.then(() => { window.location.reload() })
 }
@@ -933,24 +858,32 @@ export function saveSkillPoints(skills, cost) {
   })
 }
 
-export function removeLastBattleAttak() {
-  let key = cookies.get('key')
-  let ref = fire.database().ref().child('Players/' + key + '/gameStates')
-  ref.once("value", function(snap) {
-    let updates = snap.val()
-    updates.battle.lastEnemyDmg = null
-    updates.battle.lastPlayerDmg = null
-    ref.update(updates).then(() => window.location = '/game')
-    
-  })
-}
-
 export function setHistoryPage(page) {
   let key = cookies.get('key')
   let ref = fire.database().ref().child('Players/' + key + '/gameStates')
   ref.once("value", function(snap) {
     let updates = snap.val()
     updates.history = page
+    //update shop
+    if (history[page].type === 'shop') {
+      updates.shop = history[page].items
+    }
+    if (history[page].type === 'battle') {
+      let ene = enemiesList[history[page].enemy.type].find(el => el.name === history[page].enemy.name)
+      //REWARD
+      let gold = getRandomInt(ene.maxGold - ene.minGold) + ene.minGold
+        let br = [{
+          type: 'coins',
+          name: '* Coins *',
+          count: gold
+        }, 
+        {
+          type: 'EXP',
+          name: '* Experience *',
+          count: ene.EXP
+        }]
+      updates.battle = {...ene, battleReward: br}
+    }
     ref.update(updates)
     
   })

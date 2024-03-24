@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
-import { takeDmg, usePotion, winExp, getRandomEnemy, getRandomInt } from '../api/gameFunctions'
+import { takeDmg, usePotion, getRandomInt } from '../api/gameFunctions'
+import { winExp, getRandomEnemy } from '../api/gameFunctionsOld'
 import { enemiesList } from '../api/gameDatabase'
 
 export default function Interface() {
@@ -32,7 +33,6 @@ export default function Interface() {
                 <li className='link' onClick={goToBattle}>* Try battle mode (add, history of last dmg taken?)*</li>
                 <li className='link' onClick={goToBattleLvl2}>* Try battle mode 2nd lvl enemies*</li>
                 <li className='link' onClick={goToStory}>* Try page swap animation v1.0 *</li>
-                <li>* Try option selecion arbre possibilitats *</li>
                 <li className='link' onClick={goToStoryTalk}>* View someone talks *</li>
                 <li className='link' onClick={goToShop}>* Mercader amb opcions *</li>
                 <li className='link' onClick={goToHistory}>* History *</li>

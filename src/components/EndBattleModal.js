@@ -1,16 +1,16 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
 import { ObjHelmet, ObjNone, ObjBoots, ObjSword, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCoins, ObjExp } from './icon/objectIcon'
-import { saveBattleReward, removeLastBattleAttak } from '../api/gameFunctions'
+import { saveBattleReward, setHistoryPage } from '../api/gameFunctions'
 
 
 export default function EndBattleModal(props) {
     const [t] = useTranslation("global")
 
     const collectFunc = () => {
-        saveBattleReward(props.reward)
+        saveBattleReward(props.reward, props.values.win)
     }
-    const goGame = () => removeLastBattleAttak()
+    const goEnd = () => { setHistoryPage('pageDead') }
 
     return (
         <React.Fragment>
@@ -54,7 +54,7 @@ export default function EndBattleModal(props) {
                             <React.Fragment>
                                 <h2>* You lose *</h2>
                                 <img className="background-img" alt="dead" src='./tomb.png' />
-                                <div className="button" onClick={goGame}>
+                                <div className="button" onClick={goEnd}>
                                     <span>* OK 🥲 *</span>
                                 </div>
                             </React.Fragment>

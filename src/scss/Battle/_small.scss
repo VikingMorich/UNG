@@ -2,6 +2,11 @@
   display: flex;
 }
 
+.battle-page {
+  height: calc(100vh - 182px - 50px);
+  width: 100%;
+}
+
 .battle-header{
   display: flex;
   align-items: center;
