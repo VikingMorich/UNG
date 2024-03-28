@@ -1,17 +1,71 @@
 {
     "contact": "Contact",
     "game-title": "UNNAMEDGAME",
+    "continue": "Continue",
+    "next": "Next",
+    "prev": "Back",
     "header": {
         "login": "Login",
         "logout": "Logout",
-        "music": "Music"
+        "music": "Music",
+        "wiki": "Wiki"
+    },
+    "wiki": {
+        "title": "Encyclopedia",
+        "gen-stats": "General Stats",
+        "gen-stats-info": "The following statistics are used for the creation of character sheets. Each value indicates the percentage probability of confirming each time the attribute is tested. These values also influence different moments in history. Each symbol corresponds to an attribute:",
+        "gen-stats-note": "Note: Different weapons test different attributes. Make sure each character is equipped with the appropriate weapon",
+        "gen-stats-info2": "The following attributes are used in the combat part and their value corresponds to the number of points in that attribute",
+        "strength-def": "Muscle potential, vigor, robustness",
+        "inteligence-def": "Ability to understand, intellect",
+        "dex-def": "Aim the weapon carefully and carefully at the target",
+        "luck-def": "Circumstance of being, favorable or adverse to something that happens",
+        "attack-def": "Related to the damage dealt to the enemy per hit",
+        "defense-def": "Damage points blocked per attack",
+        "types-char": "Types of Characters",
+        "warrior-def": "He stands out for its strength. His punches in combat make him an epic and fierce fighter.",
+        "mage-def": "He stands out for his intelligence. He can learn different types of magic that will be very useful in combat.",
+        "archer-def": "He stands out for his skill. With his agile movements he knows how to take advantage of all combat situations.",
+        "types-char-note": "Note: Once a character type has been chosen, the type cannot be changed again until the adventure ends.",
+        "weapons": "Weapons",
+        "weapons-info": "On the weapon card (within inspect mode), you can see all the relevant information about the weapon you have selected.",
+        "weapons-1": "1- Contains the name of the weapon. Just above the name it will show whether the weapon is equipped or not.",
+        "weapons-2": "2- General attribute that the weapon uses to attack.",
+        "weapons-3": "3- Indicates the hand(s) with which the weapon is used (main without icon, secondary or two hands).",
+        "weapons-4": "4- Description of the selected weapon.",
+        "weapons-5": "5- States granted by having the weapon equipped.",
+        "combat": "Combat",
+        "combat-info": "When combat begins, the user will have to choose between the different possible main actions. In addition to an attack, a character can use any item in his backpack.",
+        "combat-info2": "When an attack is made, 3 dice are rolled (some skills can modify the number of dice) and the number of hits is counted. Each of these hits is multiplied by the player's damage and a attack value. At the same time as our player attacks, the enemy also rolls his dice and inflicts his attack.",
+        "combat-info3": "Some combat skills have cooldown turns. After using these skills in combat, the player will have to wait for the cooldown turns that correspond to that skill.",
+        "combat-warning": "Note: You cannot upgrade skills in the middle of combat. Make sure you prepare properly before battle.",
+        "combat-info4": "During combat, enemy information is displayed at the top of the screen. Each enemy interface displays information about their health, attack, armor, strength, and any temporary combat status.",
+        "combat-note": "Note: Armor values directly cancel out that same amount of physical damage received per attack.",
+        "combat-stats": "Combat States",
+        "combat-stats-note": "Note: When a character is affected by one of these states, the corresponding icon will appear next to their name.",
+        "combat-stats-info": "During combat, some attacks can modify character states. Below is a list of the different states:",
+        "burned": "Burned",
+        "burned-desc": "This status can affect 1 to 4 turns and applies +4 damage per turn.",
+        "stuned": "Stunned",
+        "stuned-desc": "When applied, prevents attacking on the next turn.",
+        "poisoned": "Poisoned",
+        "poisoned-desc": "This status can affect ? turns and deals ? damage per turn.",
+        "skills": "Skills",
+        "skills-info": "After you level up your character, your attack will increase by 1 and you will gain 1 skill point. Skill points can be spent in the skills menu (within the player interface, by clicking on your image or on its level)",
+        "skills-info2": "There are 2 types of skills: passive and combat. Passive skills will permanently increase your player attributes. Combat skills give you new attacks to perform during battles.",
+        "skills-note": "Note: Learning some complex skills requires several skill points but also grants a great benefit.",
+        "skills-info3": "The cooldown of some attacks corresponds to the number of turns the player must wait to perform the same attack again.",
+        "companions": "Companions"
     },
     "cover": {
         "game-desc": "It is a role-playing game in which decisions are made, mostly with texts, but also with a character, combats, events, and a story with an ending but with a very large tree of possibilities",
-        "game-privacy": "This application uses a database and allows you to save the game process with your Google account. This game only uses some basic personal data such as the user's email and name. You can check our policies by clicking on the following link. "
+        "game-privacy": "This application uses a database and allows you to save the game process with your Google account. This game only uses some basic personal data such as the user's email and name. You can check our policies by clicking on the following link. ",
+        "start-play": "START TO PLAY"
     },
     "home": {
-        "example": "Home"
+        "continue": "* Continue *",
+        "start": "* New Adventure *",
+        "game-desc": "Game description"
     },
     "contact-op": {
         "name": "Name",
@@ -41,9 +95,292 @@
         "h5": "Information that is collected",
         "p6": "Our App collects personal information, such as: name, Google image, language preference, as well as your email address."
     },
+    "charsel": {
+        "title": "Character selection",
+        "html-tooltip-mage": "The mage dominates intelligence as the main statistic. </br> </br> He can learn different types of magic that will be </br> very useful in combat.",
+        "html-tooltip-war": "The warrior dominates strength as the main statistic. </br> </br> His blows in combat make him </br> an epic and fierce fighter",
+        "html-tooltip-arc": "The archer dominates dexterity as the main stat. </br> </br> With his agile movements he knows how to take advantage </br> of all combat situations.",
+        "mage": "MAGE",
+        "warrior": "WARRIOR",
+        "archer": "ARCHER",
+        "alert": "You have to select a character type to continue.",
+        "continue": "CONTINUE"
+    },
+    "charname": {
+        "title": "Character name",
+        "subtitle": "Choose the name for your player",
+        "placeholder": "Enter you name"
+    },
+    "history-intro": {
+        "start-text": "Great souls have wills; the weak just desires. Some know me as Ragnaros... Everyone wants to know, but few pay the work it's worth. Go and find your way...",
+        "continue": "Continue"
+    },
     "languages": {
         "cat": "CAT",
         "es": "ES",
         "en": "EN"
+    },
+    "items": {
+        "stats": "Statistics:",
+        "def": "Defense: ",
+        "atk": "Attack: ",
+        "health-potion": "Health potion",
+        "health-potion-desc": "Restore 20HP",
+        "ultimate-sword": "Ultimate sword",
+        "ultimate-sword-desc": "Description",
+        "dwarf-crossbow": "Dwarf crossbow",
+        "dwarf-crossbow-desc": "Description",
+        "enchanted-book": "Enchanted book",
+        "enchanted-book-desc": "Description",
+        "long-curved-axe": "Long curved axe",
+        "long-curved-axe-desc": "Description",
+        "big-lance": "Big lance",
+        "big-lance-desc": "Description",
+        "long-mage-staff": "Long mage staff",
+        "long-mage-staff-desc": "Description",
+        "awesome-shield": "Awesome shield",
+        "awesome-shield-desc": "Description",
+        "hunter-knife": "Hunter knife",
+        "hunter-knife-desc": "Description",
+        "viking-helmet": "Viking helmet",
+        "viking-helmet-desc": "Description",
+        "viking-armor": "Viking armor",
+        "viking-armor-desc": "Description",
+        "other-boots": "Other boots",
+        "other-boots-desc": "Description",
+        "goblin-boots": "Goblin boots",
+        "goblin-boots-desc": "Description",
+        "wedding-ring": "Wedding ring",
+        "wedding-ring-desc": "Description",
+        "simple-pendant": "Simple pendant",
+        "simple-pendant-desc": "Description"
+    },
+    "user-hud": {
+        "skills": "Skills",
+        "skills-title": "SKILLS",
+        "Health": "Health",
+        "Health-desc": "Increase your max HP by 10 permanently",
+        "Lucky": "Lucky",
+        "Lucky-desc": "Increase your 🍀 by 3 permanently",
+        "Greedy": "Greedy",
+        "Greedy-desc": "+5% multiplier in gold rewards",
+        "LuckyII": "Lucky II",
+        "LuckyII-desc": "Increase your 🍀 by 5 permanently",
+        "HealthII": "Health II",
+        "HealthII-desc": "Increase your max HP by 40 permanently",
+        "Brawler": "Brawler",
+        "Brawler-desc": "Increase your ⚔️ and 🛡️ by 1 permanently",
+        "Strength": "Strength",
+        "Strength-desc": "Increase your 💪🏻 by 3 permanently",
+        "StrengthII": "Strength II",
+        "StrengthII-desc": "Increase your 💪🏻 by 5 permanently",
+        "Intelectual": "Intelectual",
+        "Intelectual-desc": "Increase your 🧠 by 3 permanently",
+        "IntelectualII": "Intelectual II",
+        "IntelectualII-desc": "Increase your 🧠 by 5 permanently",
+        "Accurate": "Accurate",
+        "Accurate-desc": "Increase your 👁️ by 3 permanently",
+        "AccurateII": "Accurate II",
+        "AccurateII-desc": "Increase your 👁️ by 5 permanently",
+        "Doublestrike": "Double Strike",
+        "Doublestrike-desc": "Double the damage of the next attack",
+        "PowerAttack": "Power Attack",
+        "PowerAttack-desc": "Add +2 dices to your attack",
+        "Charge": "Charge",
+        "Charge-desc": "Attack the enemy, if you get the full </br>combo of hits, add stunned to the enemy",
+        "Fireball": "Fireball",
+        "Fireball-desc": "Increase your 🧠 by 5 if you get </br>the full combo of hits add Burned to the enemy",
+        "Rejuvenate": "Rejuvenate",
+        "Rejuvenate-desc": "Restore 15HP in combat",
+        "GhostAttack": "Ghost Attack",
+        "GhostAttack-desc": "Remove the value of the first enemy's dice </br>when you use this attack",
+        "Headshot": "Headshot",
+        "Headshot-desc": "Ignore enemy defense and +1 dice to roll",
+        "Multishot": "Multishot",
+        "Multishot-desc": "Decrease your 👁️ by 15 but triplicate your damage",
+        "VampireArrow": "Vampire Arrow",
+        "VampireArrow-desc": "The amount of overkill to the enemy heals the player",
+        "skill-points": "Skill points: ",
+        "pasives": "PASIVES",
+        "combat": "COMBAT",
+        "save": "SAVE",
+        "map-title": "MAP",
+        "countdown": "Countdown: ",
+        "new-attack": "New Attack: ",
+        "strength": "Strength",
+        "inteligence": "Intelligence",
+        "dexterity": "Dexterity",
+        "luck": "Luck",
+        "attack": "Attack",
+        "defense": "Defense",
+        "gold": "Gold",
+        "inventory": "Inventory",
+        "inventory-title": "INVENTORY",
+        "map": "Map",
+        "use-potion": "Use potion",
+        "tooltip-sell": "Sell",
+        "tooltip-delete": "Delete",
+        "tooltip-buy": "Buy",
+        "tooltip-inspect": "Inspect",
+        "tooltip-equip": "Equip",
+        "tooltip-drink": "Drink",
+        "tooltip-unequip": "Unequip",
+        "equiped": "EQUIPED",
+        "backpack": "Backpack",
+        "player-name": "Username:"
+    },
+    "questionary": {
+        "answered-quest": " questions answered",
+        "talk": "Answer all the questions to get a result...",
+        "calculate": "Calculate result",
+        "q1": {
+            "question": "1. What season do you prefer?",
+            "a1": "Spring",
+            "a2": "Summer",
+            "a3": "Autumn",
+            "a4": "Winter"
+        },
+        "q2": {
+            "question": "2. Where would you like to travel?",
+            "a1": "Norway",
+            "a2": "China",
+            "a3": "Brazil",
+            "a4": "Catalonia"
+        },
+        "q3": {
+            "question": "3. What music do you prefer?",
+            "a1": "Rock",
+            "a2": "Pop",
+            "a3": "Electronics",
+            "a4": "Reggae"
+        },
+        "q4": {
+            "question": "4. What drink do you prefer?",
+            "a1": "Water",
+            "a2": "Soda",
+            "a3": "Coffee",
+            "a4": "Beer"
+        },
+        "q5": {
+            "question": "5. What would you like to do on vacation?",
+            "a1": "Relax",
+            "a2": "Hiking",
+            "a3": "Travel to the beach",
+            "a4": "Explore cities"
+        },
+        "q6": {
+            "question": "6. What is your favorite movie genre?",
+            "a1": "Action",
+            "a2": "Drama",
+            "a3": "Comedy",
+            "a4": "Romance"
+        },
+        "q7": {
+            "question": "7. Choose a color",
+            "a1": "Green",
+            "a2": "Yellow",
+            "a3": "Blue",
+            "a4": "Red"
+        },
+        "q8": {
+            "question": "8. What is your favorite food?",
+            "a1": "Sushi",
+            "a2": "Pizza",
+            "a3": "Chicken a l'ast",
+            "a4": "Escalivada"
+        },
+        "q9": {
+            "question": "9. What is your favorite hobby?",
+            "a1": "Music",
+            "a2": "Play video games",
+            "a3": "Read",
+            "a4": "Make crafts"
+        },
+        "q10": {
+            "question": "10. Do you prefer a hot bath or massage?",
+            "a1": "Hot bath",
+            "a2": "Massage",
+            "a3": "Both",
+            "a4": "None, I prefer other ways to relax 😏"
+        }
+    },
+    "pageDead": {
+        "title": "THE END",
+        "desc": "Since death is inevitable, let us forget it...",
+        "restart": "Start again"
+    },
+    "shop": {
+        "title": "Shop",
+        "end-shop": "Finish shopping"
+    },
+    "battle": {
+        "title": "BATTLE",
+        "last-attack-title": "Last attack result",
+        "no-attacks": "No previous attacks",
+        "end-win": "You win",
+        "end-win-op": "Collect",
+        "end-lose": "You lose",
+        "end-lose-op": "Ok 🥲",
+        "re-gold": "Gold",
+        "re-exp": "Experience",
+        "attack": "Attack"
+    },
+    "enemy": {
+        "bird": "Bird",
+        "skeleton": "Skeleton",
+        "shark": "Shark",
+        "demon": "Demon",
+        "werewolf": "Werewolf",
+        "ninja": "Ninja",
+        "dark-angel": "Dark Angel",
+        "dragon": "Dragon"
+    },
+    "reward": {
+        "title": "Reward",
+        "collect": "Collect"
+    },
+    "history": {
+        "page1": {
+            "slide1": "I shit it... Ehhh you... Are you okay?",
+            "slide2": "I can't believe it, it seems like he's still breathing... AAAAAAH!!!",
+            "slide3": "...",
+            "slide4": "But what happened dude, how did you do this?",
+            "op1": "Do what?",
+            "op2": "Who are you?",
+            "op3": "I am the messiah, I have come to save you"
+        },
+        "page2": {
+            "slide1": "Oh sorry, I haven't introduced myself, am I X? A watchman from Island Y, I was smoking quietly in the tower and suddenly I started to see a dark purple swirl in the sky and I started to scratch...",
+            "slide2": "They would have sold me bad weed again... those bastards don't know who they're messing with... and suddenly there was a flash and I saw you fall from the sky to here nearby. I followed you and we just met. Are you okay?",
+            "op1": "Yes",
+            "op2": "I've had better days"
+        },
+        "page3": {
+            "slide1": "Great, let's start by leaving the sky as it was then :D",
+            "op1": "I do not know how to do that..."
+        },
+        "page11": {
+            "slide1": "Hahaha I guess. What is your name?",
+            "op1": "Continue"
+        },
+        "page10": {
+            "slide1": "Incredible after that blow... What is your name?",
+            "op1": "Continue"
+        },
+        "page5": {
+            "slide1": "Lorem ipsum",
+            "slide2": "Img with text",
+            "slide3": "easy peasy",
+            "op1": "ok",
+            "op2": "no"
+        },
+        "page7": {
+            "slide1": "Back again",
+            "op1": "ok"
+        },
+        "page8": {
+            "slide1": "Aaaah, please don't hurt me... I'll give you everything I have...",
+             "op1": "Continue"
+        }
     }
 }

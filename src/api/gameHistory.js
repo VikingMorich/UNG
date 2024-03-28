@@ -2,10 +2,12 @@
 
 export const questionaryData = [
   {
-    quest: '1. ¿Que estacion prefieres?',
+    // quest: '1. ¿Que estacion prefieres?',
+    quest: 'q1',
     options: [
       {
-        text: 'Primavera',
+        // text: 'Primavera',
+        text: 'a1',
         scorce: {
           fox: 3,
           eagle: 2,
@@ -17,7 +19,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Verano',
+        // text: 'Verano',
+        text: 'a2',
         scorce: {
           fox: 4,
           eagle: 4,
@@ -29,7 +32,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Otoño',
+        // text: 'Otoño',
+        text: 'a3',
         scorce: {
           fox: 2,
           eagle: 2,
@@ -41,7 +45,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Invierno',
+        // text: 'Invierno',
+        text: 'a4',
         scorce: {
           fox: 2,
           eagle: 1,
@@ -55,10 +60,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '2. ¿Donde te gustaria viajar?',
+    // quest: '2. ¿Donde te gustaria viajar?',
+    quest: 'q2',
     options: [
       {
-        text: 'Noruega',
+        // text: 'Noruega',
+        text: 'a1',
         scorce: {
           fox: 3,
           eagle: 1,
@@ -70,7 +77,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'China',
+        // text: 'China',
+        text: 'a2',
         scorce: {
           fox: 3,
           eagle: 2,
@@ -82,7 +90,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Brasil',
+        // text: 'Brasil',
+        text: 'a3',
         scorce: {
           fox: 1,
           eagle: 4,
@@ -94,7 +103,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Catalunya',
+        // text: 'Catalunya',
+        text: 'a4',
         scorce: {
           fox: 4,
           eagle: 3,
@@ -108,10 +118,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '3. ¿Que música prefieres?',
+    // quest: '3. ¿Que música prefieres?',
+    quest: 'q3',
     options: [
       {
-        text: 'Rock',
+        // text: 'Rock',
+        text: 'a1',
         scorce: {
           fox: 2,
           eagle: 2,
@@ -123,7 +135,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Pop',
+        // text: 'Pop',
+        text: 'a2',
         scorce: {
           fox: 3,
           eagle: 1,
@@ -135,7 +148,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Electrónica',
+        // text: 'Electrónica',
+        text: 'a3',
         scorce: {
           fox: 2,
           eagle: 4,
@@ -147,7 +161,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Reggae',
+        // text: 'Reggae',
+        text: 'a4',
         scorce: {
           fox: 1,
           eagle: 3,
@@ -161,10 +176,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '4. ¿Que bebida prefieres?',
+    // quest: '4. ¿Que bebida prefieres?',
+    quest: 'q4',
     options: [
       {
-        text: 'Agua',
+        // text: 'Agua',
+        text: 'a1',
         scorce: {
           fox: 2,
           eagle: 2,
@@ -176,7 +193,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Soda',
+        // text: 'Soda',
+        text: 'a2',
         scorce: {
           fox: 5,
           eagle: 2,
@@ -188,7 +206,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Cafe',
+        // text: 'Cafe',
+        text: 'a3',
         scorce: {
           fox: 3,
           eagle: 4,
@@ -200,7 +219,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Cerveza',
+        // text: 'Cerveza',
+        text: 'a4',
         scorce: {
           fox: 3,
           eagle: 2,
@@ -214,10 +234,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '5. ¿Que te gustaria hacer en vacaciones?',
+    // quest: '5. ¿Que te gustaria hacer en vacaciones?',
+    quest: 'q5',
     options: [
       {
-        text: 'Relax',
+        // text: 'Relax',
+        text: 'a1',
         scorce: {
           fox: 2,
           eagle: 1,
@@ -229,7 +251,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Senderismo',
+        // text: 'Senderismo',
+        text: 'a2',
         scorce: {
           fox: 3,
           eagle: 2,
@@ -241,7 +264,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Viajar a la playa',
+        // text: 'Viajar a la playa',
+        text: 'a3',
         scorce: {
           fox: 2,
           eagle: 4,
@@ -253,7 +277,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Explorar ciudades',
+        // text: 'Explorar ciudades',
+        text: 'a4',
         scorce: {
           fox: 3,
           eagle: 1,
@@ -267,10 +292,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '6. ¿Cual es tu genero de película favorito?',
+    // quest: '6. ¿Cual es tu genero de película favorito?',
+    quest: 'q6',
     options: [
       {
-        text: 'Acción',
+        // text: 'Acción',
+        text: 'a1',
         scorce: {
           fox: 3,
           eagle: 4,
@@ -282,7 +309,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Drama',
+        // text: 'Drama',
+        text: 'a2',
         scorce: {
           fox: 2,
           eagle: 3,
@@ -294,7 +322,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Comedia',
+        // text: 'Comedia',
+        text: 'a3',
         scorce: {
           fox: 3,
           eagle: 2,
@@ -306,7 +335,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Romance',
+        // text: 'Romance',
+        text: 'a4',
         scorce: {
           fox: 4,
           eagle: 1,
@@ -320,10 +350,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '7. Elige un color',
+    // quest: '7. Elige un color',
+    quest: 'q7',
     options: [
       {
-        text: 'Verde',
+        // text: 'Verde',
+        text: 'a1',
         scorce: {
           fox: 3,
           eagle: 1,
@@ -335,7 +367,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Amarillo',
+        // text: 'Amarillo',
+        text: 'a2',
         scorce: {
           fox: 4,
           eagle: 2,
@@ -347,7 +380,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Azul',
+        // text: 'Azul',
+        text: 'a3',
         scorce: {
           fox: 2,
           eagle: 4,
@@ -359,7 +393,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Rojo',
+        // text: 'Rojo',
+        text: 'a4',
         scorce: {
           fox: 3,
           eagle: 3,
@@ -373,10 +408,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '7. ¿Cuál es tu comida favorita?',
+    // quest: '8. ¿Cuál es tu comida favorita?',
+    quest: 'q8',
     options: [
       {
-        text: 'Sushi',
+        // text: 'Sushi',
+        text: 'a1',
         scorce: {
           fox: 3,
           eagle: 3,
@@ -388,7 +425,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Pizza',
+        // text: 'Pizza',
+        text: 'a2',
         scorce: {
           fox: 2,
           eagle: 2,
@@ -400,7 +438,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: "Pollo a l'ast",
+        // text: "Pollo a l'ast",
+        text: "a3",
         scorce: {
           fox: 4,
           eagle: 4,
@@ -412,7 +451,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Escalivada',
+        // text: 'Escalivada',
+        text: 'a4',
         scorce: {
           fox: 1,
           eagle: 1,
@@ -426,10 +466,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '9. ¿Qual es tu pasatiempo favorito?',
+    // quest: '9. ¿Qual es tu pasatiempo favorito?',
+    quest: 'q9',
     options: [
       {
-        text: 'Música',
+        // text: 'Música',
+        text: 'a1',
         scorce: {
           fox: 4,
           eagle: 3,
@@ -441,7 +483,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Jugar a videojuegos',
+        // text: 'Jugar a videojuegos',
+        text: 'a2',
         scorce: {
           fox: 4,
           eagle: 1,
@@ -453,7 +496,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Leer',
+        // text: 'Leer',
+        text: 'a3',
         scorce: {
           fox: 1,
           eagle: 2,
@@ -465,7 +509,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Hacer manualidades',
+        // text: 'Hacer manualidades',
+        text: 'a4',
         scorce: {
           fox: 2,
           eagle: 3,
@@ -479,10 +524,12 @@ export const questionaryData = [
     ]
   },
   {
-    quest: '10. ¿Que prefieres baño caliente o masaje?',
+    // quest: '10. ¿Que prefieres baño caliente o masaje?',
+    quest: 'q10',
     options: [
       {
-        text: 'Baño caliente',
+        // text: 'Baño caliente',
+        text: 'a1',
         scorce: {
           fox: 4,
           eagle: 2,
@@ -494,7 +541,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Masaje',
+        // text: 'Masaje',
+        text: 'a2',
         scorce: {
           fox: 1,
           eagle: 2,
@@ -506,7 +554,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Ambos',
+        // text: 'Ambos',
+        text: 'a3',
         scorce: {
           fox: 2,
           eagle: 1,
@@ -518,7 +567,8 @@ export const questionaryData = [
         }
       }, 
       {
-        text: 'Ninguno, prefiero otras formas de relajarme 😏',
+        // text: 'Ninguno, prefiero otras formas de relajarme 😏',
+        text: 'a4',
         scorce: {
           fox: 3,
           eagle: 4,
@@ -533,7 +583,7 @@ export const questionaryData = [
   },
 ]
 
-export const history = {
+export const historyPages = {
   page0: {
     type: 'character-sel'
   },
@@ -546,48 +596,48 @@ export const history = {
   page1: {
     type: 'talk',
     character: 'guard1',
-    location: 'forest1',
-    text: ['Me cago en la ostia... Ehhh tu... ¿Estas bien?', 'No me lo puedo creer, parece que aun respira... AAAAAAH!!!', '...', '¿Pero que ha pasado tio, como has hecho esto?'],
-    choices: [{name: '¿Hacer que?', history: 'page2'}, {name: '¿Quien eres tu?', history: 'page2'}, {name: 'Soy el mesias, he venido a salvaros', history: 'page3'}]
+    location: 'forest1.jpeg',
+    text: ['slide1', 'slide2', 'slide3', 'slide4'],
+    choices: [{name: 'op1', history: 'page2'}, {name: 'op2', history: 'page2'}, {name: 'op3', history: 'page3'}]
   },
   page2: {
     type: 'talk',
     character: 'guard1',
-    location: 'forest1',
-    text: ['Ay perdona, no me he presentado, soy X? un vigilante de la isla Y, estaba fumando tranquilamente en la torre y de repente empece a ver como un remolino purpura oscuro en el cielo y me empece a rallar...', 
-    'Me habran vuelto a vender hierba xunga... esos cabrones no saben con quien se estan metiendo... y de pronto hizo un destello y te vi caer del cielo hasta aqui cerca. Te segui y justo acabamos de encontrarnos. ¿Te encuentras bien?'],
-    choices: [{name: 'Si', history: 'page10'}, {name: 'He tenido dias mejores', history: 'page11'}]
+    location: 'forest1.jpeg',
+    text: ['slide1', 
+    'slide2'],
+    choices: [{name: 'op1', history: 'page10'}, {name: 'op2', history: 'page11'}]
   },
   page3: {
     type: 'talk',
     character: 'guard1',
-    location: 'forest1',
-    text: ['Genial, empecemos por dejar el cielo como estaba entonces :D'],
-    choices: [{name: 'No se como hacer eso...', history: 'page2'}]
+    location: 'forest1.jpeg',
+    text: ['slide1'],
+    choices: [{name: 'op1', history: 'page2'}]
   },
   page11: {
     type: 'talk',
     character: 'guard1',
-    location: 'forest1',
-    text: ['Jajaja ya imagino. ¿Como te llamas?'],
-    choices: [{name: 'Continuar', history: 'page4'}]
+    location: 'forest1.jpeg',
+    text: ['slide1'],
+    choices: [{name: 'op1', history: 'page4'}]
   },
   page10: {
     type: 'talk',
     character: 'guard1',
-    location: 'forest1',
-    text: ['Increible después de ese golpe... ¿Como te llamas?'],
-    choices: [{name: 'Continuar', history: 'page4'}]
+    location: 'forest1.jpeg',
+    text: ['slide1'],
+    choices: [{name: 'op1', history: 'page4'}]
   },
   page4: {
     type: 'name',
-    choices: [{name: 'Continuar', history: 'page5'}]
+    choices: [{history: 'page5'}]
   },
   page5: {
     type: 'book',
-    text: ['Lorem ipsum', 'Img with text', 'easy peasy'],
+    text: ['slide1', 'slide2', 'slide3'],
     resources: [{type: 'img', slide: 1, src: 'locations/village1.jpeg'}],
-    choices: [{name: 'ok', history: 'page6'}, {name: 'no', history: 'page6'}]
+    choices: [{name: 'op1', history: 'page6'}, {name: 'op2', history: 'page6'}]
   },
   page6: {
     type: 'questionary',
@@ -595,17 +645,30 @@ export const history = {
   },
   page7: {
     type: 'book',
-    text: ['Back again'],
-    choices: [{name: 'ok', history: 'page8'}]
+    text: ['slide1'],
+    choices: [{name: 'op1', history: 'page8'}]
   },
   page8: {
-    type: 'shop',
-    items: [{count: 2, name: '* Health potion *'}, {count: 1, name: '* Ultimate sword *'}],
-    end: 'page9'
+    type: 'talk',
+    character: 'scare-man',
+    location: 'city1.png',
+    text: ['slide1'],
+    choices: [{name: 'op1', history: 'page9'}]
   },
   page9: {
+    type: 'reward',
+    items: [{count: 150, type: 'coins', name: 're-gold'}, {count: 1, name: 'simple-pendant'}],
+    next: 'page12'
+  },
+  page12: {
+    type: 'shop',
+    items: [{count: 2, name: 'health-potion'}, {count: 1, name: 'ultimate-sword'}],
+    end: 'page13'
+  },
+  page13: {
     type: 'battle',
-    enemy: {name: 'Bird', type: 'normal'},
+    enemy: {name: 'bird', type: 'normal'},
+    background: './locations/forest3.jpeg',
     win: 'page7'
   },
   pageDead: {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useTranslation } from "react-i18next"
 import { getGameStates } from '../api/gameFunctions'
-import { SecondHand, TwoHands } from './icon/icon'
+import { SecondHand, TwoHands, BasicStrength, BasicBrain, BasicDex, BasicLuck } from './icon/icon'
 
 
 export default function ObjInspector(props) {
@@ -43,7 +43,7 @@ export default function ObjInspector(props) {
             <div className="c-inspector-background">
                 {(props.obj.equiped || (objCompare && objCompare.name === props.obj.name)) &&
                     <div className="c-inspector--centered">
-                        <span>* EQUIPED *</span>
+                        <span>{t('user-hud.equiped')}</span>
                     </div>
                 }
                 {(!objCompare || objCompare.name === props.obj.name) && 
@@ -52,7 +52,7 @@ export default function ObjInspector(props) {
                         <tbody>
                             <tr>
                                 <td>
-                                    <h2>{props.obj.name}</h2>
+                                    <h2>{t('items.'+props.obj.name)}</h2>
                                 </td>
                             </tr>
                             <tr>
@@ -60,7 +60,9 @@ export default function ObjInspector(props) {
                                     <img className="item-img" src={props.obj.imgSrc} alt="item"/>
                                     {props.obj.stateUsed &&
                                     <div className='used-state'>
-                                        <span>{props.obj.stateUsed === 'FUE' ? '💪🏻' : props.obj.stateUsed === 'INT' ? '🧠' : props.obj.stateUsed === 'PUN' ? '👁️' : '🍀'}</span>
+                                        <div className='img-icon'>
+                                            {props.obj.stateUsed === 'FUE' ? <BasicStrength /> : props.obj.stateUsed === 'INT' ? <BasicBrain/> : props.obj.stateUsed === 'PUN' ? <BasicDex/> : <BasicLuck/>}
+                                        </div>
                                     </div>
                                     }
                                     {props.obj.type === 'secondHand' &&
@@ -81,17 +83,17 @@ export default function ObjInspector(props) {
                             </tr>
                             <tr>
                                 <td>
-                                    <span>{props.obj.description}</span>
+                                    <span>{t('items.'+props.obj.description)}</span>
                                 </td>
                             </tr>
                             <tr className='maximize'>
                                 {props.obj.stats && 
                                 <td>
-                                    <span>* Stats: </span>
+                                    <span>{t('items.stats')}</span>
                                     <ul>
-                                        {props.obj.stats.DEF && <li>*DEF: {props.obj.stats.DEF}</li>}
-                                        {props.obj.stats.ATK && <li>*ATK: {props.obj.stats.ATK}</li>}
-                                        {props.obj.stats.use && <li>{props.obj.stats.use}</li>}
+                                        {props.obj.stats.DEF && <li>{t('items.def')}{props.obj.stats.DEF}</li>}
+                                        {props.obj.stats.ATK && <li>{t('items.atk')}{props.obj.stats.ATK}</li>}
+                                        {/* {props.obj.stats.use && <li>{props.obj.stats.use}</li>} */}
                                     </ul>
                                 </td>
                                 }
@@ -107,7 +109,7 @@ export default function ObjInspector(props) {
                         <tbody>
                             <tr>
                                 <td>
-                                    <h2>{props.obj.name}</h2>
+                                    <h2>{t('items.'+props.obj.name)}</h2>
                                 </td>
                             </tr>
                             <tr>
@@ -115,7 +117,9 @@ export default function ObjInspector(props) {
                                     <img className="item-img" src={props.obj.imgSrc} alt="item"/>
                                     {props.obj.stateUsed &&
                                     <div className='used-state'>
-                                        <span>{props.obj.stateUsed === 'FUE' ? '💪🏻' : props.obj.stateUsed === 'INT' ? '🧠' : props.obj.stateUsed === 'PUN' ? '👁️' : '🍀'}</span>
+                                        <div className='img-icon'>
+                                            {props.obj.stateUsed === 'FUE' ? <BasicStrength /> : props.obj.stateUsed === 'INT' ? <BasicBrain/> : props.obj.stateUsed === 'PUN' ? <BasicDex/> : <BasicLuck/>}
+                                        </div>
                                     </div>
                                     }
                                     {props.obj.type === 'secondHand' &&
@@ -136,15 +140,15 @@ export default function ObjInspector(props) {
                             </tr>
                             <tr>
                                 <td>
-                                    <span>{props.obj.description}</span>
+                                    <span>{t('items.'+props.obj.description)}</span>
                                 </td>
                             </tr>
                             <tr className='maximize'>
                                 <td>
-                                    <span>* Stats: </span>
+                                    <span>{t('items.stats')}</span>
                                     <ul>
-                                        {props.obj.stats.DEF && <li>*DEF: {props.obj.stats.DEF}</li>}
-                                        {props.obj.stats.ATK && <li>*ATK: {props.obj.stats.ATK}</li>}
+                                        {props.obj.stats.DEF && <li>{t('items.def')}{props.obj.stats.DEF}</li>}
+                                        {props.obj.stats.ATK && <li>{t('items.atk')}{props.obj.stats.ATK}</li>}
                                     </ul>
                                 </td>
                             </tr>
@@ -152,14 +156,14 @@ export default function ObjInspector(props) {
                     </table>
                 </div>
                 <div className="c-inspector--double-top-right">
-                    <span>* EQUIPED *</span>
+                    <span>{t('user-hud.equiped')}</span>
                 </div>
                 <div className="c-inspector--double-right">
                 <table>
                     <tbody>
                         <tr>
                             <td>
-                                <h2>{objCompare.name}</h2>
+                                <h2>{t('items.'+objCompare.name)}</h2>
                             </td>
                         </tr>
                         <tr>
@@ -167,7 +171,9 @@ export default function ObjInspector(props) {
                                 <img className="item-img" src={objCompare.imgSrc} alt="item"/>
                                 {objCompare.stateUsed &&
                                 <div className='used-state'>
-                                    <span>{objCompare.stateUsed === 'FUE' ? '💪🏻' : objCompare.stateUsed === 'INT' ? '🧠' : objCompare.stateUsed === 'PUN' ? '👁️' : '🍀'}</span>
+                                    <div className='img-icon'>
+                                            {objCompare.stateUsed === 'FUE' ? <BasicStrength /> : objCompare.stateUsed === 'INT' ? <BasicBrain/> : objCompare.stateUsed === 'PUN' ? <BasicDex/> : <BasicLuck/>}
+                                        </div>
                                 </div>
                                 }
                                 {objCompare.type === 'secondHand' &&
@@ -188,15 +194,15 @@ export default function ObjInspector(props) {
                         </tr>
                         <tr>
                             <td>
-                                <span>{objCompare.description}</span>
+                                <span>{t('items.'+objCompare.description)}</span>
                             </td>
                         </tr>
                         <tr className='maximize'>
                             <td>
-                                <span>* Stats: </span>
+                                <span>{t('items.stats')}</span>
                                 <ul>
-                                    {objCompare.stats.DEF && <li>*DEF: {objCompare.stats.DEF}</li>}
-                                    {objCompare.stats.ATK && <li>*ATK: {objCompare.stats.ATK}</li>}
+                                    {objCompare.stats.DEF && <li>{t('items.def')}{objCompare.stats.DEF}</li>}
+                                    {objCompare.stats.ATK && <li>{t('items.atk')}{objCompare.stats.ATK}</li>}
                                 </ul>
                             </td>
                         </tr>

@@ -22,13 +22,19 @@
     &--content{
         width: 38vw;
         position: absolute;
-        top: 13vh;
+        top: 12.5vh;
         left: 31vw;
         background-color: c('brown-melon');
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
+
+        h2 {
+            font-family: 'FantaisieArtistique';
+            margin-block-start: 0;
+            margin-block-end: 0;
+        }
 
         &.disabled {
             display: none;

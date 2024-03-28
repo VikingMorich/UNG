@@ -1,17 +1,75 @@
 {
     "contact": "Contacto",
     "game-title": "UNNAMEDGAME",
+    "continue": "Continuar",
+    "next": "Siguiente",
+    "prev": "Anterior",
     "header": {
         "login": "Iniciar sesión",
         "logout": "Cerrar sesión",
-        "music": "Música"
+        "music": "Música",
+        "wiki": "Wiki"
+    },
+    "wiki": {
+        "title": "Enciclopedia",
+        "gen-stats": "Estadísticas generales",
+        "gen-stats-info": "Las siguientes estadísticas se utilizan para la creación de las fichas de los personajes. Cada valor indica el porcentaje de probabilidad de acertar cada vez que se pone a prueba el atributo. Estos valores también influyen en diferentes momentos de la historia. Cada símbolo corresponde a un atributo:",
+        "gen-stats-note": "Nota: Las diferentes armas ponen a prueba atributos diferentes. Asegúrate de que cada personaje esté equipado con el arma adecuada",
+        "gen-stats-info2": "Los siguientes atributos se utilizan en la parte de combate y su valor corresponde al número de puntos en ese atributo",
+        "strength-def": "Potencial muscular, vigor, robustez",
+        "inteligence-def": "Capacidad de entender, intelecto",
+        "dex-def": "Apuntar con esmero y detenimiento el arma contra el blanco",
+        "luck-def": "Circunstancia de ser, favorable o adversa a algo que sucede",
+        "attack-def": "Relacionada con el daño infligido al enemigo por acierto",
+        "defense-def": "Puntos de daño bloqueados por ataque",
+        "types-char": "Tipos de personajes",
+        "warrior-def": "Destaca por su fuerza. Sus golpes en combate lo convierten en un épico y feroz luchador",
+        "mage-def": "Destaca por su inteligencia. Puede aprender diferentes tipos de magia que le serán muy útiles en los combates.",
+        "archer-def": "Destaca por su destreza. Con sus agiles movimientos sabe sacar probecho a todas las situaciones de combate.",
+        "types-char-note": "Nota: Una vez elegido un tipo de personaje no se podrà volver a canviar de tipo hasta que la aventura termine.",
+        "weapons": "Armas",
+        "weapons-info": "En la carta de arma (dentro del modo inspeccionar), puedes ver toda la información relevante sobre el arma que tienes seleccionada.",
+        "weapons-1": "1- Contiene el nombre del arma. Justo encima del nombre se mostrarà si el arma esta equipada o no.",
+        "weapons-2": "2- Atributo general que utiliza la arma para atacar.",
+        "weapons-3": "3- Indica la/s mano/s con la que se utiliza la arma (princial sin icono, secundaria o dos manos).",
+        "weapons-4": "4- Descripción de la arma seleccionada.",
+        "weapons-5": "5- Estados que otorga llevar la arma equipada.",
+        "combat": "Combate",
+        "combat-info": "Cuando el combate comienza, el usuario tendrá que elegir entre las diferentes acciones principales posibles. Además de un ataque, un personaje puede utilizar cualquier objeto de su mochila.",
+        "combat-info2": "Cuando se realiza un ataque se lanzan 3 dados (algunas habilidades pueden modificar el numero de dados) y se contabiliza el numero de aciertos. Cada uno de estos aciertos se multiplica por el daño del jugador y se optiene un valor de ataque. Al mismo tiempo que nuestro jugador ataca, el enemigo tambien lanza sus dados y inflinge su ataque.",
+        "combat-info3": "Algunas habilidades de combate tienen turnos de enfriamiento. Después de usar estas habilidades en un combate, el jugador tendrà que esperar los turnos de enfriamiento que correspondan a esa habilidad.",
+        "combat-warning": "Nota: No puedes mejorar habilidades en mitad de un combate. Asegurate de prepararte adecuadamente antes de la batalla.",
+        "combat-info4": "Durante el combate, la información del enemigo se muestra en la parte superior de la pantalla. Cada interfaz de enemigo muestra información sobre su salud, ataque, armadura, fuerza y cualquier estado temporal de combate.",
+        "combat-note": "Nota: Los valores de armadura anulan directamente esa misma cantidad de daño físico recibido por ataque.",
+        "combat-stats": "Estados de combate",
+        "combat-stats-note": "Nota: Cuando un personaje quede afectado por uno de estos estados aparecerá el icono correspondiente al lado de su nombre.",
+        "combat-stats-info": "Durante el combate, algunos ataques pueden realizar modificaciones en los estados de los personajes. A continuación una lista de los diferentes estados:",
+        "burned": "Quemado",
+        "burned-desc": "Este estado puede afectar de 1 a 4 turnos y aplica un +4 daño por turno.",
+        "stuned": "Aturdido",
+        "stuned-desc": "Cuando se aplica, impide atacar en el siguiente turno.",
+        "poisoned": "Envenenado",
+        "poisoned-desc": "Este estado puede afectar ? turnos y aplica un ? daño por turno.",
+        "skills": "Habilidades",
+        "skills-info": "Después de subir de nivel a tú personaje, tu ataque aumentará en 1 y obtendrás 1 punto de habilidad. Los puntos de habilidad pueden gastarse en el menú de habilidades (dentro de la intefaz del jugador, apretando sobre su imagen o sobre su nivel)",
+        "skills-info2": "Existen 2 tipos de habilidades: pasivas y de combate. Las pasivas aumentaran tus atributos de jugador de forma permanente. Las habilidades de combate te proporcionan nuevos ataques que realizar durante las batallas.",
+        "skills-note": "Nota: Aprender algunas habilidades complejas requiere varios puntos de habilidad pero también otorga un gran beneficio.",
+        "skills-info3": "El enfriamiento de algunos ataques corresponde al número de turnos que deberá esperar el jugador para volver a realizar el mismo ataque.",
+        "companions": "Compañeros",
+        "companions-info": "Durante la aventura el jugador puede recibir la ayuda de un compañero animal. Este acompañante te proporcionará beneficios en algunas partes de la historia además de ofrecer algunas posibilidades ocultas.",
+        "companions-info2": "Existen 7 tipos de compañeros animales pero sólo puede acompañarte uno al mismo tiempo.",
+        "companions-note": "Nota: Algunos personajes pueden ofrecerte un cambio de mascota. Utiliza esta ventaja a tu favor."
+
     },
     "cover": {
         "game-desc": "Es un juego de rol en el que se toman decisiones, gran parte con textos, pero también con un personaje, combates, eventos, y una historia con un final pero con un árbol muy grande de posibilidades",
-        "game-privacy": "Esta aplicación utiliza una base de datos y permite guardar el proceso de juego con la cuenta de Google. Este juego sólo utiliza algunos datos personales básicos como el email y el nombre del usuario. Puedes consultar nuestras políticas haciendo clic en el siguiente enlace. "
+        "game-privacy": "Esta aplicación utiliza una base de datos y permite guardar el proceso de juego con la cuenta de Google. Este juego sólo utiliza algunos datos personales básicos como el email y el nombre del usuario. Puedes consultar nuestras políticas haciendo clic en el siguiente enlace. ",
+        "start-play": "EMPEZAR A JUGAR"
     },
     "home": {
-        "example": "Casa"
+        "continue": "* Continuar *",
+        "start": "* Nueva Aventura *",
+        "game-desc": "Descripción del juego"
     },
     "contact-op": {
         "name": "Nombre",
@@ -41,9 +99,292 @@
         "h5": "Información que se recoge",
         "p6": "Nuestra App recoge información personal, tales como: su nombre, la imagen de Google, preferéncia de idioma, así como su dirección de correo electrónico."
     },
+    "charsel": {
+        "title": "Selección de personaje",
+        "html-tooltip-mage": "El mago domina la inteligencia como principal estadística. </br></br>Puede aprender diferentes tipos de magia que le serán</br> muy útiles en los combates.",
+        "html-tooltip-war": "El guerrero domina la fuerza como principal estadística. </br></br>Sus golpes en combate lo convierten en </br>un épico y feroz luchador",
+        "html-tooltip-arc": "El arquero domina la destreza como principal estadística. </br></br>Con sus agiles movimientos sabe sacar probecho </br>a todas las situaciones de combate.",
+        "mage": "MAGO",
+        "warrior": "GUERRERO",
+        "archer": "ARQUERO",
+        "alert": "Tienes que seleccionar un tipo de personaje para continuar.",
+        "continue": "CONTINUAR"
+    },
+    "charname": {
+        "title": "Nombre del jugador",
+        "subtitle": "Elige un nombre para tu personaje",
+        "placeholder": "Introduce tu nombre"
+    },
+    "history-intro": {
+        "start-text": "Las grandes almas tienen voluntades; las débiles tan solo deseos. Algunos me conocen como Ragnaros... Todos desean saber, pero pocos pagan el trabajo que vale. Ve y encuentra tu camino...",
+        "continue": "Continuar"
+    },
     "languages": {
         "cat": "CAT",
         "es": "ES",
         "en": "EN"
+    },
+    "items": {
+        "stats": "Estadísticas:",
+        "def": "Defensa: ",
+        "atk": "Ataque: ",
+        "health-potion": "Poción de salud",
+        "health-potion-desc": "Recupera 20HP",
+        "ultimate-sword": "Espada definitiva",
+        "ultimate-sword-desc": "Descripción",
+        "dwarf-crossbow": "Ballesta enana",
+        "dwarf-crossbow-desc": "Descripción",
+        "enchanted-book": "Libro encantado",
+        "enchanted-book-desc": "Descripción",
+        "long-curved-axe": "Hacha larga curvada",
+        "long-curved-axe-desc": "Poderosa hacha barbada compuesta de una gruesa hoja de acero con la que rebanar a tus adversarios.",
+        "big-lance": "Lanza grande",
+        "big-lance-desc": "Descripción",
+        "long-mage-staff": "Bastón de mago largo",
+        "long-mage-staff-desc": "Descripción",
+        "awesome-shield": "Escudo impresionante",
+        "awesome-shield-desc": "Descripción",
+        "hunter-knife": "Cuchillo de cazador",
+        "hunter-knife-desc": "Descripción",
+        "viking-helmet": "Casco vikingo",
+        "viking-helmet-desc": "Descripción",
+        "viking-armor": "Armadura vikinga",
+        "viking-armor-desc": "Descripción",
+        "other-boots": "Otras botas",
+        "other-boots-desc": "Descripción",
+        "goblin-boots": "Botas de duende",
+        "goblin-boots-desc": "Descripción",
+        "wedding-ring": "Anillo de bodas",
+        "wedding-ring-desc": "Descripción",
+        "simple-pendant": "Colgante sencillo",
+        "simple-pendant-desc": "Descripción"
+    },
+    "user-hud": {
+        "skills": "Habilidades",
+        "skills-title": "HABILIDADES",
+        "Health": "Salud",
+        "Health-desc": "Aumenta tu HP máximo en 10 de forma permanente",
+        "Lucky": "Afortunado",
+        "Lucky-desc": "Aumenta tu 🍀 en 3 de forma permanente",
+        "Greedy": "Ambicioso",
+        "Greedy-desc": "+5% multiplicador en recompensas de oro",
+        "LuckyII": "Afortunado II",
+        "LuckyII-desc": "Aumenta tu 🍀 en 5 de forma permanente",
+        "HealthII": "Salud II",
+        "HealthII-desc": "Aumenta tu HP máximo en 40 de forma permanente",
+        "Brawler": "Luchador",
+        "Brawler-desc": "Aumenta tu ⚔️ y 🛡️ en 1 de forma permanente",
+        "Strength": "Fortaleza",
+        "Strength-desc": "Aumenta tu 💪🏻 en 3 de forma permanente",
+        "StrengthII": "Fortaleza II",
+        "StrengthII-desc": "Aumenta tu 💪🏻 en 5 de forma permanente",
+        "Intelectual": "Intelectual",
+        "Intelectual-desc": "Aumenta tu 🧠 en 3 de forma permanente",
+        "IntelectualII": "Intelectual II",
+        "IntelectualII-desc": "Aumenta tu 🧠 en 5 de forma permanente",
+        "Accurate": "Preciso",
+        "Accurate-desc": "Aumenta tu 👁️ en 3 de forma permanente",
+        "AccurateII": "Preciso II",
+        "AccurateII-desc": "Aumenta tu 👁️ en 5 de forma permanente",
+        "Doublestrike": "Doble Golpe",
+        "Doublestrike-desc": "Duplica el daño del próximo ataque.",
+        "PowerAttack": "Ataque Poderoso",
+        "PowerAttack-desc": "Añade +2 dados a tu ataque.",
+        "Charge": "Cargar",
+        "Charge-desc": "Ataca al enemigo, si obtienes el combo completo</br> de golpes, añade aturdido al enemigo.",
+        "Fireball": "Bola de Fuego",
+        "Fireball-desc": "Aumenta tu 🧠 en 5 si obtienes el combo completo</br> de golpes, agrega Quemado al enemigo.",
+        "Rejuvenate": "Rejuvenecer",
+        "Rejuvenate-desc": "Restaura 15HP en combate",
+        "GhostAttack": "Ataque Fantasma",
+        "GhostAttack-desc": "Elimina el valor de los dados del primer enemigo </br>cuando uses este ataque",
+        "Headshot": "Disparo a la Cabeza",
+        "Headshot-desc": "Ignora la defensa enemiga y +1 dado para tirar",
+        "Multishot": "Disparo Múltiple",
+        "Multishot-desc": "Disminuye tu 👁️ en 15 pero triplica tu daño",
+        "VampireArrow": "Flecha Vampirica",
+        "VampireArrow-desc": "La cantidad de exceso de daño sobre el enemigo </br>cura al jugador.",
+        "skill-points": "Puntos de habilidad: ",
+        "pasives": "PASIVAS",
+        "combat": "COMBATE",
+        "save": "GUARDAR",
+        "map-title": "MAPA",
+        "countdown": "Enfriamiento: ",
+        "new-attack": "Nuevo Ataque: ",
+        "strength": "Fuerza",
+        "inteligence": "Inteligencia",
+        "dexterity": "Destreza",
+        "luck": "Suerte",
+        "attack": "Ataque",
+        "defense": "Defensa",
+        "gold": "Oro",
+        "inventory": "Inventario",
+        "inventory-title": "INVENTARIO",
+        "map": "Mapa",
+        "use-potion": "Usar poción",
+        "tooltip-sell": "Vender",
+        "tooltip-delete": "Borrar",
+        "tooltip-buy": "Comprar",
+        "tooltip-inspect": "Inspeccionar",
+        "tooltip-equip": "Equipar",
+        "tooltip-drink": "Beber",
+        "tooltip-unequip": "Desequipar",
+        "equiped": "EQUIPADA",
+        "backpack": "Mochila",
+        "player-name": "Nombre:"
+    },
+    "questionary": {
+        "answered-quest": " preguntas respondidas",
+        "talk": "Responde a todas las preguntas para obtener un resultado...",
+        "calculate": "Calcular resultado",
+        "q1": {
+            "question": "1. ¿Que estacion prefieres?",
+            "a1": "Primavera",
+            "a2": "Verano",
+            "a3": "Otoño",
+            "a4": "Invierno"
+        },
+        "q2": {
+            "question": "2. ¿Donde te gustaria viajar?",
+            "a1": "Noruega",
+            "a2": "China",
+            "a3": "Brasil",
+            "a4": "Catalunya"
+        },
+        "q3": {
+            "question": "3. ¿Que música prefieres?",
+            "a1": "Rock",
+            "a2": "Pop",
+            "a3": "Electrónica",
+            "a4": "Reggae"
+        },
+        "q4": {
+            "question": "4. ¿Que bebida prefieres?",
+            "a1": "Agua",
+            "a2": "Soda",
+            "a3": "Cafe",
+            "a4": "Cerveza"
+        },
+        "q5": {
+            "question": "5. ¿Que te gustaria hacer en vacaciones?",
+            "a1": "Relax",
+            "a2": "Senderismo",
+            "a3": "Viajar a la playa",
+            "a4": "Explorar ciudades"
+        },
+        "q6": {
+            "question": "6. ¿Cual es tu genero de película favorito?",
+            "a1": "Acción",
+            "a2": "Drama",
+            "a3": "Comedia",
+            "a4": "Romance"
+        },
+        "q7": {
+            "question": "7. Elige un color",
+            "a1": "Verde",
+            "a2": "Amarillo",
+            "a3": "Azul",
+            "a4": "Rojo"
+        },
+        "q8": {
+            "question": "8. ¿Cuál es tu comida favorita?",
+            "a1": "Sushi",
+            "a2": "Pizza",
+            "a3": "Pollo a l'ast",
+            "a4": "Escalivada"
+        },
+        "q9": {
+            "question": "9. ¿Qual es tu pasatiempo favorito?",
+            "a1": "Música",
+            "a2": "Jugar a videojuegos",
+            "a3": "Leer",
+            "a4": "Hacer manualidades"
+        },
+        "q10": {
+            "question": "10. ¿Que prefieres baño caliente o masaje?",
+            "a1": "Baño caliente",
+            "a2": "Masaje",
+            "a3": "Ambos",
+            "a4": "Ninguno, prefiero otras formas de relajarme 😏"
+        }
+    },
+    "pageDead": {
+        "title": "FIN",
+        "desc": "Puesto que la muerte es inevitable, olvidémosla...",
+        "restart": "Voler a empezar"
+    },
+    "shop": {
+        "title": "Tienda",
+        "end-shop": "Terminar compras"
+    },
+    "battle": {
+        "title": "COMBATE",
+        "last-attack-title": "Resultado del último ataque",
+        "no-attacks": "Sin ataques previos",
+        "end-win": "Has ganado",
+        "end-win-op": "Recojer",
+        "end-lose": "Has perdido",
+        "end-lose-op": "Ok 🥲",
+        "re-gold": "Oro",
+        "re-exp": "Experiencia",
+        "attack": "Ataque"
+    },
+    "enemy": {
+        "bird": "Pájaro",
+        "skeleton": "Esqueleto",
+        "shark": "Tiburón",
+        "demon": "Demonio",
+        "werewolf": "Hombre lobo",
+        "ninja": "Ninja",
+        "dark-angel": "Ángel Oscuro",
+        "dragon": "Dragón"
+    },
+    "reward": {
+        "title": "Recompensa",
+        "collect": "Recojer"
+    },
+    "history": {
+        "page1": {
+            "slide1": "Me cago en la hostia... Ehhh tu... ¿Estas bien?",
+            "slide2": "No me lo puedo creer, parece que aun respira... AAAAAAH!!!",
+            "slide3": "...",
+            "slide4": "¿Pero que ha pasado tio, como has hecho esto?",
+            "op1": "¿Hacer que?",
+            "op2": "¿Quien eres tu?",
+            "op3": "Soy el mesias, he venido a salvaros"
+        },
+        "page2": {
+            "slide1": "Ay perdona, no me he presentado, soy X? un vigilante de la isla Y, estaba fumando tranquilamente en la torre y de repente empece a ver como un remolino purpura oscuro en el cielo y me empece a rallar...",
+            "slide2": "Me habran vuelto a vender hierba xunga... esos cabrones no saben con quien se estan metiendo... y de pronto hizo un destello y te vi caer del cielo hasta aqui cerca. Te segui y justo acabamos de encontrarnos. ¿Te encuentras bien?",
+            "op1": "Si",
+            "op2": "He tenido días mejores"
+        },
+        "page3": {
+            "slide1": "Genial, empecemos por dejar el cielo como estaba entonces :D",
+            "op1": "No se como hacer eso..."
+        },
+        "page11": {
+            "slide1": "Jajaja ya imagino. ¿Como te llamas?",
+            "op1": "Continuar"
+        },
+        "page10": {
+            "slide1": "Increible después de ese golpe... ¿Como te llamas?",
+            "op1": "Continuar"
+        },
+        "page5": {
+            "slide1": "Lorem ipsum",
+            "slide2": "Img with text",
+            "slide3": "easy peasy",
+            "op1": "ok",
+            "op2": "no"
+        },
+        "page7": {
+            "slide1": "Back again",
+            "op1": "ok"
+        },
+        "page8": {
+            "slide1": "Aaaah, por favor no me hagas daño... te dare todo lo que tengo...",
+            "op1": "Continuar"
+        }
     }
 }

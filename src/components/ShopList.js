@@ -9,10 +9,9 @@ import { BuyIcon, InspectIcon } from './icon/icon'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function ShopList(props) {
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
     const [openObjInspector, setOpenObjInspector] = useState(false)
     const [objClicked, setObjClicked] = useState(null)
-    const goToGame = () => window.location = '/game'
     let mappedItems = Object.keys(itemsList).map(el => {
         return itemsList[el].map(ele => ele)
     }).flat(1)
@@ -114,14 +113,14 @@ export default function ShopList(props) {
                                                 {el.type === 'none' && <ObjNone/>}
                                             </div>
                                         </td>
-                                        <td className='maximize'>{el.name}</td>
+                                        <td className='maximize'>{t('items.'+el.name)}</td>
                                         <td><Counter counter={counterArray[i]} increment={() => {increment(i)}} decrement={() => {decrement(i)}}/></td>
                                         <td>
                                             <div className='buttons-wrap'>
-                                                <div className={`button-icon ${props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''}`} onClick={() => {if(maxCounterArray[i] !== 0) {buyObjFunc(el, i)}}} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Buy *'}>
+                                                <div className={`button-icon ${props.state.gameStates.gold < (counterArray[i] * el.gold) ? 'disabled' : ''}`} onClick={() => {if(maxCounterArray[i] !== 0) {buyObjFunc(el, i)}}} data-tooltip-id="tooltip-shop" data-tooltip-html={t('user-hud.tooltip-buy')}>
                                                     <BuyIcon />
                                                 </div>
-                                                <div className='button-icon' onClick={inspectObjFunc} data-tooltip-id="tooltip-shop" data-tooltip-html={'* Inspect *'}>
+                                                <div className='button-icon' onClick={inspectObjFunc} data-tooltip-id="tooltip-shop" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                     <InspectIcon />
                                                 </div>
                                             </div>
@@ -134,7 +133,7 @@ export default function ShopList(props) {
                         <ReactTooltip id="tooltip-shop" place="top" type="dark" effect="float" className='font-tooltip'/>
                     </div>
                     {props.values && <ul className='ul-list'>
-                        <li className='link' onClick={() => setHistoryPage(props.values.end)}>Terminar compras</li>
+                        <li className='link' onClick={() => setHistoryPage(props.values.end)}>{t('shop.end-shop')}</li>
                     </ul>}
                 </div>
                 {openObjInspector && objClicked &&

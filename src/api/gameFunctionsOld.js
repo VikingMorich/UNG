@@ -218,3 +218,55 @@ export function addPlayerDB(name, email, imageUrl) {
     window.location = '/name'
   })
 }
+
+export function saveReward(gold, obj) {
+  let ref = fire.database().ref().child('Players')
+  let key = cookies.get('key')
+  ref.child(key).once("value", function(playersStateSnap) {
+    let updates = playersStateSnap.val()
+    let plusGain = 0
+    if (updates.gameStates.learnedSkills && updates.gameStates.learnedSkills.includes('Greedy')) {
+      plusGain = parseInt(gold * 5 / 100)
+    }
+    updates.gameStates.gold += gold + plusGain
+    let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
+    if (exist) {
+      updates.gameStates.backpack[exist].count += 1
+    } else {
+      let Objkey = ref.push().key
+      let hasBackpack = updates.gameStates.backpack ? true : false
+      if (!hasBackpack)
+        updates.gameStates.backpack = {
+          [Objkey] : {
+            name: obj.name,
+            count: obj.count || 1,
+            type: obj.type,
+            objType: obj.objType || null,
+            stateUsed: obj.stateUsed || null,
+            stats: obj.stats || null,
+            imgSrc: obj.imgSrc || null,
+            sellPrice: obj.gold || null,
+            description: obj.description || null,
+            equiped: false
+          }
+        }
+      else {
+        updates.gameStates.backpack[Objkey] = {
+          name: obj.name,
+          count: obj.count || 1,
+          type: obj.type,
+          objType: obj.objType || null,
+          stateUsed: obj.stateUsed || null,
+          stats: obj.stats || null,
+          description: obj.description || null,
+          imgSrc: obj.imgSrc || null,
+          sellPrice: obj.gold || null,
+          equiped: false
+        }
+      }
+    }
+    ref.child(key).update(updates)
+  }).then(() => {
+    window.location = '/game'
+  })
+}

@@ -6,12 +6,14 @@ import cross from '../icons/clear-white-18dp.svg'
 import expand from "../icons/expand_more-white-18dp.svg"
 import GoogleBtn from '../GoogleBtn'
 import Cookies from 'universal-cookie';
+import WikiModal from './WikiModal'
 
 export default function Header() {
     let cookies = new Cookies();
     const [t, i18n] = useTranslation("global")
     const [mobileMenu, setMobileMenu] = useState(false)
     const [mobileMenuType, setMobileMenuType] = useState('')
+    const [wikiOpen, setWikiOpen] = useState(false)
 
 
     const setLanguage = (lang) => {
@@ -20,6 +22,16 @@ export default function Header() {
         setMobileMenuType('')
         setMobileMenu(false)
     }
+
+    const openWiki = () => {
+        setMobileMenu(false)
+        setWikiOpen(true)
+    }
+
+    const closeWikiModal = () => {
+        setWikiOpen(false)
+      }
+
     return (
         <React.Fragment>
         {mobileMenu &&
@@ -31,7 +43,7 @@ export default function Header() {
                         <img className="c-header-mobile--icon" alt="cross-icon" src={language} onClick={() => setMobileMenuType('language')}/>
                         <img className="c-header-mobile--icon" alt="cross-icon" src={cross} onClick={() => setMobileMenu(false)}/>
                     </div>
-                    <div className="c-header-mobile--option">* Wiki *</div>
+                    <div className="c-header-mobile--option" onClick={openWiki}>{t("header.wiki")}</div>
                     <div className="c-header-mobile--option">{t("header.music")}</div>
                     <GoogleBtn type = "header"/>
                 </React.Fragment> 
@@ -46,7 +58,6 @@ export default function Header() {
                 {mobileMenuType === 'language' &&
                 <React.Fragment>
                     <h3 className="c-header-mobile--optionTitle centered">{t("language")}</h3>
-                    <div className="c-header-mobile--option centered" onClick={() => setLanguage('ca')}>{t("languages.cat")}</div>
                     <div className="c-header-mobile--option centered" onClick={() => setLanguage('es')}>{t("languages.es")}</div>
                     <div className="c-header-mobile--option centered" onClick={() => setLanguage('en')}>{t("languages.en")}</div>
                 </React.Fragment>
@@ -62,6 +73,7 @@ export default function Header() {
             </div>
             <img className="c-header--icon" alt="menu-icon" src={menu} onClick={() => {setMobileMenu(true)}}/>
         </div>
+        <WikiModal open={wikiOpen} toggleModal={closeWikiModal} />
         </React.Fragment>
     )
 }

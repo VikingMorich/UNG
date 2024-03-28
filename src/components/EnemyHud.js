@@ -1,21 +1,17 @@
 import React from 'react';
-//import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
 import { Burned, Stuned, Poisoned, BasicAttack, BasicStrength, BasicShield } from './icon/icon';
+import { useTranslation } from "react-i18next"
 
 export default function EnemyHud(props) {
-    //const [t, i18n] = useTranslation("global");
-
+    const [t] = useTranslation("global")
     let imgCharacter = props.state.imgSrc
 
     return (
         <React.Fragment>
             <div className="enemy-wrapper">
-              <div className='enemy-img-wrap'>
-                <img className="enemy-img" alt="enemy-character" src={props.state.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter}/>
-              </div>
               <div className="enemy-bars">
-                <span className='enemy-name'>{props.state.name} 
+                <span className='enemy-name'>{t('enemy.'+props.state.name)} 
                   {props.state.countdown?.Burned && 
                     <div className='enemy-state'><Burned/></div>
                   }
@@ -48,19 +44,22 @@ export default function EnemyHud(props) {
                   <span>{props.state.FUE}</span>
                 </div>
               </div>
+              <div className='enemy-img-wrap'>
+                <img className="enemy-img" alt="enemy-character" src={props.state.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter}/>
+              </div>
               <div className='last-attack-result'>
-                <h3>*Last attack result *</h3>
+                <h3>{t('battle.last-attack-title')}</h3>
                 {(props.state.lastPlayerDmg || props.state.lastEnemyDmg) ?
                 <React.Fragment>
                   <div className='op-dmg'>
-                    {props.state.name + ': -' + (props.state.lastPlayerDmg || 0 ) + 'HP'}
+                    {t('enemy.'+props.state.name) + ': -' + (props.state.lastPlayerDmg || 0 ) + 'HP'}
                   </div>
                   <div className='op-dmg'>
                     {props.username + ': -' + (props.state.lastEnemyDmg || 0) + 'HP'}
                   </div>
                 </React.Fragment> :
                 <div className='op-dmg'>
-                  * No previous attacks *
+                  {t('battle.no-attacks')}
                 </div>
                 }
                 

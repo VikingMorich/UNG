@@ -31,11 +31,11 @@ export default function StoryAnimation() {
                 {/* You can put any content inside this component */}
                     <div className="page">
                         <div className="front">
-                            <h1>Las grandes almas tienen voluntades; las débiles tan solo deseos. Algunos me conocen como Ragnaros... Todos desean saber, pero pocos pagan el trabajo que vale. Ve y encuentra tu camino...</h1>
+                            <h1>{t('history-intro.start-text')}</h1>
                         </div>
                         <div className="back">
                             <Trippi />
-                            <span className='link' onClick={setPageState}>Continuar</span>
+                            <span className='link' onClick={setPageState}>{t('history-intro.continue')}</span>
                         </div>
                     </div>
                     <div className={`black-background ${inmerse ? 'ani-fade-in' : ''}`}>

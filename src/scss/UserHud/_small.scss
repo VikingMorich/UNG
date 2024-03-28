@@ -158,9 +158,11 @@
 
 .font-tooltip {
   font-family: 'FantaisieArtistique';
+  z-index: 5;
 }
 
 .font-tooltip-centered {
   font-family: 'FantaisieArtistique';
   text-align: center;
+  z-index: 5;
 }

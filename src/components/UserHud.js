@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-//import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import ProgressBar from './ProgressBar'
 import Modal from './Modal'
 import EndBattleModal from './EndBattleModal'
@@ -9,7 +9,7 @@ import { Potion, BasicAttack, BasicBrain, BasicDex, BasicLuck, BasicMoney, Basic
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function UserHud(props) {
-    //const [t, i18n] = useTranslation("global");
+    const [t] = useTranslation("global");
     const [open, setOpen] = useState(inventoryStateOpen)
     const [type, setType] = useState(inventoryStateOpen ? 'inventory' : '')
     const [endBattle, setEndBattle] = useState(false)
@@ -34,7 +34,7 @@ export default function UserHud(props) {
       setInventoryStateOpen(false)
       document.body.style.overflow = "auto"
     }
-    let potionObj = (props.state.gameStates.backpack && Object.keys(props.state.gameStates.backpack).find(el => props.state.gameStates.backpack[el].name === '* Health potion *')) || null
+    let potionObj = (props.state.gameStates.backpack && Object.keys(props.state.gameStates.backpack).find(el => props.state.gameStates.backpack[el].name === 'health-potion')) || null
 
     //BATTLE IF
 
@@ -62,7 +62,7 @@ export default function UserHud(props) {
             <div className="user-wrapper">
               <div className='user-img-wrap'>
                 <img className="user-img" alt="user-character" src={props.state.gameStates.HP === 0 ? "./low-poly-skull-print.jpg" : imgCharacter} onClick={() => { toggleModal(); setType('skills')}}/>
-                <div className={`user-lvl ${props.state.gameStates.skillPoints && props.state.gameStates.skillPoints !== 0 && 'update-available'}`} onClick={() => { toggleModal(); setType('skills')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Skills *'}>
+                <div className={`user-lvl ${props.state.gameStates.skillPoints && props.state.gameStates.skillPoints !== 0 && 'update-available'}`} onClick={() => { toggleModal(); setType('skills')}} data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.skills')}>
                   <span>{props.state.gameStates.LVL}</span>
                 </div>
               </div>
@@ -77,25 +77,25 @@ export default function UserHud(props) {
                   <ProgressBar value={props.state.gameStates.EXP} maxValue={props.state.gameStates.maxEXP} color='blue' />
                 </div>
                 <div className="user-statistics">
-                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Strength *'}>
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.strength')}>
                     <div className='basic-state-icon'>
                       <BasicStrength/>
                     </div>
                     <span>{props.state.gameStates.FUE}</span>
                   </div>
-                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Inteligence *'}>
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.inteligence')}>
                     <div className='basic-state-icon'>
                       <BasicBrain/>
                     </div>
                     <span>{props.state.gameStates.INT}</span>
                   </div>
-                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Dexterity *'}>
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.dexterity')}>
                     <div className='basic-state-icon'>
                       <BasicDex/>
                     </div>
                     <span>{props.state.gameStates.PUN}</span>
                   </div>
-                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Luck *'}>
+                  <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.luck')}>
                     <div className='basic-state-icon'>
                       <BasicLuck/>
                     </div>
@@ -104,37 +104,37 @@ export default function UserHud(props) {
                 </div>
               </div>
               <div className="stats-char">
-                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Attack *'}>
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.attack')}>
                   <div className='basic-state-icon'>
                     <BasicAttack/>
                   </div>
                   <span>{props.state.gameStates.ATK}</span>
                 </div>
-                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Defense *'}>
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.defense')}>
                   <div className='basic-state-icon'>
                     <BasicShield/>
                   </div>
                   <span>{props.state.gameStates.DEF}</span>
                 </div>
-                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={'* Gold *'}>
+                <div className="char-stat" data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.gold')}>
                   <div className='basic-state-icon'>
                     <BasicMoney/>
                   </div>
                   <span>{props.state.gameStates.gold}</span>
                 </div>
                 <div className='char-buttons'>
-                  <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Inventory *'}>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('inventory')}} data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.inventory')}>
                     <div className='basic-state-icon'>
                       <BasicBackpack/>
                     </div>
                   </div>
-                  <div className="char-inv" onClick={() => { toggleModal(); setType('map')}} data-tooltip-id="tooltip-user" data-tooltip-html={'* Map *'}>
+                  <div className="char-inv" onClick={() => { toggleModal(); setType('map')}} data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.map')}>
                     <div className='basic-state-icon'>
                       <BasicMap/>
                     </div>
                   </div>
                   {potionObj && 
-                    <div className="char-inv" onClick={useBackpackPotionFunc} data-tooltip-id="tooltip-user" data-tooltip-html={'* Use potion *'}>
+                    <div className="char-inv" onClick={useBackpackPotionFunc} data-tooltip-id="tooltip-user" data-tooltip-html={t('user-hud.use-potion')}>
                       <div className='basic-state-icon'>
                         <Potion/>
                       </div>

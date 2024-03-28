@@ -6,7 +6,7 @@ import { questionaryData } from '../api/gameHistory'
 import { setCompanion } from '../api/gameFunctions'
 
 export default function Questionary(props) {
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
     const [swiped, setSwiped] = useState(0);
     const [questRes, setQuestRes] = useState([]);
 
@@ -69,12 +69,12 @@ export default function Questionary(props) {
                     <div className="question-page">
                         <div className='page-container'>
                             <div className='questionary-info'>
-                                <span>{questRes.length}/{questionaryData.length} preguntas respondidas</span>
+                                <span>{questRes.length}/{questionaryData.length}{t('questionary.answered-quest')}</span>
                             </div>
                             {questionaryData.map((el, i) => {
                                 return (
                                     <div key={i} className={`page-text ${swiped !== i ? 'hidden' : ''}`} >
-                                        <h3>{el.quest}</h3>
+                                        <h3>{t('questionary.'+el.quest+'.question')}</h3>
                                         <div className='op-choices'>
                                             {el.options.map(op => {
                                                 return (
@@ -82,7 +82,7 @@ export default function Questionary(props) {
                                                         <div className='op-check'>
                                                             {questRes[i] === op.text ? <RadioButtonChecked /> : <RadioButton />}
                                                         </div>
-                                                        <span>{op.text}</span>
+                                                        <span>{t('questionary.'+el.quest+'.'+op.text)}</span>
                                                     </div>
                                                 )
                                             })}
@@ -96,7 +96,7 @@ export default function Questionary(props) {
                             <img className="people-img" alt="people" src='./people/shaman.png' />
                             <div className="text-wrapper">
                                 <div className={`page-text`} >
-                                    <span>Responde a todas las preguntas para obtener un resultado...</span>
+                                    <span>{t('questionary.talk')}</span>
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ export default function Questionary(props) {
                     </div>}
                     {questRes.length === questionaryData.length && 
                     <div className='button-result' onClick={calculateScore} >
-                        <span>Calcular resultado</span>
+                        <span>{t('questionary.calculate')}</span>
                     </div>}
                 </div>
             </div>

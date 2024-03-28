@@ -19,7 +19,7 @@ export default function EndBattleModal(props) {
                     <div className={`c-battle-modal--content`}>
                         {props.type === 'win' &&
                             <React.Fragment>
-                                <h2>* You win *</h2>
+                                <h2>{t('battle.end-win')}</h2>
                                 <img className="background-img" alt="chest" src='./chest.jpg' />
                                 <table className='reward-table'>
                                     <tbody>
@@ -40,22 +40,22 @@ export default function EndBattleModal(props) {
                                                     {element.type === 'none' && <ObjNone/>}
                                                 </div>
                                             </td>
-                                            <td className="maximize">{element.name}</td>
+                                            <td className="maximize">{(element.type === 'EXP' || element.type === 'coins') ? t('battle.'+element.name) : element.name}</td>
                                         </tr>
                                     })}
                                     </tbody>
                                 </table>
                                 <div className={`button`} onClick={collectFunc}>
-                                    <span>* Collect *</span>
+                                    <span>{t('battle.end-win-op')}</span>
                                 </div>
                             </React.Fragment>
                         }
                         {props.type === 'lose' && 
                             <React.Fragment>
-                                <h2>* You lose *</h2>
+                                <h2>{t('battle.end-lose')}</h2>
                                 <img className="background-img" alt="dead" src='./tomb.png' />
                                 <div className="button" onClick={goEnd}>
-                                    <span>* OK 🥲 *</span>
+                                    <span>{t('battle.end-lose-op')}</span>
                                 </div>
                             </React.Fragment>
                         }

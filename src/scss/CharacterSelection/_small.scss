@@ -1,5 +1,8 @@
 .character-selector {
   margin: 10px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .button{
     display: flex;

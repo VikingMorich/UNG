@@ -3,10 +3,10 @@ import { skillsWarrior, skillsMage, skillsArcher } from '../api/gameDatabase'
 import React, {useState} from 'react';
 import RollingDice from './RollingDice'
 import { rollDices } from '../api/gameFunctions'
-
+import { useTranslation } from "react-i18next"
 
 export default function BattlePage(props) {
-
+    const [t] = useTranslation("global")
     const [even, setEven] = useState(false)
     const [even2, setEven2] = useState(false)
     const [disabled, setDisabled] = useState(false)
@@ -88,7 +88,7 @@ export default function BattlePage(props) {
     }
 
     const rollGhostAttack = () => {
-        rollDicesFunc('Ghost attack')
+        rollDicesFunc('GhostAttack')
     }
 
     const rollCharge = () => {
@@ -96,7 +96,7 @@ export default function BattlePage(props) {
     }
 
     const rollVampireArrow = () => {
-        rollDicesFunc('Vampire arrow')
+        rollDicesFunc('VampireArrow')
     }
 
     const rollRejuvenate = () => {
@@ -133,34 +133,34 @@ export default function BattlePage(props) {
             <div className='current-op'>
                 <div className='op-list'>
                     <ul className='ul-list'>
-                        <li className={`link ${disabled ? 'disabled' : ''}`} onClick={rollDicesFunc}>* Atack *</li>
+                        <li className={`link ${disabled ? 'disabled' : ''}`} onClick={rollDicesFunc}>{t('battle.attack')}</li>
                         { props.state.learnedSkills && props.state.learnedSkills.includes('Doublestrike') &&
                         //(!props.state.battle.countdown || props.state.battle.countdown['Doublestrike'])
-                            <li className={`link ${(disabled || (props.state.battle.countdown && props.state.battle.countdown['Doublestrike'])) ? 'disabled' : ''}`} onClick={rollDoublestrike} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatWarriorSkills.find(el => el.name === 'Doublestrike').description + '</br>Countdown: ' + mapCombatWarriorSkills.find(el => el.name === 'Doublestrike').countdown}>* Doublestrike * {props.state.battle.countdown && props.state.battle.countdown['Doublestrike'] ? '(' + props.state.battle.countdown['Doublestrike'] + ')' : ''}</li>
+                            <li className={`link ${(disabled || (props.state.battle.countdown && props.state.battle.countdown['Doublestrike'])) ? 'disabled' : ''}`} onClick={rollDoublestrike} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatWarriorSkills.find(el => el.name === 'Doublestrike').description) + '</br>'+t('user-hud.countdown') + mapCombatWarriorSkills.find(el => el.name === 'Doublestrike').countdown}>{t('user-hud.Doublestrike')} {props.state.battle.countdown && props.state.battle.countdown['Doublestrike'] ? '(' + props.state.battle.countdown['Doublestrike'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('PowerAttack') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['PowerAttack']) ? 'disabled' : ''}`} onClick={rollPowerAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').description + '</br>Countdown: ' + mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').countdown}>* PowerAttack * {props.state.battle.countdown && props.state.battle.countdown['PowerAttack'] ? '(' + props.state.battle.countdown['PowerAttack'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['PowerAttack']) ? 'disabled' : ''}`} onClick={rollPowerAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').description) + '</br>'+t('user-hud.countdown') + mapCombatWarriorSkills.find(el => el.name === 'PowerAttack').countdown}>{t('user-hud.PowerAttack')} {props.state.battle.countdown && props.state.battle.countdown['PowerAttack'] ? '(' + props.state.battle.countdown['PowerAttack'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Charge') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Charge']) ? 'disabled' : ''}`} onClick={rollCharge} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatWarriorSkills.find(el => el.name === 'Charge').description + '</br>Countdown: ' + mapCombatWarriorSkills.find(el => el.name === 'Charge').countdown}>* Charge * {props.state.battle.countdown && props.state.battle.countdown['Charge'] ? '(' + props.state.battle.countdown['Charge'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Charge']) ? 'disabled' : ''}`} onClick={rollCharge} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatWarriorSkills.find(el => el.name === 'Charge').description) + '</br>'+t('user-hud.countdown') + mapCombatWarriorSkills.find(el => el.name === 'Charge').countdown}>{t('user-hud.Charge')} {props.state.battle.countdown && props.state.battle.countdown['Charge'] ? '(' + props.state.battle.countdown['Charge'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Fireball') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Fireball']) ? 'disabled' : ''}`} onClick={rollFireball} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Fireball').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Fireball').countdown}>* Fireball * {props.state.battle.countdown && props.state.battle.countdown['Fireball'] ? '(' + props.state.battle.countdown['Fireball'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Fireball']) ? 'disabled' : ''}`} onClick={rollFireball} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatMageSkills.find(el => el.name === 'Fireball').description) + '</br>'+t('user-hud.countdown') + mapCombatMageSkills.find(el => el.name === 'Fireball').countdown}>{t('user-hud.Fireball')} {props.state.battle.countdown && props.state.battle.countdown['Fireball'] ? '(' + props.state.battle.countdown['Fireball'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Rejuvenate') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Rejuvenate']) ? 'disabled' : ''}`} onClick={rollRejuvenate} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Rejuvenate').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Rejuvenate').countdown}>* Rejuvenate * {props.state.battle.countdown && props.state.battle.countdown['Rejuvenate'] ? '(' + props.state.battle.countdown['Rejuvenate'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Rejuvenate']) ? 'disabled' : ''}`} onClick={rollRejuvenate} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatMageSkills.find(el => el.name === 'Rejuvenate').description) + '</br>'+t('user-hud.countdown') + mapCombatMageSkills.find(el => el.name === 'Rejuvenate').countdown}>{t('user-hud.Rejuvenate')} {props.state.battle.countdown && props.state.battle.countdown['Rejuvenate'] ? '(' + props.state.battle.countdown['Rejuvenate'] + ')' : ''}</li>
                         }
-                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Ghost attack') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Ghost attack']) ? 'disabled' : ''}`} onClick={rollGhostAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatMageSkills.find(el => el.name === 'Ghost attack').description + '</br>Countdown: ' + mapCombatMageSkills.find(el => el.name === 'Ghost attack').countdown}>* Ghost attack * {props.state.battle.countdown && props.state.battle.countdown['Ghost attack'] ? '(' + props.state.battle.countdown['Ghost attack'] + ')' : ''}</li>
+                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('GhostAttack') &&
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['GhostAttack']) ? 'disabled' : ''}`} onClick={rollGhostAttack} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatMageSkills.find(el => el.name === 'GhostAttack').description) + '</br>'+t('user-hud.countdown') + mapCombatMageSkills.find(el => el.name === 'GhostAttack').countdown}>{t('user-hud.GhostAttack')} {props.state.battle.countdown && props.state.battle.countdown['GhostAttack'] ? '(' + props.state.battle.countdown['GhostAttack'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Headshot') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Headshot']) ? 'disabled' : ''}`} onClick={rollHeadshot} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Headshot').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Headshot').countdown}>* Headshot * {props.state.battle.countdown && props.state.battle.countdown['Headshot'] ? '(' + props.state.battle.countdown['Headshot'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Headshot']) ? 'disabled' : ''}`} onClick={rollHeadshot} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatArcherSkills.find(el => el.name === 'Headshot').description) + '</br>'+t('user-hud.countdown') + mapCombatArcherSkills.find(el => el.name === 'Headshot').countdown}>{t('user-hud.Headshot')} {props.state.battle.countdown && props.state.battle.countdown['Headshot'] ? '(' + props.state.battle.countdown['Headshot'] + ')' : ''}</li>
                         }
                         {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Multishot') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Multishot']) ? 'disabled' : ''}`} onClick={rollMultishot} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Multishot').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Multishot').countdown}>* Multishot * {props.state.battle.countdown && props.state.battle.countdown['Multishot'] ? '(' + props.state.battle.countdown['Multishot'] + ')' : ''}</li>
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Multishot']) ? 'disabled' : ''}`} onClick={rollMultishot} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatArcherSkills.find(el => el.name === 'Multishot').description) + '</br>'+t('user-hud.countdown') + mapCombatArcherSkills.find(el => el.name === 'Multishot').countdown}>{t('user-hud.Multishot')} {props.state.battle.countdown && props.state.battle.countdown['Multishot'] ? '(' + props.state.battle.countdown['Multishot'] + ')' : ''}</li>
                         }
-                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('Vampire arrow') &&
-                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['Vampire arrow']) ? 'disabled' : ''}`} onClick={rollVampireArrow} data-tooltip-id="tooltip-attack" data-tooltip-html={mapCombatArcherSkills.find(el => el.name === 'Vampire arrow').description + '</br>Countdown: ' + mapCombatArcherSkills.find(el => el.name === 'Vampire arrow').countdown}>* Vampire arrow * {props.state.battle.countdown && props.state.battle.countdown['Vampire arrow'] ? '(' + props.state.battle.countdown['Vampire arrow'] + ')' : ''}</li>
+                        {props.state && props.state.learnedSkills && props.state.learnedSkills.includes('VampireArrow') &&
+                            <li className={`link ${disabled || (props.state.battle.countdown && props.state.battle.countdown['VampireArrow']) ? 'disabled' : ''}`} onClick={rollVampireArrow} data-tooltip-id="tooltip-attack" data-tooltip-html={t('user-hud.'+mapCombatArcherSkills.find(el => el.name === 'VampireArrow').description) + '</br>'+t('user-hud.countdown') + mapCombatArcherSkills.find(el => el.name === 'VampireArrow').countdown}>{t('user-hud.VampireArrow')} {props.state.battle.countdown && props.state.battle.countdown['VampireArrow'] ? '(' + props.state.battle.countdown['VampireArrow'] + ')' : ''}</li>
                         }
                     </ul>
                 </div>

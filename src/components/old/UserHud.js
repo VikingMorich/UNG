@@ -34,7 +34,7 @@ export default function UserHud(props) {
       setInventoryStateOpen(false)
       document.body.style.overflow = "auto"
     }
-    let potionObj = (props.state.gameStates.backpack && Object.keys(props.state.gameStates.backpack).find(el => props.state.gameStates.backpack[el].name === '* Health potion *')) || null
+    let potionObj = (props.state.gameStates.backpack && Object.keys(props.state.gameStates.backpack).find(el => props.state.gameStates.backpack[el].name === 'health-potion')) || null
 
     //BATTLE IF
 
@@ -50,12 +50,12 @@ export default function UserHud(props) {
         let gold = getRandomInt(props.state.gameStates.battle.maxGold - props.state.gameStates.battle.minGold) + props.state.gameStates.battle.minGold
         setEndReward([{
           type: 'coins',
-          name: '* Coins *',
+          name: 're-gold',
           count: gold
         }, 
         {
           type: 'EXP',
-          name: '* Experience *',
+          name: 're-exp',
           count: props.state.gameStates.battle.EXP
         }])
         setEndRes('win')

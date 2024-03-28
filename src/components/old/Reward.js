@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next"
-import { getRandomInt, saveReward } from '../../api/gameFunctions'
+import { getRandomInt } from '../../api/gameFunctions'
+import { saveReward } from '../../api/gameFunctionsOld'
 import { ObjBoots, ObjCoins, ObjHelmet, ObjSword, ObjNone, ObjShield, ObjRing, ObjNecklace, ObjArmor, ObjCrossbow, ObjSpellBook, ObjKnife, ObjPotion, ObjAxe, ObjLance, ObjStaff} from '../icon/objectIcon';
 import { itemsList } from '../../api/gameDatabase'
 

@@ -27,19 +27,19 @@ export default function StoryTalk(props) {
                 <div className={`page-swipe-animation`} onClick={handleClick}>
                 {/* You can put any content inside this component */}
                     <div>
-                        <img className="background-img" alt="background" src={'./locations/' + props.values.location +'.jpeg'} />
+                        <img className="background-img" alt="background" src={'./locations/' + props.values.location} />
                         <div className={`speach-wrapper`}>
                             <img className="people-img" alt="people" src={'./people/' + props.values.character + '.png'} />
                             <div className="text-wrapper">
                                 {props.values.text.map((element, i) => {
                                     return (
                                     <div key={i} className={`page-text ${swiped !== i ? 'hidden' : ''}`} >
-                                        <span>{element}</span>
+                                        <span>{t('history.' + props.pagekey + '.' + element)}</span>
                                         {(props.values.text.length - 1) === i &&
                                         <div className='op-choices'>
                                             {props.values.choices.map(el => {
                                                 return (
-                                                    <span key={el.name} className='link' onClick={() => {setHistoryPage(el.history)}}>{el.name}</span>
+                                                    <span key={el.name} className='link' onClick={() => {setHistoryPage(el.history)}}>{t('history.' + props.pagekey + '.' + el.name)}</span>
                                                 )
                                             })}
                                             

@@ -1,20 +1,17 @@
 export const itemsList = {
   "potions": [
     {
-      name: '* Health potion *',
+      name: 'health-potion',
       type: 'potion',
       imgSrc: '/items/potion_img.png',
-      description: 'description',
+      description: 'health-potion-desc',
       gold: 20,
       sellPrice: 10,
-      stats: {
-        use: 'Restore 20HP',
-      },
     }
   ],
   "swords": [
     {
-      name: '* Ultimate sword *',
+      name: 'ultimate-sword',
       type: 'firstHand',
       objType: 'sword',
       stats: {
@@ -22,14 +19,14 @@ export const itemsList = {
       },
       stateUsed: 'FUE',
       imgSrc: '/items/ouSkZLD1.png',
-      description: 'description',
+      description: 'ultimate-sword-desc',
       gold: 1,
       sellPrice: 10
     }
   ],
   "crossbows": [
     {
-      name: '* Dwarf crossbow *',
+      name: 'dwarf-crossbow',
       type: 'firstHand',
       objType: 'crossbow',
       stats: {
@@ -37,14 +34,14 @@ export const itemsList = {
       },
       stateUsed: 'PUN',
       imgSrc: '/items/00022-195167288.png',
-      description: 'description',
+      description: 'dwarf-crossbow-desc',
       gold: 2,
       sellPrice: 10
     }
   ],
   "spellbooks": [
     {
-      name: '* Enchanted book *',
+      name: 'enchanted-book',
       type: 'firstHand',
       objType: 'book',
       stats: {
@@ -52,14 +49,14 @@ export const itemsList = {
       },
       stateUsed: 'INT',
       imgSrc: '/items/00027-195167288.png',
-      description: 'description',
+      description: 'enchanted-book-desc',
       gold: 3,
       sellPrice: 10
     }
   ],
   "axes": [
     {
-      name: '* Long curved axe *',
+      name: 'long-curved-axe',
       type: 'twoHand',
       objType: 'axe',
       stats: {
@@ -67,14 +64,14 @@ export const itemsList = {
       },
       stateUsed: 'FUE',
       imgSrc: '/items/00390-3121183695.png',
-      description: 'description',
+      description: 'long-curved-axe-desc',
       gold: 50,
       sellPrice: 50
     }
   ],
   "lances": [
     {
-      name: '* Big lance *',
+      name: 'big-lance',
       type: 'twoHand',
       objType: 'lance',
       stats: {
@@ -82,14 +79,14 @@ export const itemsList = {
       },
       stateUsed: 'PUN',
       imgSrc: '/items/00332-3121183697.png',
-      description: 'description',
+      description: 'big-lance-desc',
       gold: 50,
       sellPrice: 50
     }
   ],
   "staffs": [
     {
-      name: '* Long mage staff *',
+      name: 'long-mage-staff',
       type: 'twoHand',
       objType: 'staff',
       stats: {
@@ -97,112 +94,112 @@ export const itemsList = {
       },
       stateUsed: 'INT',
       imgSrc: '/items/00058-195167289.png',
-      description: 'description',
+      description: 'long-mage-staff-desc',
       gold: 50,
       sellPrice: 50
     }
   ],
   "shields": [
     {
-      name: '* Some shield *',
+      name: 'awesome-shield',
       type: 'secondHand',
       objType: 'shield',
       stats: {
         DEF: 2,
       },
       imgSrc: '/items/2_ghnqOu.png',
-      description: 'description',
+      description: 'awesome-shield-desc',
       gold: 5,
       sellPrice: 10
     }
   ],
   "knifes": [
     {
-      name: '* Hunter knife *',
+      name: 'hunter-knife',
       type: 'secondHand',
       objType: 'knife',
       stats: {
         ATK: 2,
       },
       imgSrc: '/items/00014-811999689.png',
-      description: 'description',
+      description: 'hunter-knife-desc',
       gold: 5,
       sellPrice: 10
     }
   ],
   "helmets": [
     {
-      name: '* Viking helmet *',
+      name: 'viking-helmet',
       type: 'helmet',
       stats: {
         DEF: 2,
       },
       imgSrc: '/items/TuCiw51n.png',
-      description: 'description',
+      description: 'viking-helmet-desc',
       gold: 100,
       sellPrice: 10
     }
   ],
   "armors": [
     {
-      name: '* Viking armor *',
+      name: 'viking-armor',
       type: 'armor',
       stats: {
         DEF: 2,
       },
       imgSrc: '/items/Yk2NS47q.png',
-      description: 'description',
+      description: 'viking-armor-desc',
       gold: 100,
       sellPrice: 10
     }
   ],
   "boots": [
     {
-      name: '* Other boots *',
+      name: 'other-boots',
       type: 'boots',
       stats: {
         DEF: 2,
       },
       imgSrc: '/items/AcxdY7s5.png',
-      description: 'description',
+      description: 'other-boots-desc',
       gold: 100,
       sellPrice: 10
     },
     {
-      name: '* Goblin boots *',
+      name: 'goblin-boots',
       type: 'boots',
       stats: {
         DEF: 1,
         SPIKES: 1,
       },
       imgSrc: '/items/mf8WgZ6V.png',
-      description: 'description',
+      description: 'goblin-boots-desc',
       gold: 100,
       sellPrice: 10
     },
   ],
   "rings": [
     {
-      name: '* Wedding ring *',
+      name: 'wedding-ring',
       type: 'ring',
       stats: {
         DEF: 1,
       },
       imgSrc: '/items/LyYP-BzL.png',
-      description: 'description',
+      description: 'wedding-ring-desc',
       gold: 100,
       sellPrice: 10
     }
   ],
   "necklaces": [
     {
-      name: '* Simple Pendant *',
+      name: 'simple-pendant',
       type: 'necklace',
       stats: {
         DEF: 1,
       },
       imgSrc: '/items/00010-105951971.png',
-      description: 'description',
+      description: 'simple-pendant-desc',
       gold: 100,
       sellPrice: 10
     }
@@ -212,7 +209,7 @@ export const itemsList = {
 export const enemiesList = {
   normal: [
     {
-      name: 'Bird',
+      name: 'bird',
       imgSrc: '/enemies/bird.png',
       HP: 40,
       maxHP: 40,
@@ -225,7 +222,7 @@ export const enemiesList = {
       FUE: 60
     },
     {
-      name: 'Skeleton',
+      name: 'skeleton',
       imgSrc: '/enemies/skeleton.png',
       HP: 50,
       maxHP: 50,
@@ -238,7 +235,7 @@ export const enemiesList = {
       FUE: 40
     },
     {
-      name: 'Shark',
+      name: 'shark',
       imgSrc: '/enemies/shark.jpeg',
       HP: 45,
       maxHP: 45,
@@ -251,7 +248,7 @@ export const enemiesList = {
       FUE: 65
     },
     {
-      name: 'Demon',
+      name: 'demon',
       imgSrc: '/enemies/demon.jpeg',
       HP: 50,
       maxHP: 50,
@@ -264,7 +261,7 @@ export const enemiesList = {
       FUE: 70
     },
     {
-      name: 'Werewolf',
+      name: 'werewolf',
       imgSrc: '/enemies/werewolf.png',
       HP: 80,
       maxHP: 80,
@@ -279,7 +276,7 @@ export const enemiesList = {
   ],
   hard: [
     {
-      name: 'Ninja',
+      name: 'ninja',
       imgSrc: '/enemies/ninja.png',
       HP: 150,
       maxHP: 150,
@@ -292,7 +289,7 @@ export const enemiesList = {
       FUE: 60
     },
     {
-      name: 'Dark Angel',
+      name: 'dark-angel',
       imgSrc: '/enemies/darkangel.png',
       HP: 200,
       maxHP: 200,
@@ -305,7 +302,7 @@ export const enemiesList = {
       FUE: 70
     },
     {
-      name: 'Dragon',
+      name: 'dragon',
       imgSrc: '/enemies/dragon.jpeg',
       HP: 250,
       maxHP: 250,
@@ -325,58 +322,58 @@ export const skillsWarrior = {
   {
     name: 'Health',
     imgSrc: '',
-    description: 'Increase your max HP by 10 permanently',
+    description: 'Health-desc',
     skillPoints: 1,
     countdown: 0,
     children: [
       {
         name: 'Lucky',
         imgSrc: '',
-        description: 'Increase your 🍀 by 3 permanently',
+        description: 'Lucky-desc',
         skillPoints: 1,
         countdown: 0,
         children: [
           {
             name: 'Greedy',
             imgSrc: '',
-            description: '+5% multiplier in gold rewards',
+            description: 'Greedy-desc',
             skillPoints: 1,
             countdown: 0,
           },
           {
-            name: 'Lucky II',
+            name: 'LuckyII',
             imgSrc: '',
-            description: 'Increase your 🍀 by 5 permanently',
+            description: 'LuckyII-desc',
             skillPoints: 1,
             countdown: 0,
           }
         ]
       },
       {
-        name: 'Health II',
+        name: 'HealthII',
         imgSrc: '',
-        description: 'Increase your max HP by 40 permanently',
+        description: 'HealthII-desc',
         skillPoints: 2,
         countdown: 0,
       },
       {
         name: 'Strength',
         imgSrc: '',
-        description: 'Increase your 💪🏻 by 3 permanently',
+        description: 'Strength-desc',
         skillPoints: 1,
         countdown: 0,
         children: [
           {
             name: 'Brawler',
             imgSrc: '',
-            description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+            description: 'Brawler-desc',
             skillPoints: 1,
             countdown: 0,
           },
           {
-            name: 'Strength II',
+            name: 'StrengthII',
             imgSrc: '',
-            description: 'Increase your 💪🏻 by 5 permanently',
+            description: 'StrengthII-desc',
             skillPoints: 1,
             countdown: 0,
           }
@@ -389,21 +386,21 @@ export const skillsWarrior = {
     {
       name: 'Doublestrike',
       imgSrc: '',
-      description: 'Double the damage of the next attack',
+      description: 'Doublestrike-desc',
       skillPoints: 1,
       countdown: 2,
       children: [
         {
           name: 'PowerAttack',
           imgSrc: '',
-          description: 'Add +2 dices to your attack',
+          description: 'PowerAttack-desc',
           skillPoints: 2,
           countdown: 3,
           children: [
             {
               name: 'Charge',
               imgSrc: '',
-              description: 'Attack the enemt, if you get the full </br>combo of hits, add stunned to the enemy',
+              description: 'Charge-desc',
               skillPoints: 2,
               countdown: 3,
             }
@@ -419,58 +416,58 @@ export const skillsMage = {
     {
       name: 'Health',
       imgSrc: '',
-      description: 'Increase your max HP by 10 permanently',
+      description: 'Health-desc',
       skillPoints: 1,
       countdown: 0,
       children: [
         {
           name: 'Lucky',
           imgSrc: '',
-          description: 'Increase your 🍀 by 3 permanently',
+          description: 'Lucky-desc',
           skillPoints: 1,
           countdown: 0,
           children: [
             {
               name: 'Greedy',
               imgSrc: '',
-              description: '+5% multiplier in gold rewards',
+              description: 'Greedy-desc',
               skillPoints: 1,
               countdown: 0,
             },
             {
-              name: 'Lucky II',
+              name: 'LuckyII',
               imgSrc: '',
-              description: 'Increase your 🍀 by 5 permanently',
+              description: 'LuckyII-desc',
               skillPoints: 1,
               countdown: 0,
             }
           ]
         },
         {
-          name: 'Health II',
+          name: 'HealthII',
           imgSrc: '',
-          description: 'Increase your max HP by 40 permanently',
+          description: 'HealthII-desc',
           skillPoints: 2,
           countdown: 0,
         },
         {
           name: 'Intelectual',
           imgSrc: '',
-          description: 'Increase your 🧠 by 3 permanently',
+          description: 'Intelectual-desc',
           skillPoints: 1,
           countdown: 0,
           children: [
             {
               name: 'Brawler',
               imgSrc: '',
-              description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+              description: 'Brawler-desc',
               skillPoints: 1,
               countdown: 0,
             },
             {
-              name: 'Intelectual II',
+              name: 'IntelectualII',
               imgSrc: '',
-              description: 'Increase your 🧠 by 5 permanently',
+              description: 'IntelectualII-desc',
               skillPoints: 1,
               countdown: 0,
             }
@@ -483,21 +480,21 @@ export const skillsMage = {
     {
       name: 'Fireball',
       imgSrc: '',
-      description: 'Increase your 🧠 by 5 if you get </br>the full combo of hits add Burned to the enemy',
+      description: 'Fireball-desc',
       skillPoints: 1,
       countdown: 3,
       children: [
         {
           name: 'Rejuvenate',
           imgSrc: '',
-          description: 'Restore 15HP in combat',
+          description: 'Rejuvenate-desc',
           skillPoints: 2,
           countdown: 3,
           children: [
             {
-              name: 'Ghost attack',
+              name: 'GhostAttack',
               imgSrc: '',
-              description: "Remove the value of the first enemy's dice </br>when you use this attack",
+              description: "GhostAttack-desc",
               skillPoints: 2,
               countdown: 3,
               
@@ -514,58 +511,58 @@ export const skillsArcher = {
     {
       name: 'Health',
       imgSrc: '',
-      description: 'Increase your max HP by 10 permanently',
+      description: 'Health-desc',
       skillPoints: 1,
       countdown: 0,
       children: [
         {
           name: 'Lucky',
           imgSrc: '',
-          description: 'Increase your 🍀 by 3 permanently',
+          description: 'Lucky-desc',
           skillPoints: 1,
           countdown: 0,
           children: [
             {
               name: 'Greedy',
               imgSrc: '',
-              description: '+5% multiplier in gold rewards',
+              description: 'Greedy-desc',
               skillPoints: 1,
               countdown: 0,
             },
             {
-              name: 'Lucky II',
+              name: 'LuckyII',
               imgSrc: '',
-              description: 'Increase your 🍀 by 5 permanently',
+              description: 'LuckyII-desc',
               skillPoints: 1,
               countdown: 0,
             }
           ]
         },
         {
-          name: 'Health II',
+          name: 'HealthII',
           imgSrc: '',
-          description: 'Increase your max HP by 40 permanently',
+          description: 'HealthII-desc',
           skillPoints: 2,
           countdown: 0,
         },
         {
           name: 'Accurate',
           imgSrc: '',
-          description: 'Increase your 👁️ by 3 permanently',
+          description: 'Accurate-desc',
           skillPoints: 1,
           countdown: 0,
           children: [
             {
               name: 'Brawler',
               imgSrc: '',
-              description: 'Increase your ⚔️ and 🛡️ by 1 permanently',
+              description: 'Brawler-desc',
               skillPoints: 1,
               countdown: 0,
             },
             {
-              name: 'Accurate II',
+              name: 'AccurateII',
               imgSrc: '',
-              description: 'Increase your 👁️ by 5 permanently',
+              description: 'AccurateII-desc',
               skillPoints: 1,
               countdown: 0,
             }
@@ -578,21 +575,21 @@ export const skillsArcher = {
     {
       name: 'Headshot',
       imgSrc: '',
-      description: 'Ignore enemy defense and +1 dice to roll',
+      description: 'Headshot-desc',
       skillPoints: 1,
       countdown: 2,
       children: [
         {
           name: 'Multishot',
           imgSrc: '',
-          description: 'Decrease your 👁️ by 15 but triplicate your dmg',
+          description: 'Multishot-desc',
           skillPoints: 2,
           countdown: 3,
           children: [
             {
-              name: 'Vampire arrow',
+              name: 'VampireArrow',
               imgSrc: '',
-              description: 'The amount of overkill to the enemy heals the player',
+              description: 'VampireArrow-desc',
               skillPoints: 2,
               countdown: 3,
             }

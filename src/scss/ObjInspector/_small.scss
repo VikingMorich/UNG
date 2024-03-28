@@ -20,9 +20,9 @@
     display: flex;
     justify-content: center;
     &--content{
-        width: 38vw;
+        width: calc(38vw + 20px);
         position: absolute;
-        top: 13vh;
+        top: 10vh;
         left: 31vw;
         background-color: c('brown-melon');
 
@@ -37,8 +37,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            span {
-                font-size: 24px;
+            .img-icon {
+                height: 24px;
+                width: 24px;
             }
         }
 
@@ -67,6 +68,7 @@
             td {
                 border: 1px solid grey;
                 font-family: 'FantaisieArtistique';
+                padding: 4px 10px;
             }
 
             h2 {
@@ -81,15 +83,14 @@
         }
 
         .item-img{
-            margin-left: calc(1vw - 2px);
-            width: 36vw;
+            width: 38vw;
         }
     }
 
     &--double-left{
-        width: 38vw;
+        width: calc(38vw + 20px);
         position: absolute;
-        top: 13vh;
+        top: 10vh;
         left: 8vw;
         background-color: c('brown-melon');
 
@@ -104,8 +105,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            span {
-                font-size: 24px;
+            .img-icon {
+                height: 24px;
+                width: 24px;
             }
         }
         .special-state {
@@ -133,6 +135,7 @@
             td {
                 border: 1px solid grey;
                 font-family: 'FantaisieArtistique';
+                padding: 4px 10px;
             }
 
             h2 {
@@ -153,9 +156,9 @@
     }
 
     &--double-right{
-        width: 38vw;
+        width: calc(38vw + 20px);
         position: absolute;
-        top: 13vh;
+        top: 10vh;
         left: 52vw;
         background-color: c('brown-melon');
 
@@ -170,8 +173,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            span {
-                font-size: 24px;
+            .img-icon {
+                height: 24px;
+                width: 24px;
             }
         }
         .special-state {
@@ -199,6 +203,7 @@
             td {
                 border: 1px solid grey;
                 font-family: 'FantaisieArtistique';
+                padding: 4px 10px;
             }
 
             h2 {
@@ -220,7 +225,7 @@
 
     &--double-top-right {
         position: absolute;
-        top: 8vh;
+        top: 6vh;
         left: 52vw;
         width: 38vw;
         text-align: center;
@@ -231,7 +236,7 @@
     
     &--centered {
         position: absolute;
-        top: 8vh;
+        top: 6vh;
         left: 31vw;
         width: 38vw;
         text-align: center;

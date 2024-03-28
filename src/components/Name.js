@@ -14,7 +14,7 @@ function useInput(initialValue) {
 }
 
 export default function Name(props) {
-  const [t, i18n] = useTranslation("global");
+  const [t] = useTranslation("global");
   const [name, handleChange, setName] = useInput("");
     
   useEffect(() => {
@@ -31,18 +31,18 @@ export default function Name(props) {
   }
 
   return (
-    <React.Fragment>
-      <h1>* Name *</h1>
-      <p className="description">* Choose the name for your player</p>
+    <div className="character-name">
+      <h1>{t('charname.title')}</h1>
+      <p className="description">{t('charname.subtitle')}</p>
       <input
         className="input-name"
-        placeholder={"* Enter you name *"}
+        placeholder={t('charname.placeholder')}
         value={name}
         onChange={handleChangeName}
       />
       <div className="button" onClick={continueClick}>
-        <span>{props.values.choices[0].name}</span>
+        <span>{t('continue')}</span>
       </div>
-    </React.Fragment>
+    </div>
   );
 }

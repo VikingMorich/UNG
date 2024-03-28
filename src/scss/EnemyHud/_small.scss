@@ -1,27 +1,33 @@
 .enemy-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
   margin: 0 20px;
+  justify-content: flex-end;
+  width: 100%;
+  padding-bottom: 20px;
 
   .enemy-img-wrap {
     position: relative;
     height: 230px;
 
     .enemy-img {
-      border: 1px solid black;
+      border: 2px solid c('other-medium-brown');
       width: 150px;
     }
 
   }
 
   .enemy-bars{
-    margin-left: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 50vw;
-    margin-bottom: 70px;
+    width: 400px;
+    background-color: c('other-medium-brown');
+    z-index: 2;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 4px 0 0 4px;
   }
 
   .enemy-name {
@@ -30,6 +36,8 @@
     display: flex;
     gap: 10px;
     align-items: center;
+    z-index: 2;
+    color: black;
 
     .enemy-state {
       width: 28px;
@@ -49,28 +57,31 @@
   }
 
   .last-attack-result {
-    margin-left: 70px;
-    margin-bottom: 100px;
+    bottom: 60px;
+    right: 20px;
+    position: absolute;
 
     h3 {
       font-family: 'FantaisieArtistique';
-      font-size: 24px;
+      font-size: 22px;
       margin-block-start: 0;
     }
 
     .op-dmg {
       font-family: 'FantaisieArtistique';
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 
   .stats-char {
-    margin-left: 40px;
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: center;
-    margin-bottom: 70px;
+    padding: 10px;
+    border-radius: 4px 0 0 4px;
+    z-index: 2;
+    background-color: c('other-medium-brown');
 
     .char-stat {
       display: flex;

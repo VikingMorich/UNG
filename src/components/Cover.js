@@ -30,7 +30,7 @@ export default function Cover() {
                         {t("contact-op.privacy")}
                     </span>
                 </p>
-                <button className="cover-button" onClick={goHome}>* START PLAY *</button>
+                <button className="cover-button" onClick={goHome}>{t('cover.start-play')}</button>
             </div>
             <Modal open={open} toggleModal={() => closeModal()} type={type}/>
         </React.Fragment>

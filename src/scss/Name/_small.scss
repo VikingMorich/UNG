@@ -1,3 +1,11 @@
+.character-name {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .button{
   display: flex;
   align-items: center;
@@ -12,6 +20,7 @@
   width: 250px;
   color: white;
   cursor: pointer;
+  justify-content: center;
 
   &.disabled {
     cursor: progress;

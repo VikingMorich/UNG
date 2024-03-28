@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import ReactDOM from 'react-dom'
 import { Fail, BasicLuck, BasicBrain, BasicDex, BasicStrength, Stuned } from '../components/icon/icon'
 import { itemsList, enemiesList } from './gameDatabase';
-import { history } from '../api/gameHistory'
+import { historyPages } from '../api/gameHistory'
 
 let cookies = new Cookies();
 let timeExpiration = new Date(Date.now() + (1000 * 3600 * 24))
@@ -303,55 +303,63 @@ export function unequipObj(obj) {
   })
 }
 
-export function saveReward(gold, obj) {
+export function saveReward(reward) {
   let ref = fire.database().ref().child('Players')
   let key = cookies.get('key')
   ref.child(key).once("value", function(playersStateSnap) {
     let updates = playersStateSnap.val()
-    let plusGain = 0
-    if (updates.gameStates.learnedSkills && updates.gameStates.learnedSkills.includes('Greedy')) {
-      plusGain = parseInt(gold * 5 / 100)
-    }
-    updates.gameStates.gold += gold + plusGain
-    let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === obj.name)
-    if (exist) {
-      updates.gameStates.backpack[exist].count += 1
-    } else {
-      let Objkey = ref.push().key
-      let hasBackpack = updates.gameStates.backpack ? true : false
-      if (!hasBackpack)
-        updates.gameStates.backpack = {
-          [Objkey] : {
-            name: obj.name,
-            count: obj.count || 1,
-            type: obj.type,
-            objType: obj.objType || null,
-            stateUsed: obj.stateUsed || null,
-            stats: obj.stats || null,
-            imgSrc: obj.imgSrc || null,
-            sellPrice: obj.gold || null,
-            description: obj.description || null,
-            equiped: false
+    reward.forEach(x => {
+      if (x.type === 'coins') {
+        let plusGain = 0
+        let gold = x.count || 0
+        if (updates.gameStates.learnedSkills && updates.gameStates.learnedSkills.includes('Greedy')) {
+          plusGain = parseInt(gold * 5 / 100)
+        }
+        updates.gameStates.gold += gold + plusGain
+      } else {
+        let exist = updates.gameStates.backpack && Object.keys(updates.gameStates.backpack).find(el => updates.gameStates.backpack[el].name === x.name)
+        if (exist) {
+          updates.gameStates.backpack[exist].count += x.count
+        } else {
+          let Objkey = ref.push().key
+          let hasBackpack = updates.gameStates.backpack ? true : false
+          let objInfo = Object.keys(itemsList).map(el => {
+            return itemsList[el].map(ele => ele)
+          }).flat(1).find(el => el.name === x.name)
+          debugger
+          if (!hasBackpack) {
+            updates.gameStates.backpack = {
+              [Objkey] : {
+                name: objInfo.name,
+                count: x.count,
+                type: objInfo.type,
+                objType: objInfo.objType || null,
+                stateUsed: objInfo.stateUsed || null,
+                stats: objInfo.stats || null,
+                imgSrc: objInfo.imgSrc || null,
+                sellPrice: objInfo.gold || null,
+                description: objInfo.description || null,
+                equiped: false
+              }
+            }
+          } else {
+            updates.gameStates.backpack[Objkey] = {
+              name: objInfo.name,
+              count: x.count,
+              type: objInfo.type,
+              objType: objInfo.objType || null,
+              stateUsed: objInfo.stateUsed || null,
+              stats: objInfo.stats || null,
+              description: objInfo.description || null,
+              imgSrc: objInfo.imgSrc || null,
+              sellPrice: objInfo.gold || null,
+              equiped: false
+            }
           }
         }
-      else {
-        updates.gameStates.backpack[Objkey] = {
-          name: obj.name,
-          count: obj.count || 1,
-          type: obj.type,
-          objType: obj.objType || null,
-          stateUsed: obj.stateUsed || null,
-          stats: obj.stats || null,
-          description: obj.description || null,
-          imgSrc: obj.imgSrc || null,
-          sellPrice: obj.gold || null,
-          equiped: false
-        }
       }
-    }
+    })
     ref.child(key).update(updates)
-  }).then(() => {
-    window.location = '/game'
   })
 }
 
@@ -469,7 +477,7 @@ export function rollDices(typeAttack, numberDices) {
     let ed1 = getRandomInt(100)
     let ed2 = getRandomInt(100)
     let ed3 = getRandomInt(100)
-    if (typeAttack === 'Ghost attack') {
+    if (typeAttack === 'GhostAttack') {
       let firstDice = document.getElementById("e-dice-1").getElementsByClassName('die-item')
       Object.keys(firstDice).forEach(el => {
         firstDice[el].className += ' ghost'
@@ -498,7 +506,7 @@ export function rollDices(typeAttack, numberDices) {
         let diceValue = document.createElement('div')
         ReactDOM.render(<div className='basic-state-icon'><BasicStrength/></div>, diceValue)
         efrontDiceFace1[0].appendChild(diceValue)
-        if (typeAttack !== 'Ghost attack') {
+        if (typeAttack !== 'GhostAttack') {
           emultiplier += 1
         }
       } else {
@@ -604,7 +612,7 @@ export function rollDices(typeAttack, numberDices) {
             updates.battle.countdown[typeAttack] = 3
         }
         //Vampire arrow
-        else if (typeAttack === 'Vampire arrow') {
+        else if (typeAttack === 'VampireArrow') {
           playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
           //treure hardcoded
           if (!updates.battle.countdown)
@@ -623,7 +631,7 @@ export function rollDices(typeAttack, numberDices) {
             updates.battle.countdown[typeAttack] = 3
         }
         //Ghost attack
-        else if (typeAttack === 'Ghost attack') {
+        else if (typeAttack === 'GhostAttack') {
           playerDmg = (multiplier * updates.ATK) - updates.battle.DEF
           //treure hardcoded
           if (!updates.battle.countdown)
@@ -672,7 +680,7 @@ export function rollDices(typeAttack, numberDices) {
           currentEnemyLive = 0
         }
         //vampire arrow
-        if (typeAttack === 'Vampire arrow' && overkill)
+        if (typeAttack === 'VampireArrow' && overkill)
           currentLive = currentLive + overkill
         if (currentLive > updates.maxHP) currentLive = updates.maxHP
         updates.HP = currentLive
@@ -774,7 +782,7 @@ export function buyObj(obj, numberItems) {
             stats: objInfo.stats || null,
             description: objInfo.description || null,
             imgSrc: objInfo.imgSrc || null,
-            sellPrice: objInfo.gold || null,
+            sellPrice: objInfo.sellPrice || null,
             equiped: false
           }
         }
@@ -822,32 +830,32 @@ export function saveSkillPoints(skills, cost) {
       updates.maxHP = updates.maxHP + 10
       updates.HP = updates.HP + 10
     }
-    if (skills.includes('Health II')) {
+    if (skills.includes('HealthII')) {
       updates.maxHP = updates.maxHP + 40
       updates.HP = updates.HP + 40
     }
     if (skills.includes('Lucky')) {
       updates.SUE = updates.SUE + 3
     }
-    if (skills.includes('Lucky II')) {
+    if (skills.includes('LuckyII')) {
       updates.SUE = updates.SUE + 5
     }
     if (skills.includes('Strength')) {
       updates.FUE = updates.FUE + 3
     }
-    if (skills.includes('Strength II')) {
+    if (skills.includes('StrengthII')) {
       updates.FUE = updates.FUE + 5
     }
     if (skills.includes('Intelectual')) {
       updates.INT = updates.INT + 3
     }
-    if (skills.includes('Intelectual II')) {
+    if (skills.includes('IntelectualII')) {
       updates.INT = updates.INT + 5
     }
     if (skills.includes('Accurate')) {
       updates.PUN = updates.PUN + 3
     }
-    if (skills.includes('Accurate II')) {
+    if (skills.includes('AccurateII')) {
       updates.PUN = updates.PUN + 5
     }
     if (skills.includes('Brawler')) {
@@ -865,21 +873,21 @@ export function setHistoryPage(page) {
     let updates = snap.val()
     updates.history = page
     //update shop
-    if (history[page].type === 'shop') {
-      updates.shop = history[page].items
+    if (historyPages[page].type === 'shop') {
+      updates.shop = historyPages[page].items
     }
-    if (history[page].type === 'battle') {
-      let ene = enemiesList[history[page].enemy.type].find(el => el.name === history[page].enemy.name)
+    if (historyPages[page].type === 'battle') {
+      let ene = enemiesList[historyPages[page].enemy.type].find(el => el.name === historyPages[page].enemy.name)
       //REWARD
       let gold = getRandomInt(ene.maxGold - ene.minGold) + ene.minGold
         let br = [{
           type: 'coins',
-          name: '* Coins *',
+          name: 're-gold',
           count: gold
         }, 
         {
           type: 'EXP',
-          name: '* Experience *',
+          name: 're-exp',
           count: ene.EXP
         }]
       updates.battle = {...ene, battleReward: br}

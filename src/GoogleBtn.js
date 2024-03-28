@@ -10,7 +10,7 @@ export default function GoogleBtn (props) {
   let cookies = new Cookies();
   const [isLogined, setLogined] = useState( cookies.get('login') || false )
   const [t] = useTranslation("global")
-  let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
+  let timeExpiration = new Date(Date.now() + (1000 * 3600 * 24))
 
 const errorGoogleResponse = (e) => {
   if (e.error !== "popup_closed_by_user")
@@ -40,7 +40,7 @@ const googleLogin = useGoogleLogin({
     cookies.remove('login', { path: '/' });
     //removePlayerDB(cookies.get('key'))
     cookies.remove('key', { path: '/' });
-    window.location.href = '/'
+    window.location.href = '/start'
   }
 
     return (

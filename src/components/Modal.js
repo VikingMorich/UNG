@@ -10,6 +10,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 import { setInventoryStateOpen } from '../fireSubscription'
 import { SellIcon, InspectIcon, EquipIcon, UnequipIcon, DeleteIcon, DrinkIcon, BasicAttack, BasicBrain, BasicDex, BasicLuck, BasicMoney, BasicShield, BasicStrength } from './icon/icon'
 import ProgressBar from './ProgressBar'
+import { historyPages } from '../api/gameHistory'
 
 
 export default function Modal(props) {
@@ -18,7 +19,6 @@ export default function Modal(props) {
     const [objClicked, setObjClicked] = useState(null)
     const [skillSelected, setSkillSelected] = useState([])
     const [currSkillPoints, setCurrSkillPoints] = useState(props.state?.gameStates?.skillPoints || 0)
-    const [sellPrice, setSellPrice] = useState(null)
     const ref = useRef(null)
     const refModal = useRef(null)
     let equipedItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
@@ -107,12 +107,12 @@ export default function Modal(props) {
     }
 
     const saveSkillChanges = () => {
-        if (window.location.pathname !== '/battle') {
+        //if (props.state.gameStates.history !== 'battle') {
             setInventoryStateOpen(false)
             saveSkillPoints(skillSelected, props.state.gameStates.skillPoints - currSkillPoints)
-        } else {
-            alert("* You cannot update skills in the middle of a combat *")
-        }
+        // } else {
+        //     alert("* You cannot update skills in the middle of a combat *")
+        // }
         
     }
     const updateSelectSkill = (event) => {
@@ -206,10 +206,10 @@ export default function Modal(props) {
                         props.type === 'inventory' && 
                         <React.Fragment>
                             <div className="c-modal--inventory">
-                                <h1>* INVENTORY *</h1>
+                                <h1>{t('user-hud.inventory-title')}</h1>
                                 <div className='inv-wrap'>
                                     <div className='img-wrap'>
-                                        <span>Username: {props.state.username}</span>
+                                        <span>{t('user-hud.player-name')} {props.state.username}</span>
                                         <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
                                         <div className="user-stat">
                                             <span className='text-stat'>HP</span>
@@ -273,31 +273,31 @@ export default function Modal(props) {
                                                             <Sword />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedSwordId} className="maximize">{equipedItems.find(el => el.state.type === 'firstHand') ? equipedItems.find(el => el.state.type === 'firstHand').state.name : equipedItems.find(el => el.state.type === 'twoHand') ? equipedItems.find(el => el.state.type === 'twoHand').state.name : '-'}</td>
+                                                    <td id={equipedSwordId} className="maximize">{equipedItems.find(el => el.state.type === 'firstHand') ? t('items.'+equipedItems.find(el => el.state.type === 'firstHand').state.name) : equipedItems.find(el => el.state.type === 'twoHand') ? t('items.'+equipedItems.find(el => el.state.type === 'twoHand').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedSwordId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedSwordId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedSwordId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedSwordId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedSwordId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedSwordId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -311,31 +311,31 @@ export default function Modal(props) {
                                                             <Shield />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedShieldId}>{equipedItems.find(el => el.state.type === 'secondHand') ? equipedItems.find(el => el.state.type === 'secondHand').state.name : '-'}</td>
+                                                    <td id={equipedShieldId}>{equipedItems.find(el => el.state.type === 'secondHand') ? t('items.'+equipedItems.find(el => el.state.type === 'secondHand').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedShieldId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedShieldId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedShieldId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedShieldId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedShieldId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedShieldId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -349,31 +349,31 @@ export default function Modal(props) {
                                                             <Helmet />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedHelmetId}>{equipedItems.find(el => el.state.type === 'helmet') ? equipedItems.find(el => el.state.type === 'helmet').state.name : '-'}</td>
+                                                    <td id={equipedHelmetId}>{equipedItems.find(el => el.state.type === 'helmet') ? t('items.'+equipedItems.find(el => el.state.type === 'helmet').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedHelmetId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedHelmetId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedHelmetId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedHelmetId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedHelmetId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedHelmetId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -387,31 +387,31 @@ export default function Modal(props) {
                                                             <Armor />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedArmorId}>{equipedItems.find(el => el.state.type === 'armor') ? equipedItems.find(el => el.state.type === 'armor').state.name : '-'}</td>
+                                                    <td id={equipedArmorId}>{equipedItems.find(el => el.state.type === 'armor') ? t('items.'+equipedItems.find(el => el.state.type === 'armor').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedArmorId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedArmorId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedArmorId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedArmorId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedArmorId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedArmorId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -425,31 +425,31 @@ export default function Modal(props) {
                                                             <Shoes />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedBootsId}>{equipedItems.find(el => el.state.type === 'boots') ? equipedItems.find(el => el.state.type === 'boots').state.name : '-'}</td>
+                                                    <td id={equipedBootsId}>{equipedItems.find(el => el.state.type === 'boots') ? t('items.'+equipedItems.find(el => el.state.type === 'boots').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedBootsId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedBootsId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedBootsId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedBootsId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedBootsId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedBootsId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -463,31 +463,31 @@ export default function Modal(props) {
                                                             <Ring />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedRingId}>{equipedItems.find(el => el.state.type === 'ring') ? equipedItems.find(el => el.state.type === 'ring').state.name : '-'}</td>
+                                                    <td id={equipedRingId}>{equipedItems.find(el => el.state.type === 'ring') ? t('items.'+equipedItems.find(el => el.state.type === 'ring').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedRingId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedRingId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedRingId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedRingId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedRingId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedRingId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -501,31 +501,31 @@ export default function Modal(props) {
                                                             <Pendant />
                                                         </div>
                                                     </td>
-                                                    <td id={equipedNecklaceId}>{equipedItems.find(el => el.state.type === 'necklace') ? equipedItems.find(el => el.state.type === 'necklace').state.name : '-'}</td>
+                                                    <td id={equipedNecklaceId}>{equipedItems.find(el => el.state.type === 'necklace') ? t('items.'+equipedItems.find(el => el.state.type === 'necklace').state.name) : '-'}</td>
                                                     <td>
                                                         {equipedNecklaceId !== '' &&
                                                         
                                                             <div className='buttons-wrap'>
-                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                <div className={`button-icon`} onClick={() => deleteObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                     <DeleteIcon />
                                                                 </div>
-                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                <div className='button-icon' onClick={() => inspectObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                     <InspectIcon />
                                                                 </div>
                                                                 {props.state.gameStates.backpack[equipedNecklaceId].type !== 'potion' && 
                                                                 <React.Fragment>
                                                                     {!props.state.gameStates.backpack[equipedNecklaceId].equiped ? 
-                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                    <div className={`button-icon`} onClick={() => equipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                         <EquipIcon />
                                                                     </div> :
-                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                    <div className={`button-icon`} onClick={() => unequipObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                         <UnequipIcon />
                                                                     </div>
                                                                     }
                                                                 </React.Fragment>
                                                                 }
-                                                                {window.location.pathname === '/shop' && 
-                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + props.state.gameStates.backpack[equipedNecklaceId].sellPrice + ')'}>
+                                                                {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                    <div className={`button-icon`} onClick={() => sellObjFunc(equipedNecklaceId)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + props.state.gameStates.backpack[equipedNecklaceId].sellPrice + ')'}>
                                                                         <SellIcon />
                                                                     </div>
                                                                 }
@@ -536,7 +536,7 @@ export default function Modal(props) {
                                             </tbody>
                                         </table>
                                         <div className='obj-list'>
-                                            <span>* Backpack *</span>
+                                            <span>{t('user-hud.backpack')}</span>
                                             <div className='table-wrapper'>
                                                 <table className='pj-table'>
                                                     <tbody>
@@ -562,34 +562,34 @@ export default function Modal(props) {
                                                                         {props.state.gameStates.backpack[element.key].type === 'none' && <ObjNone/>}
                                                                     </div>
                                                                 </td>
-                                                                <td className="maximize" id={element.key}>{props.state.gameStates.backpack[element.key].name}</td>
+                                                                <td className="maximize" id={element.key}>{t('items.' + props.state.gameStates.backpack[element.key].name)}</td>
                                                                 <td>
                                                                     <div className='buttons-wrap'>
-                                                                        <div className={`button-icon`} onClick={() => deleteObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Delete *'}>
+                                                                        <div className={`button-icon`} onClick={() => deleteObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-delete')}>
                                                                             <DeleteIcon />
                                                                         </div>
-                                                                        <div className='button-icon' onClick={() => inspectObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Inspect *'}>
+                                                                        <div className='button-icon' onClick={() => inspectObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-inspect')}>
                                                                             <InspectIcon />
                                                                         </div>
                                                                         {props.state.gameStates.backpack[element.key].type !== 'potion' && 
                                                                         <React.Fragment>
                                                                             {!props.state.gameStates.backpack[element.key].equiped ? 
-                                                                            <div className={`button-icon`} onClick={() => equipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Equip *'}>
+                                                                            <div className={`button-icon`} onClick={() => equipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-equip')}>
                                                                                 <EquipIcon />
                                                                             </div> :
-                                                                            <div className={`button-icon`} onClick={() => unequipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Unequip *'}>
+                                                                            <div className={`button-icon`} onClick={() => unequipObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-unequip')}>
                                                                                 <UnequipIcon />
                                                                             </div>
                                                                             }
                                                                         </React.Fragment>
                                                                         }
                                                                         {props.state.gameStates.backpack[element.key].type === 'potion' && 
-                                                                            <div className={`button-icon`} onClick={() => {funcUsePotion(element.key)}} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Drink *'}>
+                                                                            <div className={`button-icon`} onClick={() => {funcUsePotion(element.key)}} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-drink')}>
                                                                                 <DrinkIcon />
                                                                             </div>
                                                                         }
-                                                                        {window.location.pathname === '/shop' && 
-                                                                            <div className={`button-icon`} onClick={() => sellObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={'* Sell * (' + element.state.sellPrice + ')'}>
+                                                                        {historyPages[props.state.gameStates.history].type === 'shop' && 
+                                                                            <div className={`button-icon`} onClick={() => sellObjFunc(element.key)} data-tooltip-id="tooltip-inventory" data-tooltip-html={t('user-hud.tooltip-sell') + ' (' + element.state.sellPrice + ')'}>
                                                                                 <SellIcon />
                                                                             </div>
                                                                         }
@@ -602,35 +602,6 @@ export default function Modal(props) {
                                                 <ReactTooltip id="tooltip-inventory" place="top" type="dark" effect="float"/>
                                             </div>
                                         </div>
-                                        {/* <div ref={ref} className={`option-details ${openDetails ? '' : 'disabled'}`}>
-                                            {objClicked && (props.state.gameStates.backpack[objClicked].type === 'helmet' || props.state.gameStates.backpack[objClicked].type === 'boots' || props.state.gameStates.backpack[objClicked].type === 'armor' || props.state.gameStates.backpack[objClicked].type === 'firstHand' || props.state.gameStates.backpack[objClicked].type === 'ring' || props.state.gameStates.backpack[objClicked].type === 'necklace' || props.state.gameStates.backpack[objClicked].type === 'secondHand' || props.state.gameStates.backpack[objClicked].type === 'twoHand') && 
-                                                (props.state.gameStates.backpack[objClicked].equiped ? 
-                                                    <div className='option-wrapper' onClick={unequipObjFunc}>
-                                                        <span>* Unequip *</span>
-                                                    </div>
-                                                    : 
-                                                    <div className='option-wrapper' onClick={equipObjFunc}>
-                                                        <span>* Equip *</span>
-                                                    </div>
-                                                    )
-                                            }
-                                            {objClicked && props.state.gameStates.backpack[objClicked].type === 'potion' &&
-                                            <div className='option-wrapper' onClick={useUsePotion}>
-                                                <span>* Use *</span>
-                                            </div>
-                                            }
-                                            <div className='option-wrapper' onClick={inspectObjFunc}>
-                                                <span>* Inspect *</span>
-                                            </div>
-                                            <div className='option-wrapper' onClick={deleteObjFunc}>
-                                                <span>* Delete *</span>
-                                            </div>
-                                            {window.location.pathname === '/shop' && 
-                                                <div className='option-wrapper' onClick={sellObjFunc}>
-                                                    <span>* Sell ({sellPrice}) *</span>
-                                                </div>
-                                            }
-                                        </div> */}
                                         {openObjInspector && objClicked &&
                                             <ObjInspector obj={props.state.gameStates.backpack[objClicked] || null}/>
                                         }
@@ -643,22 +614,22 @@ export default function Modal(props) {
                         props.type === 'skills' && 
                         <React.Fragment>
                             <div className="c-modal--skills">
-                                <h1>* SKILLS *</h1>
+                                <h1>{t('user-hud.skills-title')}</h1>
                                 <div className='points-wrapper'>
-                                    <span>* Skill points: </span>
+                                    <span>{t('user-hud.skill-points')}</span>
                                     <span>{currSkillPoints}</span>
                                 </div>
                                 <div className='skills-view'>
                                     <div className='skills-tree'>
-                                        <h2>* PASIVES *</h2>
+                                        <h2>{t('user-hud.pasives')}</h2>
                                         <div className='skills-wrap'>
                                             {currentSkills.pasives.map(el => {
                                                 return <div key={el.name} className='skill-tree'>
                                                     <div id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? ' selected' : '' ) + 
                                                     ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
                                                     (el.skillPoints > currSkillPoints ? ' disabled' : '')
-                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={el.description + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '') + '</br>Skill Points: ' + el.skillPoints}>
-                                                        <span>{el.name}</span>
+                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.'+el.description) + (el.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + el.countdown ) : '') + '</br>' + t('user-hud.skill-points') + el.skillPoints}>
+                                                        <span>{t('user-hud.'+el.name)}</span>
                                                     </div>
                                                     {el.children.length === 1 && <div className='vertical-separator'></div>}
                                                     {el.children.length === 2 && <React.Fragment>
@@ -675,8 +646,8 @@ export default function Modal(props) {
                                                             <div key={ele.name} id={ele.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? ' selected' : '' ) + 
                                                             ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') +
                                                             ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
-                                                            } data-tooltip-id="my-tooltip" data-tooltip-html={ele.description + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '') + '</br>Skill Points: ' + ele.skillPoints}>
-                                                                <span>{ele.name}</span>
+                                                            } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.'+ele.description) + (ele.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + ele.countdown ) : '') + '</br>' + t('user-hud.skill-points') + ele.skillPoints}>
+                                                                <span>{t('user-hud.'+ele.name)}</span>
                                                             </div>
 
                                                             {ele.children && 
@@ -691,8 +662,8 @@ export default function Modal(props) {
                                                                         <div key={elem.name} id={elem.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(elem.name) !== -1 ? ' selected' : '' ) + 
                                                                         ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(elem.name) !== -1) ? ' learned' : '') +
                                                                         ((elem.skillPoints <= currSkillPoints && ((skillSelected.indexOf(ele.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1))) ? '' : ' disabled')
-                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={elem.description + (elem.countdown !== 0 ? ('</br>Countdown: ' + elem.countdown ) : '') + '</br>Skill Points: ' + elem.skillPoints}>
-                                                                            <span>{elem.name}</span>
+                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.'+elem.description) + (elem.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + elem.countdown ) : '') + '</br>' + t('user-hud.skill-points') + elem.skillPoints}>
+                                                                            <span>{t('user-hud.'+elem.name)}</span>
                                                                         </div>
                                                                     </React.Fragment>
                                                                     })}
@@ -707,15 +678,15 @@ export default function Modal(props) {
                                         </div>
                                     </div>
                                     <div className='skills-tree'>
-                                        <h2>* COMBAT *</h2>
+                                        <h2>{t('user-hud.combat')}</h2>
                                         <div className='skills-wrap'>
                                             {currentSkills.combat.map(el => {
                                                 return <div className='skill-tree'>
                                                     <div key={el.name} id={el.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(el.name) !== -1 ? 'selected' : '' ) + 
                                                     ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1) ? ' learned' : '') +
                                                     (el.skillPoints > currSkillPoints ? ' disabled' : '')
-                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + el.description + '</br>Skill Points: ' + el.skillPoints + (el.countdown !== 0 ? ('</br>Countdown: ' + el.countdown ) : '')}>
-                                                        <span>{el.name}</span>
+                                                    } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.new-attack') + t('user-hud.'+el.description) + '</br>' + t('user-hud.skill-points') + el.skillPoints + (el.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + el.countdown ) : '')}>
+                                                        <span>{t('user-hud.'+el.name)}</span>
                                                     </div>
                                                     
                                                     {el.children.length > 0 && el.children.map(ele => {
@@ -724,8 +695,8 @@ export default function Modal(props) {
                                                         <div key={ele.name} id={ele.name} onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(ele.name) !== -1 ? 'selected' : '' ) + 
                                                         ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1) ? ' learned' : '') + 
                                                         ((ele.skillPoints <= currSkillPoints && ((skillSelected.indexOf(el.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(el.name) !== -1))) ? '' : ' disabled')
-                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={'New attack: ' + ele.description + '</br>Skill Points: ' + ele.skillPoints + (ele.countdown !== 0 ? ('</br>Countdown: ' + ele.countdown ) : '')}>
-                                                            <span>{ele.name}</span>
+                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.new-attack') + t('user-hud.'+ele.description) + '</br>' + t('user-hud.skill-points') + ele.skillPoints + (ele.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + ele.countdown ) : '')}>
+                                                            <span>{t('user-hud.'+ele.name)}</span>
                                                         </div>
                                                         {ele.children && 
                                                             <React.Fragment>
@@ -736,8 +707,8 @@ export default function Modal(props) {
                                                                         <div key={elem.name} id={elem.name}  onClick={updateSelectSkill} className={`skill-ball ` + (skillSelected.indexOf(elem.name) !== -1 ? ' selected' : '' ) + 
                                                                         ((props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(elem.name) !== -1) ? ' learned' : '') +
                                                                         ((elem.skillPoints <= currSkillPoints && ((skillSelected.indexOf(ele.name) !== -1) || (props.state.gameStates.learnedSkills && props.state.gameStates.learnedSkills.indexOf(ele.name) !== -1))) ? '' : ' disabled')
-                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={elem.description + (elem.countdown !== 0 ? ('</br>Countdown: ' + elem.countdown ) : '') + '</br>Skill Points: ' + elem.skillPoints}>
-                                                                            <span>{elem.name}</span>
+                                                                        } data-tooltip-id="my-tooltip" data-tooltip-html={t('user-hud.new-attack') + t('user-hud.'+elem.description) + (elem.countdown !== 0 ? ('</br>' + t('user-hud.countdown') + elem.countdown ) : '') + '</br>' + t('user-hud.skill-points') + elem.skillPoints}>
+                                                                            <span>{t('user-hud.'+elem.name)}</span>
                                                                         </div>
                                                                     </React.Fragment>
                                                                     })}
@@ -753,7 +724,7 @@ export default function Modal(props) {
                                 </div>
                                 <ReactTooltip id="my-tooltip" place="top" type="dark" effect="float" className='font-tooltip'/>
                                 <div className="button" onClick={saveSkillChanges}>
-                                    <span>* SAVE *</span>
+                                    <span>{t('user-hud.save')}</span>
                                 </div>
                             </div>
                         </React.Fragment>
@@ -762,7 +733,7 @@ export default function Modal(props) {
                         props.type === 'map' && 
                         <React.Fragment>
                             <div className="c-modal--map">
-                                <h1>* MAPA *</h1>
+                                <h1>{t('user-hud.map-title')}</h1>
                                 <img className='map-view' alt="map" src="./map1.jpg" />
                             </div>
                         </React.Fragment>

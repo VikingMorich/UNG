@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
 
 export default function Home() {
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
     const startGame = () => {
         if (!cookies.get('login')) {
             addPlayerDB('unknown', 'unknown', 'unknown')
@@ -20,11 +20,11 @@ export default function Home() {
     const goCover = () => window.location = '/'
     
     return (
-        <React.Fragment>
-            <h1>{t("home.example")}</h1>
+        <div className='home-component'>
+            <h1>{t("game-title")}</h1>
             <div className='login-wrap'>
                 <div className='c-gbutton__home' onClick={startGame}>
-                    <span>{cookies.get('login') ? '* CONTINUE *' : '* START *'}</span>
+                    <span>{cookies.get('login') ? t("home.continue") : t("home.start")}</span>
                 </div>
             </div>
             <div className='login-wrap'>
@@ -37,9 +37,9 @@ export default function Home() {
             </div>
             <div className='login-wrap'>
                 <div className='c-gbutton__home' onClick={goCover}>
-                    <span>* Game description *</span>
+                    <span>{t("home.game-desc")}</span>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     );
 }

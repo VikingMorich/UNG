@@ -4,7 +4,7 @@ import { setHistoryPage } from '../api/gameFunctions'
 
 
 export default function Battle() {
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
     const [showLogo, setShowLogo] = useState(false)
 
     useEffect(() => {
@@ -25,10 +25,10 @@ export default function Battle() {
                 </video>
             </div>
             <div className={`presentation ${showLogo ? '' : 'fadeIn'}`}>
-                <h1>FIN</h1>
-                <h2>Puesto que la muerte es inevitable, olvidémosla...</h2>
+                <h1>{t('pageDead.title')}</h1>
+                <h2>{t('pageDead.desc')}</h2>
                 <div className='button-restart' onClick={() => {setHistoryPage('page0')}}>
-                    <span>Voler a empezar</span>
+                    <span>{t('pageDead.restart')}</span>
                 </div>
             </div>
         </div>
