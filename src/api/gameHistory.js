@@ -528,6 +528,19 @@ export const questionaryData = [
     quest: 'q10',
     options: [
       {
+        // text: 'Ninguno, prefiero otras formas de relajarme 😏',
+        text: 'a4',
+        scorce: {
+          fox: 3,
+          eagle: 4,
+          deer: 2,
+          boar: 2,
+          snake: 4,
+          wolf: 5,
+          otter: 2,
+        }
+      },
+      {
         // text: 'Baño caliente',
         text: 'a1',
         scorce: {
@@ -564,19 +577,6 @@ export const questionaryData = [
           snake: 1,
           wolf: 3,
           otter: 4,
-        }
-      }, 
-      {
-        // text: 'Ninguno, prefiero otras formas de relajarme 😏',
-        text: 'a4',
-        scorce: {
-          fox: 3,
-          eagle: 4,
-          deer: 2,
-          boar: 2,
-          snake: 4,
-          wolf: 5,
-          otter: 2,
         }
       }
     ]

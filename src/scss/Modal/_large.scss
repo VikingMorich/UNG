@@ -1,0 +1,41 @@
+.c-modal {
+  &--skills {
+    .skills-view {
+      margin-top: 0px;
+      justify-content: center;
+    }
+
+    .button {
+      margin-bottom: 0;
+    }
+  }
+  &--inventory{
+    .inv-wrap{
+      flex-direction: row;
+
+      .img-wrap{
+        .img-container {
+          .char-img {
+            width: auto;
+            height: 400px;
+          }
+          .companion-img-wrap {
+            display: none;
+          }
+        }
+      }
+    }
+    .user-statistics {
+      justify-content: space-between;
+      gap: 0;
+
+      .char-stat {
+        font-size: 24px;
+      }
+      .char-stat:not(:first-child) {
+        margin-left: 10px;
+      }
+    }
+  }
+
+}

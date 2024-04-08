@@ -2,18 +2,17 @@
   display: flex;
   align-items: flex-start;
   height: 100%;
-  margin: 0 20px;
+  margin-right: 8px;
   justify-content: flex-end;
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 80px;
 
   .enemy-img-wrap {
     position: relative;
-    height: 230px;
 
     .enemy-img {
       border: 2px solid c('other-medium-brown');
-      width: 150px;
+      width: 110px;
     }
 
   }
@@ -21,18 +20,19 @@
   .enemy-bars{
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    width: 400px;
-    background-color: c('other-medium-brown');
+    gap: 5px;
+    width: calc(40vw - 20px);
+    min-width: 150px;
+    background-color: rgba(c('other-medium-brown'), 0.7);
     z-index: 2;
     margin-top: 10px;
-    padding: 20px;
+    padding: 8px;
     border-radius: 4px 0 0 4px;
   }
 
   .enemy-name {
     font-family: 'FantaisieArtistique';
-    font-size: 24px;
+    font-size: 20px;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -47,12 +47,12 @@
 
   .enemy-stat {
     display: flex;
-    gap: 10px;
+    align-items: center;
 
     .text-stat {
-      width: 40px;
+      width: 30px;
       font-family: 'FantaisieArtistique';
-      font-size: 20px;
+      font-size: 14px;
     }
   }
 
@@ -60,6 +60,7 @@
     bottom: 60px;
     right: 20px;
     position: absolute;
+    display: none;
 
     h3 {
       font-family: 'FantaisieArtistique';
@@ -81,13 +82,13 @@
     padding: 10px;
     border-radius: 4px 0 0 4px;
     z-index: 2;
-    background-color: c('other-medium-brown');
+    background-color: rgba(c('other-medium-brown'), 0.7);
 
     .char-stat {
       display: flex;
       gap: 15px;
       font-family: 'Pieces of Eight';
-      font-size: 24px;
+      font-size: 20px;
       align-items: center;
       
       .basic-state-icon {
@@ -120,4 +121,8 @@
 
     }
   }
+}
+
+@include large {
+  @import'large';
 }

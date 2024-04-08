@@ -45,7 +45,7 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
-          width: calc(100vw - 300px);
+          width: calc(100vw - 40px);
           opacity: 1;
           margin-left: 20px;
           margin-top: 20px;
@@ -68,6 +68,7 @@
               .op-check {
                 height: 18px;
                 width: 22px;
+                min-width: 22px;
               }
             }
           }
@@ -84,23 +85,20 @@
       }
   
       .people-img {
-        width: 280px;
+        width: 200px;
         position: absolute;
-        right: 10px;
-        bottom: 0;
+        right: 0px;
+        bottom: 66px;
         z-index: 2;
       }
   
       .text-wrapper {
         background-color: c('bright-brown');
         height: 25px;
-        padding-right: 300px;
-        padding-left: 20px;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding: 20px;
         border-top: 1px solid c('chicken-tenders');
         font-family: 'FantaisieArtistique';
-        font-size: 22px;
+        font-size: 18px;
         position: relative;
   
         .page-text {
@@ -108,7 +106,8 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
-          width: calc(100vw - 300px);
+          width: calc(100vw - 40px);
+          margin-top: -6px;
           opacity: 1;
           transition: opacity 0.5s ease-in-out;
   
@@ -146,7 +145,7 @@
     .button-next {
       position: absolute;
       bottom: 90px;
-      right: 300px;
+      right: 220px;
       padding: 4px;
       background-color: c('other-chicken');
       border: 1px solid c('chicken-wings');
@@ -170,7 +169,7 @@
 
     .button-result {
       position: absolute;
-      bottom: 90px;
+      bottom: 180px;
       background-color: c('other-chicken');
       border: 1px solid c('chicken-wings');
       padding: 6px 16px;
@@ -185,4 +184,8 @@
       }
     }
   }
+}
+
+@include large {
+  @import'large';
 }

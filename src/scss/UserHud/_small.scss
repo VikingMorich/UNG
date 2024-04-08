@@ -1,29 +1,29 @@
 .user-wrapper {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
-  margin: 8px 20px;
+  margin: 12px 8px 45px 8px;
 
   .user-img-wrap {
     position: relative;
 
     .user-img {
       border: 1px solid black;
-      width: 160px;
-      height: 160px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       cursor: pointer;
     }
 
     .user-lvl {
       position: absolute;
-      bottom: 0;
-      left: 0;
+      bottom: -2px;
+      left: -2px;
       border-radius: 50%;
       border: 1px solid black;
       background-color: c('chicken-drumstick');
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -31,7 +31,7 @@
 
       span {
         font-family: 'Pieces of Eight';
-        font-size: 20px;
+        font-size: 18px;
       }
 
       &.update-available {
@@ -45,8 +45,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: calc(100vw - 800px);
-    min-width: 300px;
+    width: calc(100vw - 200px);
+    min-width: 160px;
   }
 
   .user-name {
@@ -57,26 +57,29 @@
 
   .user-stat {
     display: flex;
-    gap: 10px;
+    gap: 6px;
+    align-items: center;
 
     .text-stat {
-      width: 40px;
+      width: 30px;
       font-family: 'FantaisieArtistique';
-      font-size: 20px;
+      font-size: 14px;
     }
   }
 
   .user-statistics {
+    position: absolute;
     display: flex;
-    justify-content: center;
-    width: 100%;
-    gap: 10px;
+    justify-content: flex-start;
+    bottom: 14px;
+    left: 10px;
+    gap: 4px;
 
     .char-stat {
       display: flex;
-      gap: 15px;
+      gap: 5px;
       font-family: 'Pieces of Eight';
-      font-size: 24px;
+      font-size: 20px;
       align-items: center;
 
       .basic-state-icon {
@@ -91,6 +94,7 @@
   }
 
   .companion-img-wrap {
+    display: none;
     margin-left: 30px;
     width: 90px;
     height: 90px;
@@ -105,17 +109,17 @@
   }
 
   .stats-char {
-    margin-left: 40px;
+    margin-left: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
 
     .char-stat {
       display: flex;
       gap: 15px;
       font-family: 'Pieces of Eight';
-      font-size: 24px;
+      font-size: 20px;
       align-items: center;
 
       .basic-state-icon {
@@ -125,6 +129,9 @@
     }
 
     .char-buttons {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
       display: flex;
       gap: 10px;
 
@@ -165,4 +172,8 @@
   font-family: 'FantaisieArtistique';
   text-align: center;
   z-index: 5;
+}
+
+@include large {
+  @import'large';
 }

@@ -326,7 +326,6 @@ export function saveReward(reward) {
           let objInfo = Object.keys(itemsList).map(el => {
             return itemsList[el].map(ele => ele)
           }).flat(1).find(el => el.name === x.name)
-          debugger
           if (!hasBackpack) {
             updates.gameStates.backpack = {
               [Objkey] : {

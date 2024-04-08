@@ -1,0 +1,42 @@
+.c-shop {
+  .shop-options{
+    width: 45%;
+    padding-left: 30px;
+
+    .table-wrapper {
+      table {
+        td{
+          border: 1px solid grey;
+        }
+        tr {
+          background-color: c('chicken-feet');
+
+          &.disabled {
+            background-color: lightgray !important;
+            color: gray;
+          }
+          
+          &:hover {
+              background-color: c('chicken-liver');
+          }
+          
+          &:nth-child(even) {
+              background-color: c('chicken-drumstick');
+
+              &:hover {
+                  background-color: c('chicken-liver');
+              }
+          }
+        }
+      }
+    }
+    .ul-list {
+      position: inherit;
+    }
+  }
+
+  .shop-img {
+    width: 45%;
+    position: inherit;
+  }
+}

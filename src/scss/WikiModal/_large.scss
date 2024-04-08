@@ -1,0 +1,48 @@
+.c-wiki-modal {
+  &--content{
+    .menu-content {
+      flex-direction: row;
+      .slides{
+        min-width: 150px;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        width: 150px;
+        .op-slide{
+          border: 1px solid black;
+          border-top: 0;
+          border-right: 0;
+        }
+      }
+      .op-content {
+        width: calc(100% - 170px);
+
+        .char-options-wrap {
+          flex-direction: row;
+          gap: 0;
+          .char-wrap {
+            width: 32%;
+          }
+        }
+
+        .weapons-flex {
+          flex-direction: row;
+
+          .img-container {
+            min-width: 400px;
+            max-width: 400px;
+          }
+        }
+
+        .combat-stats-wrap {
+          display: block;
+        }
+
+        .mobile-combat-stats {
+          display: none;
+        }
+      }
+      
+    }
+  }
+}

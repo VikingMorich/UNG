@@ -1,0 +1,61 @@
+.user-wrapper {
+  margin: 8px 20px;
+  align-items: center;
+  .user-stat {
+    gap: 10px;
+    .text-stat {
+      width: 40px;
+      font-size: 20px;
+    }
+  }
+  .user-img-wrap {
+    .user-img {
+      width: 160px;
+      height: 160px;
+    }
+
+    .user-lvl {
+      width: 40px;
+      height: 40px;
+      bottom: 0px;
+      left: 0;
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .companion-img-wrap {
+    display: block;
+  }
+
+  .user-statistics {
+    position: inherit;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+
+    .char-stat{
+      gap: 15px;
+      font-size: 24px;
+    }
+  }
+
+  .user-bars{
+    width: calc(100vw - 800px);
+    min-width: 300px;
+  }
+
+  .stats-char {
+    margin-left: 40px;
+    gap: 10px;
+
+    .char-stat {
+      font-size: 24px;
+    }
+
+    .char-buttons {
+      position: inherit;
+    }
+  }
+}

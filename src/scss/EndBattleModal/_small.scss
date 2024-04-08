@@ -7,6 +7,7 @@
     top: 0px;
     left: 0px;
     z-index: 15;
+    transform: translateZ(3em);
 }
 .c-battle-modal {
     background-color: c('medium-brown');
@@ -16,14 +17,15 @@
     left: calc(7vw - 10px);
     top: 12.5vh;
     z-index: 15;
+    transform: translateZ(3em);
     padding: 10px;
     display: flex;
     justify-content: center;
     &--content{
-        width: 38vw;
+        width: calc(90vw - 40px);
         position: absolute;
-        top: 12.5vh;
-        left: 31vw;
+        top: 20vh;
+        left: 5vw;
         background-color: c('brown-melon');
         display: flex;
         flex-direction: column;
@@ -89,4 +91,8 @@
           }
     }
     
+}
+
+@include large {
+    @import'large';
 }

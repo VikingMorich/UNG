@@ -28,8 +28,9 @@ export default function StoryTalk(props) {
                 {/* You can put any content inside this component */}
                     <div>
                         <img className="background-img" alt="background" src={'./locations/' + props.values.location} />
+                        <img className="people-img-mobile" alt="people" src={'./people/' + props.values.character + '.png'} />
                         <div className={`speach-wrapper`}>
-                            <img className="people-img" alt="people" src={'./people/' + props.values.character + '.png'} />
+                            <img className={`people-img-desktop`} alt="people" src={'./people/' + props.values.character + '.png'} />
                             <div className="text-wrapper">
                                 {props.values.text.map((element, i) => {
                                     return (

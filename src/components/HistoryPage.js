@@ -33,7 +33,7 @@ export default function HistoryPage(props) {
           {historyPages[props.state.gameStates.history] && historyPages[props.state.gameStates.history].type === 'book' &&
             <React.Fragment>
               <Book values={historyPages[props.state.gameStates.history]} pagekey={props.state.gameStates.history}/>
-              <div id="player" className="user-hud-new">
+              <div id="player" className="user-hud">
                 <UserHud state={props.state} />
               </div>
             </React.Fragment>

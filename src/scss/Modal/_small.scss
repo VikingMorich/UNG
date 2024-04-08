@@ -5,6 +5,7 @@
     position: fixed;
     top: 0px;
     z-index: 13;
+    transform: translateZ(3em);
 }
 
 .big-modal {
@@ -15,6 +16,7 @@
     left: calc(12vw - 10px);
     top: 9vh;
     z-index: 15;
+    transform: translateZ(3em);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -28,6 +30,7 @@
     left: calc(7vw - 10px);
     top: 12.5vh;
     z-index: 15;
+    transform: translateZ(3em);
     padding: 10px;
     display: flex;
     justify-content: center;
@@ -36,8 +39,9 @@
         position: absolute;
         right: 12px;
         top: 12px;
-        z-index: 5;
+        z-index: 16;
         background-color: rgba(255,255,255,0.5);
+        transform: translateZ(3em);
         border-radius: 50%;
         cursor: pointer;
     }
@@ -72,13 +76,16 @@
         .button {
             display: flex;
             justify-content: center;
+            margin-bottom: 12px;
         }
 
         .skills-view {
+            margin-top: 15px;
             display: flex;
             gap: 50px;
             width: 100%;
-            justify-content: center;
+            justify-content: flex-start;
+            overflow: auto;
             margin-bottom: 50px;
 
             .skills-tree {
@@ -218,6 +225,7 @@
 
         .inv-wrap{
             display: flex;
+            flex-direction: column-reverse;
             gap: 25px;
             align-items: center;
             
@@ -227,14 +235,36 @@
                 gap: 10px;
                 align-items: center;
 
+                .img-container {
+                    position: relative;
+                    .companion-img-wrap {
+                        position: absolute;
+                        top: 3px;
+                        width: 90px;
+                        height: 90px;
+                        border-radius: 50%;
+                        border: 4px double black;
+                        overflow: hidden;
+                    
+                        img {
+                            width: 90px;
+                            height: 90px;
+                        }
+                    }
+                    .char-img {
+                        height: auto;
+                        width: calc(72vw - 20px);
+                    }
+                }
+
+                
+
                 span {
                     font-family: 'Pieces of Eight';
                     font-size: 24px;
                 }
                 
-                .char-img {
-                    height: 400px;
-                }
+                
 
                 .user-stat{
                     display: flex;
@@ -259,7 +289,9 @@
 
         .user-statistics {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
             width: 100%;
             margin-bottom: 10px;
         
@@ -267,17 +299,13 @@
               display: flex;
               gap: 15px;
               font-family: 'Pieces of Eight';
-              font-size: 24px;
+              font-size: 20px;
               align-items: center;
 
                 .basic-state-icon {
                     height: 22px;
                     width: 22px;
                 }
-            }
-        
-            .char-stat:not(:first-child) {
-              margin-left: 10px;
             }
         }
 

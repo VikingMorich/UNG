@@ -16,6 +16,14 @@
     overflow: hidden;
     position: relative;
 
+    .people-img-mobile {
+      position: absolute;
+      right: 0px;
+      bottom: 190px;
+      z-index: 2;
+      width: 220px;
+    }
+
     .question-page {
       width: 100vw;
       height: calc(100vh - 50px);
@@ -59,8 +67,8 @@
     transition: opacity 0.2s ease-in-out;
 
     .button-back {
-      position: absolute;
-      bottom: 20px;
+      position: fixed;
+      bottom: 210px;
       padding: 4px;
       background-color: c('other-chicken');
       border: 1px solid c('chicken-wings');
@@ -86,32 +94,31 @@
       opacity: 0;
     }
 
-    .people-img {
+    .people-img-desktop {
       width: 280px;
       position: absolute;
       right: 10px;
       bottom: 0;
       z-index: 2;
+      display: none;
     }
 
     .text-wrapper {
       background-color: c('bright-brown');
       height: 150px;
-      padding-right: 300px;
-      padding-left: 20px;
-      padding-top: 20px;
-      padding-bottom: 20px;
+      padding: 20px;
       border-top: 1px solid c('chicken-tenders');
       font-family: 'FantaisieArtistique';
       font-size: 22px;
       position: relative;
+      overflow: auto;
 
       .page-text {
         position: absolute;
         display: flex;
         flex-direction: column;
         gap: 5px;
-        width: calc(100vw - 300px);
+        width: calc(100vw - 40px);
         opacity: 1;
         transition: opacity 0.5s ease-in-out;
 
@@ -122,13 +129,16 @@
         .op-choices {
           margin: auto;
           margin-top: 20px;
+          margin-bottom: 20px;
           display: flex;
-          gap: 30px;
+          flex-direction: column;
+          gap: 10px;
 
           .link {
             color: c('dark-brown');
             cursor: pointer;
             width: fit-content;
+            text-align: center;
         
             &:hover {
               text-decoration: underline;
@@ -138,5 +148,8 @@
       }
     }
   }
-  
+}
+
+@include large {
+  @import'large';
 }

@@ -1,0 +1,33 @@
+.battle-header{
+  display: block;
+}
+
+.e-dice-wrapper {
+  bottom: auto;
+  top: 238px;
+  right: 320px;
+  padding: 15px 20px 30px 0;
+  background-color: c('other-medium-brown');
+}
+
+.current-op {
+  position: inherit;
+  .dice-wrapper {
+    margin-right: 15vw;
+    padding: 15px 20px 30px 0;
+    width: fit-content;
+    background-color: c('other-medium-brown');
+  }
+  .op-list {
+    bottom: 210px;
+  }
+}
+
+.battle-page {
+  height: calc(100vh - 182px - 50px);
+  .battle-enemy{
+    .battle-background {
+      height: calc(100vh - 182px - 50px);
+    }
+  }
+}

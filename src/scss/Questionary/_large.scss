@@ -1,0 +1,35 @@
+.questionary-swipe {
+  .page-swipe-animation {
+    .page-container {
+      .page-text {
+        width: calc(100vw - 300px);
+      }
+    }
+    
+    .question-page {
+      .people-img {
+        bottom: 0;
+        width: 280px;
+        right: 10px;
+      }
+
+      .text-wrapper {
+        padding-right: 300px;
+        font-size: 22px;
+
+        .page-text { 
+          width: calc(100vw - 300px);
+          margin-top: 0;
+        }
+      }
+    }
+    
+    .button-next {
+      right: 300px;
+    }
+    
+    .button-result {
+      bottom: 90px;
+    }
+  }
+}

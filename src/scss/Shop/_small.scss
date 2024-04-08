@@ -33,8 +33,8 @@
   .shop-options{
     display: flex;
     flex-direction: column;
-    width: 45%;
-    padding-left: 30px;
+    width: 100%;
+    z-index: 2;
 
     .table-wrapper {
       height: 250px;
@@ -49,7 +49,7 @@
         td, th {
             padding: 2px 6px;
             text-align: initial;
-            border: 1px solid grey;
+            border: 1px solid black;
             font-family: 'FantaisieArtistique';
   
             &.maximize {
@@ -82,22 +82,22 @@
         }
   
         tr {
-            background-color: c('chicken-feet');
+            background-color: rgba(c('chicken-drumstick'), 0.8);
   
             &.disabled {
-              background-color: lightgray !important;
+              background-color: rgba(lightgray, 0.8) !important;
               color: gray;
             }
             
             &:hover {
-                background-color: c('chicken-liver');
+                background-color: rgba(c('chicken-liver'), 0.8);
             }
             
             &:nth-child(even) {
-                background-color: c('chicken-drumstick');
+                background-color: rgba(c('chicken-drumstick'), 0.8);
   
                 &:hover {
-                    background-color: c('chicken-liver');
+                    background-color: rgba(c('chicken-liver'), 0.8);
                 }
             }
                 
@@ -105,10 +105,16 @@
         }
       }
     }
+
+    .ul-list {
+      position: absolute;
+      bottom: 160px;
+    }
   }
 
   .shop-img {
-    width: 45%;
+    width: 100%;
+    position: absolute;
     overflow: hidden;
 
     img {
@@ -117,4 +123,8 @@
       object-fit: cover;
     }
   }
+}
+
+@include large {
+  @import'large';
 }

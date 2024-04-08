@@ -1,0 +1,36 @@
+.story-talk-swipe {
+  
+  .page-swipe-animation {
+    .people-img-mobile {
+      display: none;
+    }
+  }
+  
+  .speach-wrapper {
+
+    .people-img-desktop {
+      width: 280px;
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .button-back {
+      bottom: 20px;
+    }
+    
+    .text-wrapper {
+      padding-right: 300px;
+
+      .page-text {
+        width: calc(100vw - 300px);
+        
+        .op-choices {
+          flex-direction: row;
+          gap: 30px;
+        }
+      }
+    }
+  }  
+}

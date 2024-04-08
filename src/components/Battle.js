@@ -23,7 +23,7 @@ export default function Battle(props) {
                     <BattlePage state={props.state.gameStates } />
                 </div>
             </div>
-            <div id="player" className="user-hud-new">
+            <div id="player" className="user-hud">
                 <UserHud state={props.state} values={props.values}/>
             </div>
         </div>

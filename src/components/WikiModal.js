@@ -231,6 +231,35 @@ export default function WikiModal(props) {
                                         <React.Fragment>
                                             <h2>{t('wiki.combat-stats')}</h2>
                                             <span className='extra-margin'>{t('wiki.combat-stats-info')}</span>
+                                            <div className='mobile-combat-stats'>
+                                                <div className='state-head'>
+                                                    <div className='img-comb-stat'>
+                                                        <Burned />
+                                                    </div>
+                                                    <span>{t('wiki.burned')}</span>
+                                                </div>
+                                                <div className='state-body'>
+                                                    <span>{t('wiki.burned-desc')}</span>
+                                                </div>
+                                                <div className='state-head'>
+                                                    <div className='img-comb-stat'>
+                                                        <Stuned />
+                                                    </div>
+                                                    <span>{t('wiki.stuned')}</span>
+                                                </div>
+                                                <div className='state-body'>
+                                                    <span>{t('wiki.stuned-desc')}</span>
+                                                </div>
+                                                <div className='state-head'>
+                                                    <div className='img-comb-stat'>
+                                                        <Poisoned />
+                                                    </div>
+                                                    <span>{t('wiki.poisoned')}</span>
+                                                </div>
+                                                <div className='state-body'>
+                                                    <span>{t('wiki.poisoned-desc')}</span>
+                                                </div>
+                                            </div>
                                             <table className='combat-stats-wrap'>
                                                 <tbody>
                                                     <tr>

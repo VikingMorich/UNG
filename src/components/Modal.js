@@ -21,6 +21,15 @@ export default function Modal(props) {
     const [currSkillPoints, setCurrSkillPoints] = useState(props.state?.gameStates?.skillPoints || 0)
     const ref = useRef(null)
     const refModal = useRef(null)
+    const computedCompanion = 
+      props.state.gameStates.companion === 'boar' ? 'boar.png' : 
+      props.state.gameStates.companion === 'eagle' ? 'eagle.png' : 
+      props.state.gameStates.companion === 'snake' ? 'snake.png' : 
+      props.state.gameStates.companion === 'wolf' ? 'wolf.png' : 
+      props.state.gameStates.companion === 'otter' ? 'otter.png' : 
+      props.state.gameStates.companion === 'fox' ? 'fox.png' : 
+      props.state.gameStates.companion === 'deer' ? 'deer.png' : 'unknown.png'
+
     let equipedItems = props.state && props.state.gameStates.backpack ? Object.keys(props.state.gameStates.backpack).filter(el => {
         return props.state.gameStates.backpack[el].equiped
     }).map(elem => {
@@ -209,8 +218,13 @@ export default function Modal(props) {
                                 <h1>{t('user-hud.inventory-title')}</h1>
                                 <div className='inv-wrap'>
                                     <div className='img-wrap'>
-                                        <span>{t('user-hud.player-name')} {props.state.username}</span>
-                                        <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
+                                        <span>{props.state.username}</span>
+                                        <div className='img-container'>
+                                            <img className='char-img' alt="character" src={props.state.gameStates.characterType === 'mage' ? '/mage1.jpeg' : props.state.gameStates.characterType === 'warrior' ? '/warrior1.jpeg' : '/archer1.jpeg'} />
+                                            <div className='companion-img-wrap'>
+                                                <img className="user-img" alt="user-companion" src={`./companions/${computedCompanion}`}/>
+                                            </div>
+                                        </div>
                                         <div className="user-stat">
                                             <span className='text-stat'>HP</span>
                                             <ProgressBar value={props.state.gameStates.HP} maxValue={props.state.gameStates.maxHP} lastAttack={props.state.gameStates.battle?.lastEnemyDmg || 0} color='red' size='s'/>
