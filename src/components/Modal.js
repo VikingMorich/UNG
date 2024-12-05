@@ -23,7 +23,7 @@ export default function Modal(props) {
     const refModal = useRef(null)
     const computedCompanion = 
     props.state ? 
-      props.stateprops.state.gameStates.companion === 'boar' ? 'boar.png' : 
+      props.state.gameStates.companion === 'boar' ? 'boar.png' : 
       props.state.gameStates.companion === 'eagle' ? 'eagle.png' : 
       props.state.gameStates.companion === 'snake' ? 'snake.png' : 
       props.state.gameStates.companion === 'wolf' ? 'wolf.png' : 
